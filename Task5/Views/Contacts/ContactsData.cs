@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using Task5.Models;
 
-namespace Task5.View.Contacts
+namespace Task5.Views.Contacts
 {
     public partial class ContactData
     {
@@ -15,7 +15,7 @@ namespace Task5.View.Contacts
                 MiddleName = "Johnich",
                 LastName = "Heart",
                 Phone = "(213) 555-9392",
-                Email = "jheart@dx-email.com"
+                Email = "jheart@dx-email.com",
             },
             new Contact {
                 Id = new Guid(),

@@ -7,7 +7,7 @@ using System.Web.Mvc;
 
 namespace Task5.Views.Sales
 {
-    public class DataGridController : Controller
+    public class DataGridController2 : Controller
     {
         //public ActionResult ColumnCustomization()
         //{

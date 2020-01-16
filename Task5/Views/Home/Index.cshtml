@@ -29,32 +29,3 @@
             <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
         </div>
     </div>
-
-@*@using DevExtreme.AspNet.Mvc
-
-@model IEnumerable<Task5.Models.Contact>
-
-@(Html.DevExtreme().DataGrid<Task5.Models.Contact>()
-                .ID("gridContainer")
-                .DataSource(Model)
-                .AllowColumnReordering(true)
-                .AllowColumnResizing(true)
-                .ColumnAutoWidth(true)
-                .ShowBorders(true)
-                .ColumnChooser(c => c.Enabled(true))
-                .ColumnFixing(c => c.Enabled(true))
-                .Columns(columns =>
-                {
-                    columns.Add()
-            .Caption("Contacts")
-            .Width(230)
-            .Fixed(true);
-
-        columns.AddFor(m => m.FirstName);
-
-        columns.AddFor(m => m.Phone)
-            .Caption("Mobile Phone");
-
-        columns.AddFor(m => m.Email);
-                })
-)*@

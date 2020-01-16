@@ -1,57 +1,201 @@
-﻿@model IEnumerable<Task5.Models.Contact>
+﻿
+
+@using DevExtreme.AspNet.Mvc
+
+
+
+@model IEnumerable<Task5.Models.Contact>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Contacts";
 }
 
-<h2>Index</h2>
+<h2>Contacts List</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.MiddleName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.MiddleName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+<div class="form">
+    <div class="dx-fieldset">
+        <div class="dx-field">
+            <div class="dx-field-label">Default mode</div>
+            <div class="dx-field-value">
+                @(Html.DevExtreme().TextBox()
+                                    .Value("John Smith")
+                )
+            </div>
+        </div>
+        <div class="dx-field">
+            <div class="dx-field-label">With placeholder</div>
+            <div class="dx-field-value">
+                @(Html.DevExtreme().TextBox()
+                                    .Placeholder("Enter full name here...")
+                )
+            </div>
+        </div>
+        <div class="dx-field">
+            <div class="dx-field-label">With clear button</div>
+            <div class="dx-field-value">
+                @(Html.DevExtreme().TextBox()
+                                    .Value("John Smith")
+                                    .ShowClearButton(true)
+                )
+            </div>
+        </div>
+        <div class="dx-field">
+            <div class="dx-field-label">Password mode</div>
+            <div class="dx-field-value">
+                @(Html.DevExtreme().TextBox()
+                                    .Mode(TextBoxMode.Password)
+                                    .Value("f5lzKs0T")
+                                    .Placeholder("Enter password")
+                                    .ShowClearButton(true)
+                )
+            </div>
+        </div>
+        <div class="dx-field">
+            <div class="dx-field-label">Text mask</div>
+            <div class="dx-field-value">
+                @(Html.DevExtreme().TextBox()
+                                    .Mask("+1 (X00) 000-0000")
+                                    .MaskRules(new { X = new JS("/[02-9]/") })
+                )
+            </div>
+        </div>
+        <div class="dx-field">
+            <div class="dx-field-label">Disabled</div>
+            <div class="dx-field-value">
+                @(Html.DevExtreme().TextBox()
+                                    .Value("John Smith")
+                                    .Disabled(true)
+                )
+            </div>
+        </div>
+    </div>
+    <div class="dx-fieldset">
+        <div class="dx-fieldset-header">Events and API</div>
+        <div class="dx-field">
+            <div class="dx-field-label">Full Name</div>
+            <div class="dx-field-value">
+                @(Html.DevExtreme().TextBox()
+                                    .Value("Smith")
+                                    .ShowClearButton(true)
+                                    .Placeholder("Enter full name")
+                                    .ValueChangeEvent("keyup")
+                                    .OnValueChanged("textBox_valueChanged")
+                )
+            </div>
+        </div>
+        <div class="dx-field">
+            <div class="dx-field-label">Email (read only)</div>
+            <div class="dx-field-value">
+                @(Html.DevExtreme().TextBox()
+                                    .ID("email")
+                                    .Value("smith@corp.com")
+                                    .ReadOnly(true)
+                                    .HoverStateEnabled(true)
+                )
+            </div>
+        </div>
+    </div>
+</div>
 
-</table>
+<script>
+    function textBox_valueChanged(data) {
+        $("#email")
+            .dxTextBox("instance")
+            .option("value", data.value.replace(/\s/g, "").toLowerCase() + "@@corp.com");
+    }
+</script>
+
+
+@(Html.DevExtreme().DataGrid<Task5.Models.Contact>()
+                                        .ID("gridContainer")
+                                        .DataSource(Model)
+                                        .AllowColumnReordering(true)
+                                        .AllowColumnResizing(true)
+                                        .ColumnAutoWidth(true)
+                                        .ShowBorders(true)
+                                        .ColumnChooser(c => c.Enabled(true))
+                                        .ColumnFixing(c => c.Enabled(true))
+                                        .Columns(columns =>
+                                        {
+                                            columns.Add()
+                                    .Caption("Contacts")
+                                    .Width(230)
+                                    .Fixed(true);
+
+                                            columns.AddFor(m => m.FirstName);
+                                            columns.AddFor(m => m.MiddleName);
+                                            columns.AddFor(m => m.LastName);
+
+                                            columns.AddFor(m => m.Phone)
+                                    .Caption("Mobile Phone");
+
+                                            columns.AddFor(m => m.Email);
+
+                                //columns.AddFor(m => m.Client);
+
+                                //columns.AddFor(m => m.Manager);
+                            })
+)
+
+
+
+
+
+@*@model IEnumerable<Task5.Models.Contact>
+
+    @{
+        ViewBag.Title = "Index";
+    }
+
+    <h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MiddleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MiddleName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+            </td>
+        </tr>
+    }
+
+    </table>*@
