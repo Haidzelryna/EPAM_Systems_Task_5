@@ -1,13 +1,14 @@
-﻿using DevExtreme.MVC.Demos.Models.DataGrid;
+﻿using DevExtreme.AspNet.Mvc;
+//using DevExtreme.MVC.Demos.Models.DataGrid;
 using System;
 using System.Collections.Generic;
 using Task5.Models;
 
-namespace Task5.View.Sales
+namespace Task5.View.Contacts
 {
     public partial class ContactData
     {
-        public static readonly IEnumerable<Contact> DataGridSales = new[] {
+        public static readonly IEnumerable<Contact> DataGridContacts = new[] {
             new Contact {
                 Id = new Guid(),
                 FirstName = "John",
