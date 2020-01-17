@@ -16,6 +16,8 @@
 
             .ShowBorders(true)
 
+            .Selection(s => s.Mode(SelectionMode.Single))
+
             .Editing(e => e
                 .Mode(GridEditMode.Form)
                 .AllowAdding(true)
@@ -52,10 +54,6 @@
 
             .Columns(columns =>
             {
-                columns.Add()
-                .Caption("Contacts")
-                .Width(230)
-                .Fixed(true);
                 columns.AddFor(m => m.FirstName);
                 columns.AddFor(m => m.MiddleName);
                 columns.AddFor(m => m.LastName);

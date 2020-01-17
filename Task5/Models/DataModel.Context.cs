@@ -16,7 +16,7 @@ namespace Task5.Models
     public partial class SalesEntities : DbContext
     {
         public SalesEntities()
-            : base("name=SalesEntities")
+            : base("SalesEntities")
         {
         }
     
