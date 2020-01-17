@@ -1,9 +1,8 @@
-﻿// Version: 1.3.0
+// Version: 2.5.1
 // https://github.com/DevExpress/DevExtreme.AspNet.Data
 // Copyright (c) Developer Express Inc.
 
-// jshint strict: true, browser: true, jquery: true, undef: true, unused: true, eqeqeq: true
-/* global DevExpress, define */
+/* global DevExpress:false, jQuery:false */
 
 (function(factory) {
     "use strict";
@@ -11,74 +10,106 @@
     if(typeof define === "function" && define.amd) {
         define(function(require, exports, module) {
             module.exports = factory(
-                require("jquery"),
+                require("devextreme/core/utils/ajax"),
+                require("jquery").Deferred,
+                require("jquery").extend,
                 require("devextreme/data/custom_store"),
                 require("devextreme/data/utils")
             );
         });
+    } else if (typeof module === "object" && module.exports) {
+        module.exports = factory(
+            require("devextreme/core/utils/ajax"),
+            require("jquery").Deferred,
+            require("jquery").extend,
+            require("devextreme/data/custom_store"),
+            require("devextreme/data/utils")
+        );
     } else {
         DevExpress.data.AspNet = factory(
-            jQuery,
+            DevExpress.utils.ajax || { sendRequest: jQuery.ajax },
+            jQuery.Deferred,
+            jQuery.extend,
             DevExpress.data.CustomStore,
             DevExpress.data.utils
         );
     }
 
-})(function($, CustomStore, dataUtils) {
+})(function(ajaxUtility, Deferred, extend, CustomStore, dataUtils) {
     "use strict";
 
-    function createStore(options) {
-        var store = new CustomStore(createStoreConfig(options));
-        store._useDefaultSearch = true;
-        return store;
-    }
+    var CUSTOM_STORE_OPTIONS = [
+        "onLoading", "onLoaded",
+        "onInserting", "onInserted",
+        "onUpdating", "onUpdated",
+        "onRemoving", "onRemoved",
+        "onModifying", "onModified",
+        "onPush",
+        "loadMode", "cacheRawData",
+        "errorHandler"
+    ];
 
     function createStoreConfig(options) {
         var keyExpr = options.key,
             loadUrl = options.loadUrl,
+            loadMethod = options.loadMethod || "GET",
             loadParams = options.loadParams,
+            isRawLoadMode = options.loadMode === "raw",
             updateUrl = options.updateUrl,
             insertUrl = options.insertUrl,
             deleteUrl = options.deleteUrl,
-            onBeforeSend = options.onBeforeSend;
+            onBeforeSend = options.onBeforeSend,
+            onAjaxError = options.onAjaxError;
 
         function send(operation, requiresKey, ajaxSettings, customSuccessHandler) {
-            var d = $.Deferred();
+            var d = Deferred();
 
             if(requiresKey && !keyExpr) {
                 d.reject(new Error("Primary key is not specified (operation: '" + operation + "', url: '" + ajaxSettings.url + "')"));
             } else {
-                if(operation === "load")
+                if(operation === "load") {
                     ajaxSettings.cache = false;
+                    ajaxSettings.dataType = "json";
+                } else {
+                    ajaxSettings.dataType = "text";
+                }
 
                 if(onBeforeSend)
                     onBeforeSend(operation, ajaxSettings);
 
-                $.ajax(ajaxSettings)
-                    .done(function(res) {
+                ajaxUtility.sendRequest(ajaxSettings).then(
+                    function(res, textStatus, xhr) {
                         if(customSuccessHandler)
-                            customSuccessHandler(d, res);
+                            customSuccessHandler(d, res, xhr);
                         else
-                            d.resolve(res);
-                    })
-                    .fail(function(xhr, textStatus) {
-                        var message = getErrorMessageFromXhr(xhr);
-                        if(message)
-                            d.reject(message);
+                            d.resolve();
+                    },
+                    function(xhr, textStatus) {
+                        var error = getErrorMessageFromXhr(xhr);
+
+                        if(onAjaxError) {
+                            var e = { xhr: xhr, error: error };
+                            onAjaxError(e);
+                            error = e.error;
+                        }
+
+                        if(error)
+                            d.reject(error);
                         else
                             d.reject(xhr, textStatus);
-                    });
+                    }
+                );
             }
 
             return d.promise();
         }
 
         function filterByKey(keyValue) {
-            if(!$.isArray(keyExpr))
+            if(!Array.isArray(keyExpr))
                 return [keyExpr, keyValue];
 
-            return $.map(keyExpr, function(i) {
-                return [[i, keyValue[i]]];
+            return keyExpr.map(function(i) {
+                return [i, keyValue[i]];
             });
         }
 
@@ -90,9 +121,9 @@
 
             if(options) {
 
-                $.each(["skip", "take", "requireTotalCount", "requireGroupCount"], function() {
-                    if(this in options)
-                        result[this] = options[this];
+                ["skip", "take", "requireTotalCount", "requireGroupCount"].forEach(function(i) {
+                    if(options[i] !== undefined)
+                        result[i] = options[i];
                 });
 
                 var normalizeSorting = dataUtils.normalizeSortingInfo,
@@ -109,8 +140,8 @@
                     result.group = JSON.stringify(group);
                 }
 
-                if($.isArray(filter)) {
-                    filter = $.extend(true, [], filter);
+                if(Array.isArray(filter)) {
+                    filter = extend(true, [], filter);
                     stringifyDatesInFilter(filter);
                     result.filter = JSON.stringify(filter);
                 }
@@ -122,19 +153,26 @@
                     result.groupSummary = JSON.stringify(options.groupSummary);
 
                 if(select) {
-                    if(!$.isArray(select))
+                    if(!Array.isArray(select))
                         select = [ select ];
                     result.select = JSON.stringify(select);
                 }
             }
 
-            $.extend(result, loadParams);
+            extend(result, loadParams);
 
             return result;
         }
 
-        return {
+        function handleInsertUpdateSuccess(d, res, xhr) {
+            var mime = xhr.getResponseHeader("Content-Type"),
+                isJSON = mime && mime.indexOf("application/json") > -1;
+            d.resolve(isJSON ? JSON.parse(res) : res);
+        }
+
+        var result = {
             key: keyExpr,
+            useDefaultSearch: true,
 
             load: function(loadOptions) {
                 return send(
@@ -142,6 +180,7 @@
                     false,
                     {
                         url: loadUrl,
+                        method: loadMethod,
                         data: loadOptionsToActionParams(loadOptions)
                     },
                     function(d, res) {
@@ -152,12 +191,13 @@
                 );
             },
 
-            totalCount: function(loadOptions) {
+            totalCount: !isRawLoadMode && function(loadOptions) {
                 return send(
                     "load",
                     false,
                     {
                         url: loadUrl,
+                        method: loadMethod,
                         data: loadOptionsToActionParams(loadOptions, true)
                     },
                     function(d, res) {
@@ -168,12 +208,13 @@
                 );
             },
 
-            byKey: function(key) {
+            byKey: !isRawLoadMode && function(key) {
                 return send(
                     "load",
                     true,
                     {
                         url: loadUrl,
+                        method: loadMethod,
                         data: loadOptionsToActionParams({ filter: filterByKey(key) })
                     },
                     function(d, res) {
@@ -185,33 +226,51 @@
             },
 
             update: updateUrl && function(key, values) {
-                return send("update", true, {
-                    url: updateUrl,
-                    type: options.updateMethod || "PUT",
-                    data: {
-                        key: serializeKey(key),
-                        values: JSON.stringify(values)
-                    }
-                });
+                return send(
+                    "update",
+                    true,
+                    {
+                        url: updateUrl,
+                        method: options.updateMethod || "PUT",
+                        data: {
+                            key: serializeKey(key),
+                            values: JSON.stringify(values)
+                        }
+                    },
+                    handleInsertUpdateSuccess
+                );
             },
 
             insert: insertUrl && function(values) {
-                return send("insert", true, {
-                    url: insertUrl,
-                    type: options.insertMethod || "POST",
-                    data: { values: JSON.stringify(values) }
-                });
+                return send(
+                    "insert",
+                    true,
+                    {
+                        url: insertUrl,
+                        method: options.insertMethod || "POST",
+                        data: { values: JSON.stringify(values) }
+                    },
+                    handleInsertUpdateSuccess
+                );
             },
 
             remove: deleteUrl && function(key) {
                 return send("delete", true, {
                     url: deleteUrl,
-                    type: options.deleteMethod || "DELETE",
+                    method: options.deleteMethod || "DELETE",
                     data: { key: serializeKey(key) }
                 });
             }
 
         };
+
+        CUSTOM_STORE_OPTIONS.forEach(function(name) {
+            var value = options[name];
+            if(value !== undefined)
+                result[name] = value;
+        });
+
+        return result;
     }
 
     function processLoadResponse(d, res, getResolveArgs) {
@@ -224,7 +283,7 @@
     }
 
     function expandLoadResponse(value) {
-        if($.isArray(value))
+        if(Array.isArray(value))
             return { data: value };
 
         if(typeof value === "number")
@@ -270,20 +329,17 @@
     }
 
     function stringifyDatesInFilter(crit) {
-        $.each(crit, function(k, v) {
-            switch($.type(v)) {
-                case "array":
-                    stringifyDatesInFilter(v);
-                    break;
-                case "date":
-                    crit[k] = serializeDate(v);
-                    break;
+        crit.forEach(function(v, k) {
+            if(Array.isArray(v)) {
+                stringifyDatesInFilter(v);
+            } else if(Object.prototype.toString.call(v) === "[object Date]") {
+                crit[k] = serializeDate(v);
             }
         });
     }
 
     function isAdvancedGrouping(expr) {
-        if(!$.isArray(expr))
+        if(!Array.isArray(expr))
             return false;
 
         for(var i = 0; i < expr.length; i++) {
@@ -310,7 +366,7 @@
             if(typeof jsonObj === "string")
                 return jsonObj;
 
-            if($.isPlainObject(jsonObj)) {
+            if(typeof jsonObj === "object") {
                 for(var key in jsonObj) {
                     if(typeof jsonObj[key] === "string")
                         return jsonObj[key];
@@ -332,6 +388,8 @@
     }
 
     return {
-        createStore: createStore
+        createStore: function(options) {
+            return new CustomStore(createStoreConfig(options));
+        }
     };
 });
