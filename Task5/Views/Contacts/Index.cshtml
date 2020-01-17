@@ -17,11 +17,12 @@
 
                                         .ShowBorders(true)
 
-                                        .Editing(editing =>
-                                        {
-                                            editing.Mode(GridEditMode.Form);
-                                            editing.AllowUpdating(true);
-                                        })
+                                      .Editing(e => e
+        .Mode(GridEditMode.Cell)
+        .AllowAdding(true)
+        .AllowDeleting(true)
+        .AllowUpdating(true)
+    )
 
     .FilterRow(filterRow => filterRow
         .Visible(true)
