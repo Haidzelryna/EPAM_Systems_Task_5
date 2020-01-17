@@ -1,8 +1,5 @@
 ﻿
-
 @using DevExtreme.AspNet.Mvc
-
-
 
 @model IEnumerable<Task5.Models.Contact>
 
@@ -13,74 +10,57 @@
 <h2>Contacts List</h2>
 
 @(Html.DevExtreme().DataGrid<Task5.Models.Contact>()
-                                        .ID("gridContainer")
+    .ID("gridContainerContacts")
 
-                                        .ShowBorders(true)
+    .DataSource(Model)
 
-                                      .Editing(e => e
+    .ShowBorders(true)
+
+    .Editing(e => e
         .Mode(GridEditMode.Cell)
         .AllowAdding(true)
         .AllowDeleting(true)
         .AllowUpdating(true)
     )
 
-    .FilterRow(filterRow => filterRow
-        .Visible(true)
-        .ApplyFilter(GridApplyFilterMode.Auto)
-    )
     .SearchPanel(searchPanel => searchPanel
         .Visible(true)
         .Width(240)
         .Placeholder("Search...")
     )
+
     .Paging(p => p.PageSize(10))
+
     .Pager(p => p
         .ShowPageSizeSelector(true)
         .AllowedPageSizes(new[] { 10, 25, 50, 100 })
     )
+
     .HeaderFilter(headerFilter => headerFilter.Visible(true))
 
+      .FilterRow(filterRow => filterRow
+        .Visible(true)
+        .ApplyFilter(GridApplyFilterMode.Auto)
+    )
 
-                                         .DataSource(Model)
+    .AllowColumnReordering(true)
+    .AllowColumnResizing(true)
+    .ColumnAutoWidth(true)
+    .ShowBorders(true)
+    .ColumnChooser(c => c.Enabled(true))
+    .ColumnFixing(c => c.Enabled(true))
 
-
-                                             @*.DataSource
-                                        (
-                                         //d => d.Mvc
-                                         //    //.RouteName("DataGridWebApi")
-                                         //    //.LoadAction("Contacts")
-                                         //    .InsertAction("InsertContacts")
-                                         //    .UpdateAction("UpdateContacts")
-                                         //    .DeleteAction("DeleteContacts")
-                                         //    //.Key("OrderID")
-                                         //    //.OnBeforeSend("beforeSend")
-                                         //)*@
-
-
-                                        .AllowColumnReordering(true)
-                                        .AllowColumnResizing(true)
-                                        .ColumnAutoWidth(true)
-                                        .ShowBorders(true)
-                                        .ColumnChooser(c => c.Enabled(true))
-                                        .ColumnFixing(c => c.Enabled(true))
-                                        .Columns(columns =>
-                                        {
-                                            columns.Add()
-                                    .Caption("Contacts")
-                                    .Width(230)
-                                    .Fixed(true);
-
-                                            columns.AddFor(m => m.FirstName);
-                                            columns.AddFor(m => m.MiddleName);
-                                            columns.AddFor(m => m.LastName);
-
-                                            columns.AddFor(m => m.Phone)
-                                    .Caption("Mobile Phone");
-
-                                            columns.AddFor(m => m.Email);
-
-                                            //columns.AddFor(m => m.Client);
-
-                                            //columns.AddFor(m => m.Manager);
-                                        })
+    .Columns(columns =>
+        {
+            columns.Add()
+            .Caption("Contacts")
+            .Width(230)
+            .Fixed(true);
+            columns.AddFor(m => m.FirstName);
+            columns.AddFor(m => m.MiddleName);
+            columns.AddFor(m => m.LastName);
+            columns.AddFor(m => m.Phone)
+            .Caption("Mobile Phone");
+            columns.AddFor(m => m.Email);
+    })
 )
