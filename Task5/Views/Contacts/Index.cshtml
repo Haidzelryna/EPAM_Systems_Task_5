@@ -109,6 +109,17 @@
 
 @(Html.DevExtreme().DataGrid<Task5.Models.Contact>()
                                         .ID("gridContainer")
+                                        .ShowBorders(true)
+    .FilterRow(filterRow => filterRow
+        .Visible(true)
+        .ApplyFilter(GridApplyFilterMode.Auto)
+    )
+    .SearchPanel(searchPanel => searchPanel
+        .Visible(true)
+        .Width(240)
+        .Placeholder("Search...")
+    )
+    .HeaderFilter(headerFilter => headerFilter.Visible(true))
                                         .DataSource(Model)
                                         .AllowColumnReordering(true)
                                         .AllowColumnResizing(true)
