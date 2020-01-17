@@ -1,39 +1,58 @@
-﻿@model IEnumerable<Task5.Models.Product>
+﻿@using DevExtreme.AspNet.Mvc
+
+@model IEnumerable<Task5.Models.Product>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Products";
 }
 
-<h2>Index</h2>
+<h2>Products List</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th></th>
-    </tr>
+@(Html.DevExtreme().DataGrid<Task5.Models.Product>()
+                        .ID("gridContainerProducts")
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+                        .DataSource(Model)
 
-</table>
+                        .ShowBorders(true)
+
+                        .Editing(e => e
+                            .Mode(GridEditMode.Form)
+                            .AllowAdding(true)
+                            .AllowDeleting(true)
+                            .AllowUpdating(true)
+                        )
+
+                        .SearchPanel(searchPanel => searchPanel
+                            .Visible(true)
+                            .Width(240)
+                            .Placeholder("Search...")
+                        )
+
+                        .Paging(p => p.PageSize(10))
+
+                        .Pager(p => p
+                            .ShowPageSizeSelector(true)
+                            .AllowedPageSizes(new[] { 10, 25, 50, 100 })
+                        )
+
+                        .HeaderFilter(headerFilter => headerFilter.Visible(true))
+
+                          .FilterRow(filterRow => filterRow
+                            .Visible(true)
+                            .ApplyFilter(GridApplyFilterMode.Auto)
+                        )
+
+                        .AllowColumnReordering(true)
+                        .AllowColumnResizing(true)
+                        .ColumnAutoWidth(true)
+                        .ShowBorders(true)
+                        .ColumnChooser(c => c.Enabled(true))
+                        .ColumnFixing(c => c.Enabled(true))
+
+                        .Columns(columns =>
+                        {
+                            columns.AddFor(m => m.Name);
+                            columns.AddFor(m => m.Price);
+                        })
+)
+)
