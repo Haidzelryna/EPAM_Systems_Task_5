@@ -10,12 +10,12 @@
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
 
-namespace Task5.Models
+namespace DAL
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Product
+    public partial class Product: Entity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
@@ -26,7 +26,7 @@ namespace Task5.Models
         public System.Guid Id { get; set; }
         public Nullable<decimal> Price { get; set; }
         public string Name { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
 
         [JsonIgnore]

@@ -11,6 +11,7 @@ using System.Net.Http.Formatting;
 using System.Web.Http;
 using System.Web.Http.ModelBinding;
 using Task5.Models;
+using DAL;
 
 namespace Task5.Controllers
 {
@@ -21,7 +22,7 @@ namespace Task5.Controllers
 
         public SalesWebApiController()
         {
-           
+
         }
 
         public SalesWebApiController(SalesEntities context)
@@ -30,8 +31,11 @@ namespace Task5.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage Get(DataSourceLoadOptions loadOptions) {
-            var sale = _context.Sale.Select(i => new {
+        [Route("api/SalesWebApi/{loadOptions}")]
+        public HttpResponseMessage Get(DataSourceLoadOptions loadOptions)
+        {
+            var sale = _context.Sale.Select(i => new
+            {
                 i.Id,
                 i.ClientId,
                 i.ProductId,
@@ -46,7 +50,8 @@ namespace Task5.Controllers
         }
 
         [HttpPost]
-        public HttpResponseMessage Post(FormDataCollection form) {
+        public HttpResponseMessage Post(FormDataCollection form)
+        {
             var model = new Sale();
             var values = JsonConvert.DeserializeObject<IDictionary>(form.Get("values"));
             PopulateModel(model, values);
@@ -62,10 +67,11 @@ namespace Task5.Controllers
         }
 
         [HttpPut]
-        public HttpResponseMessage Put(FormDataCollection form) {
+        public HttpResponseMessage Put(FormDataCollection form)
+        {
             var key = Guid.Parse(form.Get("key"));
             var model = _context.Sale.FirstOrDefault(item => item.Id == key);
-            if(model == null)
+            if (model == null)
                 return Request.CreateResponse(HttpStatusCode.Conflict, "Sale not found");
 
             var values = JsonConvert.DeserializeObject<IDictionary>(form.Get("values"));
@@ -81,7 +87,8 @@ namespace Task5.Controllers
         }
 
         [HttpDelete]
-        public void Delete(FormDataCollection form) {
+        public void Delete(FormDataCollection form)
+        {
             var key = Guid.Parse(form.Get("key"));
             var model = _context.Sale.FirstOrDefault(item => item.Id == key);
 
@@ -91,10 +98,12 @@ namespace Task5.Controllers
 
 
         [HttpGet]
-        public HttpResponseMessage ClientLookup(DataSourceLoadOptions loadOptions) {
+        public HttpResponseMessage ClientLookup(DataSourceLoadOptions loadOptions)
+        {
             var lookup = from i in _context.Client
                          orderby i.Name
-                         select new {
+                         select new
+                         {
                              Value = i.Id,
                              Text = i.Name
                          };
@@ -102,10 +111,12 @@ namespace Task5.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage ManagerLookup(DataSourceLoadOptions loadOptions) {
+        public HttpResponseMessage ManagerLookup(DataSourceLoadOptions loadOptions)
+        {
             var lookup = from i in _context.Manager
                          orderby i.Name
-                         select new {
+                         select new
+                         {
                              Value = i.Id,
                              Text = i.Name
                          };
@@ -113,17 +124,20 @@ namespace Task5.Controllers
         }
 
         [HttpGet]
-        public HttpResponseMessage ProductLookup(DataSourceLoadOptions loadOptions) {
+        public HttpResponseMessage ProductLookup(DataSourceLoadOptions loadOptions)
+        {
             var lookup = from i in _context.Product
                          orderby i.Name
-                         select new {
+                         select new
+                         {
                              Value = i.Id,
                              Text = i.Name
                          };
             return Request.CreateResponse(DataSourceLoader.Load(lookup, loadOptions));
         }
 
-        private void PopulateModel(Sale model, IDictionary values) {
+        private void PopulateModel(Sale model, IDictionary values)
+        {
             string ID = nameof(Sale.Id);
             string CLIENT_ID = nameof(Sale.ClientId);
             string PRODUCT_ID = nameof(Sale.ProductId);
@@ -134,59 +148,73 @@ namespace Task5.Controllers
             string CREATED_BY_USER_ID = nameof(Sale.CreatedByUserId);
             string CREATED_DATE_TIME = nameof(Sale.CreatedDateTime);
 
-            if(values.Contains(ID)) {
+            if (values.Contains(ID))
+            {
                 model.Id = Guid.Parse(values[ID].ToString());
             }
 
-            if(values.Contains(CLIENT_ID)) {
+            if (values.Contains(CLIENT_ID))
+            {
                 model.ClientId = Guid.Parse(values[CLIENT_ID].ToString());
             }
 
-            if(values.Contains(PRODUCT_ID)) {
+            if (values.Contains(PRODUCT_ID))
+            {
                 model.ProductId = Guid.Parse(values[PRODUCT_ID].ToString());
             }
 
-            if(values.Contains(SUM)) {
+            if (values.Contains(SUM))
+            {
                 model.Sum = Convert.ToDecimal(values[SUM]);
             }
 
-            if(values.Contains(DATE)) {
+            if (values.Contains(DATE))
+            {
                 model.Date = Convert.ToDateTime(values[DATE]);
             }
 
-            if(values.Contains(CLIENT_NAME)) {
+            if (values.Contains(CLIENT_NAME))
+            {
                 model.ClientName = Convert.ToString(values[CLIENT_NAME]);
             }
 
-            if(values.Contains(PRODUCT_NAME)) {
+            if (values.Contains(PRODUCT_NAME))
+            {
                 model.ProductName = Convert.ToString(values[PRODUCT_NAME]);
             }
 
-            if(values.Contains(CREATED_BY_USER_ID)) {
+            if (values.Contains(CREATED_BY_USER_ID))
+            {
                 model.CreatedByUserId = Guid.Parse(values[CREATED_BY_USER_ID].ToString());
             }
 
-            if(values.Contains(CREATED_DATE_TIME)) {
+            if (values.Contains(CREATED_DATE_TIME))
+            {
                 model.CreatedDateTime = Convert.ToDateTime(values[CREATED_DATE_TIME]);
             }
         }
 
-        private string GetFullErrorMessage(ModelStateDictionary modelState) {
+        private string GetFullErrorMessage(ModelStateDictionary modelState)
+        {
             var messages = new List<string>();
 
-            foreach(var entry in modelState) {
-                foreach(var error in entry.Value.Errors)
+            foreach (var entry in modelState)
+            {
+                foreach (var error in entry.Value.Errors)
                     messages.Add(error.ErrorMessage);
             }
 
             return String.Join(" ", messages);
         }
 
-        protected override void Dispose(bool disposing) {
-            if (disposing) {
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
                 _context.Dispose();
             }
             base.Dispose(disposing);
         }
     }
+
 }

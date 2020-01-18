@@ -1,6 +1,6 @@
 ﻿@using DevExtreme.AspNet.Mvc
 
-@model IEnumerable<Task5.Models.Product>
+@model IEnumerable<DAL.Product>
 
 @{
     ViewBag.Title = "Products";
@@ -8,7 +8,7 @@
 
 <h2>Products List</h2>
 
-@(Html.DevExtreme().DataGrid<Task5.Models.Product>()
+@(Html.DevExtreme().DataGrid<DAL.Product>()
     .ID("gridContainerProducts")
 
     .DataSource(Model)

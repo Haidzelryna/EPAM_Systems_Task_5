@@ -51,8 +51,9 @@
     <Reference Include="DevExtreme.AspNet.Data, Version=1.4.10.0, Culture=neutral, PublicKeyToken=982f5dab1439d0f7, processorArchitecture=MSIL">
       <HintPath>..\packages\DevExtreme.AspNet.Data.1.4.10\lib\net40\DevExtreme.AspNet.Data.dll</HintPath>
     </Reference>
-    <Reference Include="DevExtreme.AspNet.Mvc">
-      <HintPath>..\packages\DevExtreme.AspNet.Mvc.dll</HintPath>
+    <Reference Include="DevExtreme.AspNet.Mvc, Version=18.1.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\DevExtreme\DevExtreme.AspNet.Mvc.dll</HintPath>
     </Reference>
     <Reference Include="JavaScriptEngineSwitcher.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
       <HintPath>..\packages\JavaScriptEngineSwitcher.Core.3.3.0\lib\net45\JavaScriptEngineSwitcher.Core.dll</HintPath>
@@ -201,17 +202,21 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
+    <Compile Include="Controllers\ClientsWebApiController.cs" />
     <Compile Include="Controllers\Contacts2Controller.cs" />
+    <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ManagersController.cs" />
     <Compile Include="Controllers\ProductsController.cs" />
-    <Compile Include="Controllers\SalesWebApiController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
+    <Compile Include="Controllers\SalesWebApiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Base\BaseEntity.cs" />
+    <Compile Include="Models\Base\Entity.cs" />
     <Compile Include="Models\Client.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
@@ -219,19 +224,19 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataModel.Context.cs">
+      <DependentUpon>DataModel.Context.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataModel.Context.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataModel.cs">
+      <DependentUpon>DataModel.tt</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\DataModel.Designer.cs">
+      <DependentUpon>DataModel.edmx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DataModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Manager.cs">
@@ -246,8 +251,9 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\GenericRepository.cs" />
+    <Compile Include="Repository\IGenericReposory.cs" />
     <Compile Include="Startup.cs" />
-    <Compile Include="Controllers\ContactsController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -340,7 +346,6 @@
     <Content Include="Content\dx.material.teal.light.css" />
     <Content Include="Content\dx.softblue.compact.css" />
     <Content Include="Content\dx.softblue.css" />
-    <Content Include="DevExtremeScaffolding_Readme.txt" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -357,13 +362,6 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="Models\DataModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DataModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\DataModel.edmx.diagram">
-      <DependentUpon>DataModel.edmx</DependentUpon>
-    </Content>
     <Content Include="Content\icons\dxiconsmaterial.woff2" />
     <Content Include="Content\icons\dxiconsmaterial.woff" />
     <Content Include="Content\icons\dxiconsmaterial.ttf" />
@@ -406,6 +404,13 @@
     <Content Include="Content\css\icons\dxiconsmaterial.ttf" />
     <Content Include="Content\css\icons\dxiconsmaterial.woff" />
     <Content Include="Content\css\icons\dxiconsmaterial.woff2" />
+    <EntityDeploy Include="Models\DataModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>DataModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\DataModel.edmx.diagram">
+      <DependentUpon>DataModel.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\devextreme-localization\dx.messages.de.js" />
     <Content Include="Scripts\devextreme-localization\dx.messages.en.js" />
@@ -417,6 +422,7 @@
     <Content Include="Scripts\dx-gantt.min.js" />
     <Content Include="Scripts\dx.all.debug.js" />
     <Content Include="Scripts\dx.all.js" />
+    <Content Include="Scripts\dx.aspnet.data.js" />
     <Content Include="Scripts\dx.aspnet.mvc.js" />
     <Content Include="Scripts\dx.viz-web.debug.js" />
     <Content Include="Scripts\dx.viz-web.js" />
@@ -577,7 +583,7 @@
     <Content Include="Views\Clients\Details.cshtml" />
     <Content Include="Views\Clients\Edit.cshtml" />
     <Content Include="Views\Clients\Index.cshtml" />
-    <Content Include="Views\Sales\Sales.cshtml" />
+    <Content Include="Views\Sales\Index.cshtml" />
     <Content Include="Views\Contacts\Create.cshtml" />
     <Content Include="Views\Contacts\Delete.cshtml" />
     <Content Include="Views\Contacts\Details.cshtml" />

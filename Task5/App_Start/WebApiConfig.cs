@@ -13,9 +13,14 @@ namespace Task5
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}",
-                defaults: new { id = RouteParameter.Optional }
-            );
+                routeTemplate: "api/{controller}/{Id}",
+                defaults: new { id = RouteParameter.Optional });
+
+            config.Routes.MapHttpRoute(
+               name: "SalesWebApi",
+               routeTemplate: "api/SalesWebApi/{loadOptions}"//,
+                                                             //defaults: new { id = RouteParameter.Optional}
+               );
         }
     }
 }

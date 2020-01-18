@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Task5.Models;
+using DAL;
 
 namespace Task5.Controllers
 {

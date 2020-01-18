@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Task5.Models
+namespace DAL
 {
     using System;
     using System.Data.Entity;
@@ -16,7 +16,7 @@ namespace Task5.Models
     public partial class SalesEntities : DbContext
     {
         public SalesEntities()
-            : base("SalesEntities")
+            : base("name=SalesEntities")
         {
         }
     

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using System.Web.Http;
 
 namespace Task5
 {
@@ -18,6 +19,7 @@ namespace Task5
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             DevExtremeBundleConfig.RegisterBundles(BundleTable.Bundles);
+            WebApiConfig.Register(GlobalConfiguration.Configuration);
         }
     }
 }

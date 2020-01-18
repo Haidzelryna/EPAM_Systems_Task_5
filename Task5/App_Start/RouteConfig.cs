@@ -18,8 +18,8 @@ namespace Task5
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional });
 
-            routes.MapRoute("SalesWebApi", "api/SalesWebApi/{action}",
-                defaults: new { action = "Get" });
+            //routes.MapRoute("SalesWebApi", "api/SalesWebApi/{action}",
+            //    defaults: new { action = "Get" });
         }
     }
 }
