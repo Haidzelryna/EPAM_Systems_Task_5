@@ -16,6 +16,7 @@
 
     .DataSource(ds => ds.WebApi()
         .RouteName("SalesWebApi")
+        .LoadMethod("Get")
         .LoadAction("Get")
         .InsertAction("Post")
         .UpdateAction("Put")
