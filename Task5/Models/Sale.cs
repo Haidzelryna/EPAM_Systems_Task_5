@@ -7,6 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
+
 namespace DAL
 {
     using System;

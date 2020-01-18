@@ -1,6 +1,6 @@
 ﻿@using DevExtreme.AspNet.Mvc
 
-@model IEnumerable<Task5.Models.Sale>
+@model IEnumerable<DAL.Sale>
 
 @{
     ViewBag.Title = "Sales";
@@ -22,7 +22,7 @@
     .Include("~/Scripts/aspnet/dx.aspnet.data.js")
     .Include("~/Scripts/aspnet/dx.aspnet.mvc.js"); }*@
 
-@(Html.DevExtreme().DataGrid<Task5.Models.Sale>
+@(Html.DevExtreme().DataGrid<DAL.Sale>
                             ()
                             .ID("gridContainerSales")
 
@@ -41,7 +41,14 @@
 
                             //.DataSource(d => d.Mvc().Controller("SalesWebApi").Key("Id").LoadAction("Get"))
 
-                            .RemoteOperations(true)
+                            .RemoteOperations(r =>
+                            {
+                                r.Filtering(true)
+                                    .Sorting(true)
+                                    .Paging(true)
+                                    .Summary(true)
+                                    .GroupPaging(false);
+                            })
 
                             .ShowBorders(true)
 
@@ -54,39 +61,39 @@
                             .AllowUpdating(true)
                             )
 
-                            .SearchPanel(searchPanel => searchPanel
-                            .Visible(true)
-                            .Width(240)
-                            .Placeholder("Search..."))
+                            //.SearchPanel(searchPanel => searchPanel
+                            //.Visible(true)
+                            //.Width(240)
+                            //.Placeholder("Search..."))
 
-                            .Paging(p => p.PageSize(10))
+                            //.Paging(p => p.PageSize(10))
 
-                            .Pager(p => p
-                            .ShowPageSizeSelector(true)
-                            .AllowedPageSizes(new[] { 10, 25, 50, 100 }))
+                            //.Pager(p => p
+                            //.ShowPageSizeSelector(true)
+                            //.AllowedPageSizes(new[] { 10, 25, 50, 100 }))
 
-                            .HeaderFilter(headerFilter => headerFilter.Visible(true))
+                            //.HeaderFilter(headerFilter => headerFilter.Visible(true))
 
-                            .FilterRow(filterRow => filterRow
-                            .Visible(true)
-                            .ApplyFilter(GridApplyFilterMode.Auto))
+                            //.FilterRow(filterRow => filterRow
+                            //.Visible(true)
+                            //.ApplyFilter(GridApplyFilterMode.Auto))
 
-                            .AllowColumnReordering(true)
-                            .AllowColumnResizing(true)
-                            .ColumnAutoWidth(true)
-                            .ShowBorders(true)
-                            .ColumnChooser(c => c.Enabled(true))
-                            .ColumnFixing(c => c.Enabled(true))
+                            //.AllowColumnReordering(true)
+                            //.AllowColumnResizing(true)
+                            //.ColumnAutoWidth(true)
+                            //.ShowBorders(true)
+                            //.ColumnChooser(c => c.Enabled(true))
+                            //.ColumnFixing(c => c.Enabled(true))
 
                             .Columns(columns =>
                             {
                                 columns.AddFor(m => m.Date);
-                                columns.AddFor(m => m.Client)
-                                .Width(125)
-                                .Lookup(lookup => lookup
-                                //.DataSource(d => d.WebApi().Controller("SalesWebApi").LoadAction("ClientLookup").Key("Id"))
-                                .DisplayExpr("Name")
-                                .ValueExpr("Id"));
+                                //columns.AddFor(m => m.Client)
+                                //.Width(125)
+                                //.Lookup(lookup => lookup
+                                ////.DataSource(d => d.WebApi().Controller("SalesWebApi").LoadAction("ClientLookup").Key("Id"))
+                                //.DisplayExpr("Name")
+                                //.ValueExpr("Id"));
                                 columns.AddFor(m => m.ProductName);
                                 columns.AddFor(m => m.Sum);
                             }

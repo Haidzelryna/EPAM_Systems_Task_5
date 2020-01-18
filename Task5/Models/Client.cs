@@ -7,6 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
+
 namespace DAL
 {
     using System;
@@ -26,6 +29,9 @@ namespace DAL
     
         public virtual Contact Contact { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
+        [JsonIgnore]
+        [IgnoreDataMember]
         public virtual ICollection<Sale> Sale { get; set; }
     }
 }
