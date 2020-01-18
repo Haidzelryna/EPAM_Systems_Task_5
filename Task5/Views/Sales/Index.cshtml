@@ -28,7 +28,7 @@
 
                              //.DataSource(Model)
 
-                             .DataSource(d => d.WebApi().RouteName("SalesWebApi").LoadAction("Get").Key("Id"))
+                             .DataSource(d => d.WebApi().RouteName("SalesWebApi").Key("Id").LoadMethod("Get"))
 
                             //.DataSource(ds => ds.WebApi()
                             //    //.RouteName("SalesWebApi")

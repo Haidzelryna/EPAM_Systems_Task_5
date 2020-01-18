@@ -31,7 +31,7 @@ namespace Task5.Controllers
         }
 
         [HttpGet]
-        [Route("api/SalesWebApi/{loadOptions}")]
+        //[Route("api/SalesWebApi/{loadOptions}")]
         public HttpResponseMessage Get(DataSourceLoadOptions loadOptions)
         {
             var sale = _context.Sale.Select(i => new
