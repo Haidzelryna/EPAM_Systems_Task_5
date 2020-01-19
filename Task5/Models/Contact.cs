@@ -9,6 +9,8 @@
 
 using Newtonsoft.Json;
 using System.Runtime.Serialization;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DAL
 {
@@ -25,10 +27,24 @@ namespace DAL
         }
     
         public System.Guid Id { get; set; }
+
+        [Column("I")]
+        [MaxLength(255)]
         public string FirstName { get; set; }
+
+        [Column("O")]
+        [MaxLength(255)]
         public string MiddleName { get; set; }
+
+        [Column("F")]
+        [Required]
+        [MaxLength(255)]
         public string LastName { get; set; }
+
+        [MaxLength(255)]
         public string Phone { get; set; }
+
+        [MaxLength(255)]
         public string Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

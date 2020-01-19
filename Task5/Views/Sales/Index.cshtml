@@ -9,7 +9,9 @@
 <h2>Sales List</h2>
 
 
-<script src = "https://unpkg.com/devextreme-aspnet-data/js/dx.aspnet.data.js"> </script >
+<script src="https://unpkg.com/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
+
+@*@Scripts.Render("~/bundles/jquery")*@
 
 
 @*<script type="text/javascript" src="~/Scripts/aspnet/dx.aspnet.mvc.js"></script>
@@ -23,85 +25,84 @@
     .Include("~/Scripts/aspnet/dx.aspnet.mvc.js"); }*@
 
 @(Html.DevExtreme().DataGrid<DAL.Sale>
-                            ()
-                            .ID("gridContainerSales")
+                                ()
+                                .ID("gridContainerSales")
 
-                             //.DataSource(Model)
+                                //.DataSource(Model)
 
-                             .DataSource(d => d.WebApi().RouteName("SalesWebApi").Key("Id").LoadMethod("Get"))
+                                //.DataSource(d => d.WebApi().RouteName("SalesWebApi").Key("Id").LoadMethod("Get"))
 
-                            //.DataSource(ds => ds.WebApi()
-                            //    //.RouteName("SalesWebApi")
-                            //    .LoadMethod("api/SalesWebApi/Get")
-                            //    .LoadAction("Get")
-                            //    .InsertAction("Post")
-                            //    .UpdateAction("Put")
-                            //    .DeleteAction("Delete")
-                            //    .Key("Id"))
+                                .DataSource(d => d.Mvc().Controller("SalesMVC").Key("Id").LoadAction("Get"))
 
-                            //.DataSource(d => d.Mvc().Controller("SalesWebApi").Key("Id").LoadAction("Get"))
+                                //.DataSource(d => d.WebApi().Controller("ABC").Key("Id").LoadMethod("Get"))
 
-                            .RemoteOperations(r =>
-                            {
-                                r.Filtering(true)
-                                    .Sorting(true)
-                                    .Paging(true)
-                                    .Summary(true)
-                                    .GroupPaging(false);
-                            })
+                                //.DataSource(ds => ds.WebApi()
+                                //    //.RouteName("SalesWebApi")
+                                //    .LoadMethod("api/SalesWebApi/Get")
+                                //    .LoadAction("Get")
+                                //    .InsertAction("Post")
+                                //    .UpdateAction("Put")
+                                //    .DeleteAction("Delete")
+                                //    .Key("Id"))
 
-                            .ShowBorders(true)
+                                //.DataSource(d => d.Mvc().Controller("SalesWebApi").Key("Id").LoadAction("Get"))
 
-                            .Selection(s => s.Mode(SelectionMode.Single))
+                                .RemoteOperations(true)
 
-                            .Editing(e => e
-                            .Mode(GridEditMode.Form)
-                            .AllowAdding(true)
-                            .AllowDeleting(true)
-                            .AllowUpdating(true)
-                            )
+                                .ShowBorders(true)
 
-                            //.SearchPanel(searchPanel => searchPanel
-                            //.Visible(true)
-                            //.Width(240)
-                            //.Placeholder("Search..."))
+                                .Selection(s => s.Mode(SelectionMode.Single))
 
-                            //.Paging(p => p.PageSize(10))
+                                .Editing(e => e
+                                .Mode(GridEditMode.Form)
+                                .AllowAdding(true)
+                                .AllowDeleting(true)
+                                .AllowUpdating(true)
+                                )
 
-                            //.Pager(p => p
-                            //.ShowPageSizeSelector(true)
-                            //.AllowedPageSizes(new[] { 10, 25, 50, 100 }))
+                                .SearchPanel(searchPanel => searchPanel
+                                .Visible(true)
+                                .Width(240)
+                                .Placeholder("Search..."))
 
-                            //.HeaderFilter(headerFilter => headerFilter.Visible(true))
+                                .Paging(p => p.PageSize(10))
 
-                            //.FilterRow(filterRow => filterRow
-                            //.Visible(true)
-                            //.ApplyFilter(GridApplyFilterMode.Auto))
+                                .Pager(p => p
+                                .ShowPageSizeSelector(true)
+                                .AllowedPageSizes(new[] { 10, 25, 50, 100 }))
 
-                            //.AllowColumnReordering(true)
-                            //.AllowColumnResizing(true)
-                            //.ColumnAutoWidth(true)
-                            //.ShowBorders(true)
-                            //.ColumnChooser(c => c.Enabled(true))
-                            //.ColumnFixing(c => c.Enabled(true))
+                                .HeaderFilter(headerFilter => headerFilter.Visible(true))
 
-                            .Columns(columns =>
-                            {
-                                columns.AddFor(m => m.Date);
-                                //columns.AddFor(m => m.Client)
-                                //.Width(125)
-                                //.Lookup(lookup => lookup
-                                ////.DataSource(d => d.WebApi().Controller("SalesWebApi").LoadAction("ClientLookup").Key("Id"))
-                                //.DisplayExpr("Name")
-                                //.ValueExpr("Id"));
-                                columns.AddFor(m => m.ProductName);
-                                columns.AddFor(m => m.Sum);
-                            }
+                                .FilterRow(filterRow => filterRow
+                                .Visible(true)
+                                .ApplyFilter(GridApplyFilterMode.Auto))
 
-                            )
+                                .AllowColumnReordering(true)
+                                .AllowColumnResizing(true)
+                                .ColumnAutoWidth(true)
+                                .ShowBorders(true)
+                                .ColumnChooser(c => c.Enabled(true))
+                                .ColumnFixing(c => c.Enabled(true))
+
+                                .Columns(columns =>
+                                {
+                                    //columns.AddFor(m => m.Date);
+                                    //columns.AddFor(m => m.Client)
+                                    //.Width(125)
+                                    //.Lookup(lookup => lookup
+                                    ////.DataSource(d => d.WebApi().Controller("SalesWebApi").LoadAction("ClientLookup").Key("Id"))
+                                    //.DisplayExpr("Name")
+                                    //.ValueExpr("Id"));
+                                    columns.AddFor(m => m.ProductName);
+                                    //columns.Add()
+                                    //.DataField("C1")
+                                    //.DataType(GridColumnDataType.String);
+                                }
+
+                                )
 )
 
-@*@(Html.DevExtreme().Button()
+@(Html.DevExtreme().Button()
                                         .Text("Refresh Grid")
                                         .OnClick("reloadData")
     )
@@ -110,7 +111,7 @@
         function reloadData() {
             $("#gridContainerSales").dxDataGrid("getDataSource").reload();
         }
-    </script>*@
+    </script>
 
 
 

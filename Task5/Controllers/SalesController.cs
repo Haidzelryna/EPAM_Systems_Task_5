@@ -14,12 +14,13 @@ namespace DevExtreme.MVC.Demos.Controllers
         //    return View("~/Views/Sales/Index.cshtml");
         //}
 
-        private SalesEntities db = new SalesEntities();
+        //private SalesEntities db = new SalesEntities();
 
         // GET: Sales
         public async Task<ActionResult> Index()
         {
-            return View(await db.Sale.ToListAsync());
+            //return View(await db.Sale.ToListAsync());
+            return View();
         }
     }
 }

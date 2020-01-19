@@ -18,8 +18,8 @@ namespace Task5
 
             config.Routes.MapHttpRoute(
                name: "SalesWebApi",
-               routeTemplate: "api/SalesWebApi/{loadOptions}"//,
-                                                             //defaults: new { id = RouteParameter.Optional}
+               routeTemplate: "api/SalesWebApi/{Id}"//,
+               //defaults: new { loadOptions = RouteParameter.Optional}
                );
         }
     }
