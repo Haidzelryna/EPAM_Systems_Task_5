@@ -38,7 +38,7 @@ namespace Task5.Controllers
 
         // Load orders according to load options
         [HttpGet]
-        public ActionResult Get(DataSourceLoadOptions loadOptions)
+        public async Task<ActionResult> Get(DataSourceLoadOptions loadOptions)
         { 
 
             loadOptions.RequireTotalCount = false;
@@ -46,7 +46,7 @@ namespace Task5.Controllers
             loadOptions.Skip = 3;
 
 
-            return Json(await Task.Run(() => DataSourceLoader.Load((IQueryable<Sale>)db.Sale, loadOptions)));
+            return Json(await Task.Run(() => DataSourceLoader.Load(db.Sale, loadOptions)));
         }
 
         //// GET: Products

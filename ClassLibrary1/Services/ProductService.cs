@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
-using Task5.Repository;
+using DAL.Repository;
 using System.Threading.Tasks;
 using System.Linq;
 using BLL.Services.Base;
+using DAL;
 
 namespace BLL.Services
 {
-    public class ProductService : IService<DAL.Product, BLL.Product>
+    public class ProductService //: IService<DAL.Product, BLL.Product>
     {
         private readonly IGenericRepository<DAL.Product> _productRepository;
         private readonly IMapper _mapper;
@@ -27,15 +28,15 @@ namespace BLL.Services
             _mapper = mapper;
         }
 
-        public DAL.Product Get(BLL.Product Entity)
-        {
-            return _mapper.Map<DAL.Product>(Entity);
-        }
+        //public DAL.Product Get(BLL.Product Entity)
+        //{
+        //    return _mapper.Map<DAL.Product>(Entity);
+        //}
 
-        public IEnumerable<DAL.Product> Get(IEnumerable<BLL.Product> Entities)
-        {
-            return _mapper.Map<IEnumerable<DAL.Product>>(Entities);
-        }
+        //public IEnumerable<DAL.Product> Get(IEnumerable<BLL.Product> Entities)
+        //{
+        //    return _mapper.Map<IEnumerable<DAL.Product>>(Entities);
+        //}
 
         public async Task<IEnumerable<DAL.Product>> GetAll()
         {
@@ -136,6 +137,16 @@ namespace BLL.Services
         {
             return _productRepository.Find(productId);
         }
+
+        //public DAL.Product Get(BLL.Product Entity)
+        //{
+        //    throw new NotImplementedException();
+        //}
+
+        //public IEnumerable<DAL.Product> Get(IEnumerable<Product> Entities)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }
 

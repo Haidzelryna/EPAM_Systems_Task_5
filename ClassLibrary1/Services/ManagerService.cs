@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using AutoMapper;
-using Task5.Repository;
+using DAL.Repository;
 using System.Threading.Tasks;
 using BLL.Services.Base;
 

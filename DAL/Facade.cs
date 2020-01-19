@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Unity;
-using Task5.Repository;
+using DAL.Repository;
 
 namespace DAL
 {
-    public class Facade
+    public static class Facade
     {
         public static void SetupMapping(IMapperConfigurationExpression mapperConfiguration)
         {

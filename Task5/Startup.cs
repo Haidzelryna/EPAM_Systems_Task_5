@@ -1,7 +1,7 @@
 ﻿using Microsoft.Owin;
 using Owin;
 using Unity;
-using DAL;
+using BLL;
 using AutoMapper;
 
 [assembly: OwinStartupAttribute(typeof(Task5.Startup))]
@@ -13,33 +13,35 @@ namespace Task5
         {
             ConfigureAuth(app);
 
-            ConfigureContainer(container);
+            ConfigureContainer();
         }
 
-        public void ConfigureContainer(IUnityContainer container)
+        public void ConfigureContainer()//(IUnityContainer container)
         {
+            IUnityContainer container = new UnityContainer();
+
             container.RegisterInstance(SetupMapper());
 
-            Facade.SetupDependencies(container);
+            DAL.Facade.SetupDependencies(container);
         }
 
         private IMapper SetupMapper()
         {
             var config = new MapperConfiguration(cfg =>
             {
-                Facade.SetupMapping(cfg);
+                DAL.Facade.SetupMapping(cfg);
 
-                cfg.CreateMap<BLL.Sale, DALSale>();
-                cfg.CreateMap<BLL.Contact, DContact>();
-                cfg.CreateMap<BLL.Manager, DAL.Manager>();
-                cfg.CreateMap<BLL.Client, DAL.Client>();
-                cfg.CreateMap<BLL.Product, DAL.Product>();
+                cfg.CreateMap<BLL.Sale, Sale>();
+                cfg.CreateMap<BLL.Contact, Contact>();
+                cfg.CreateMap<BLL.Manager, Manager>();
+                cfg.CreateMap<BLL.Client, Client>();
+                cfg.CreateMap<BLL.Product, Product>();
 
-                cfg.CreateMap<DAL.Sale, BLL.Sale>();
-                cfg.CreateMap<DAL.Contact, BLL.Contact>();
-                cfg.CreateMap<DAL.Manager, BLL.Manager>();
-                cfg.CreateMap<DAL.Client, BLL.Client>();
-                cfg.CreateMap<DAL.Product, BLL.Product>();
+                cfg.CreateMap<Sale, BLL.Sale>();
+                cfg.CreateMap<Contact, BLL.Contact>();
+                cfg.CreateMap<Manager, BLL.Manager>();
+                cfg.CreateMap<Client, BLL.Client>();
+                cfg.CreateMap<Product, BLL.Product>();
 
             });
 

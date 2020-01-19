@@ -7,14 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DAL.Models
+
+
+namespace DAL
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+    using DAL.Repository;
+
     public partial class SalesEntities : DbContext
     {
+        public IGenericRepository<Contact> ContactRepository => new GenericRepository<Contact>(this);
+        public IGenericRepository<Client> ClientRepository => new GenericRepository<Client>(this);
+        public IGenericRepository<Manager> ManagerRepository => new GenericRepository<Manager>(this);
+        public IGenericRepository<Product> ProductRepository => new GenericRepository<Product>(this);
+        public IGenericRepository<Sale> SaleRepository => new GenericRepository<Sale>(this);
+
         public SalesEntities()
             : base("name=SalesEntities")
         {

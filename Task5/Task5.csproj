@@ -227,48 +227,21 @@
     <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="Controllers\SalesMVCController.cs" />
     <Compile Include="Controllers\SalesWebApiController.cs" />
-    <Compile Include="Facade.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Base\BaseEntity.cs" />
-    <Compile Include="Models\Base\Entity.cs" />
-    <Compile Include="Models\Client.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Contact.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\DataModel.Context.cs">
-      <DependentUpon>DataModel.Context.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Models\DataModel.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Models\DataModel.Designer.cs">
-      <DependentUpon>DataModel.edmx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\Manager.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Product.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Sale.cs">
-      <DependentUpon>DataModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="Models\Phone.cs" />
+    <Compile Include="Model\BaseEntity\BaseEntity.cs" />
+    <Compile Include="Model\BaseEntity\Entity.cs" />
+    <Compile Include="Model\Client.cs" />
+    <Compile Include="Model\Contact.cs" />
+    <Compile Include="Model\Manager.cs" />
+    <Compile Include="Model\Product.cs" />
+    <Compile Include="Model\Sale.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\GenericRepository.cs" />
-    <Compile Include="Repository\IGenericReposory.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -366,16 +339,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Models\DataModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataModel.edmx</DependentUpon>
-      <LastGenOutput>DataModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\DataModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DataModel.edmx</DependentUpon>
-      <LastGenOutput>DataModel.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\icons\dxiconsmaterial.woff2" />
@@ -420,13 +383,6 @@
     <Content Include="Content\css\icons\dxiconsmaterial.ttf" />
     <Content Include="Content\css\icons\dxiconsmaterial.woff" />
     <Content Include="Content\css\icons\dxiconsmaterial.woff2" />
-    <EntityDeploy Include="Models\DataModel.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DataModel.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\DataModel.edmx.diagram">
-      <DependentUpon>DataModel.edmx</DependentUpon>
-    </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\devextreme-localization\dx.messages.de.js" />
     <Content Include="Scripts\devextreme-localization\dx.messages.en.js" />
@@ -634,6 +590,12 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{976025e9-c5bd-4ea2-9aee-b7b14d710c9c}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -1,7 +1,7 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿
+using System;
 
-namespace DAL
+namespace BLL.Model.BaseEntity
 {
     /// <summary>
     /// Base class for all entities.
@@ -13,9 +13,6 @@ namespace DAL
             Id = Guid.NewGuid();
         }
 
-        [Key]
-        [Required]
         public virtual Guid Id { get; set; }
     }
 }
-
