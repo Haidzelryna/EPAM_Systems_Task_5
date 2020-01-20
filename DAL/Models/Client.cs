@@ -20,7 +20,7 @@ namespace DAL
             this.Sale = new HashSet<Sale>();
         }
     
-        public System.Guid Id { get; set; }
+        //public System.Guid Id { get; set; }
         public System.Guid ContactId { get; set; }
         public string Name { get; set; }
     

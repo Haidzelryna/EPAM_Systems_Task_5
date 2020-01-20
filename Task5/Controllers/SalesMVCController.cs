@@ -10,7 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-
+using System.Collections;
+using System.Linq;
 
 namespace DAL.Controllers
 {
@@ -29,14 +30,16 @@ namespace DAL.Controllers
         // Load orders according to load options
         [HttpGet]
         public async Task<ActionResult> Get(DataSourceLoadOptions loadOptions)
-        { 
+        {
+            var sales = db.Sale.Select(i => new {
+                i.Id,
+                i.ProductName
+            });
 
-            loadOptions.RequireTotalCount = false;
+            //loadOptions.RequireTotalCount = false;
+            //loadOptions.Skip = 3;
 
-            loadOptions.Skip = 3;
-
-
-            return Json(await Task.Run(() => DataSourceLoader.Load(db.Sale, loadOptions)));
+            return Json(await DataSourceLoader.LoadAsync(sales, loadOptions));
         }
 
         //// GET: Products
