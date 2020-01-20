@@ -550,11 +550,6 @@
     <Content Include="Views\Clients\Index.cshtml" />
     <Content Include="Views\Sales\Index.cshtml" />
     <Content Include="Views\Contacts\Index.cshtml" />
-    <Content Include="Views\SalesMVC\Create.cshtml" />
-    <Content Include="Views\SalesMVC\Delete.cshtml" />
-    <Content Include="Views\SalesMVC\Details.cshtml" />
-    <Content Include="Views\SalesMVC\Edit.cshtml" />
-    <Content Include="Views\SalesMVC\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

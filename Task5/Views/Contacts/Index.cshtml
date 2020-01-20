@@ -1,7 +1,7 @@
 ﻿
 @using DevExtreme.AspNet.Mvc
 
-@model List<BLL.Contact>
+@model IEnumerable<BLL.Contact>
 
 @{
     ViewBag.Title = "Contacts";
@@ -9,58 +9,66 @@
 
 <h2>Contacts List</h2>
 
+<script src="https://unpkg.com/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
+
 @(Html.DevExtreme().DataGrid<BLL.Contact>()
-            .ID("gridContainerContacts")
+                .ID("gridContainerContacts")
 
-            .DataSource(Model)
+                .DataSource(d => d.Mvc().Controller("ContactsMVC").Key("Id")
+                                .LoadAction("Get")
+                                .InsertAction("Post")
+                                .UpdateAction("Put")
+                                .DeleteAction("Delete"))
 
-            .ShowBorders(true)
+                .ShowBorders(true)
 
-            .Selection(s => s.Mode(SelectionMode.Single))
+                .Selection(s => s.Mode(SelectionMode.Single))
 
-            .Editing(e => e
-                .Mode(GridEditMode.Form)
-                .AllowAdding(true)
-                .AllowDeleting(true)
-                .AllowUpdating(true)
-            )
+                .Editing(e => e
+                    .Mode(GridEditMode.Batch)
+                    .AllowAdding(true)
+                    .AllowDeleting(true)
+                    .AllowUpdating(true)
+                )
 
-            .SearchPanel(searchPanel => searchPanel
-                .Visible(true)
-                .Width(240)
-                .Placeholder("Search...")
-            )
+                .SearchPanel(searchPanel => searchPanel
+                    .Visible(true)
+                    .Width(240)
+                    .Placeholder("Search...")
+                )
 
-            .Paging(p => p.PageSize(10))
+                .Paging(p => p.PageSize(10))
 
-            .Pager(p => p
-                .ShowPageSizeSelector(true)
-                .AllowedPageSizes(new[] { 10, 25, 50, 100 })
-            )
+                .Pager(p => p
+                    .ShowPageSizeSelector(true)
+                    .AllowedPageSizes(new[] { 10, 25, 50, 100 })
+                )
 
-            .HeaderFilter(headerFilter => headerFilter.Visible(true))
+                .HeaderFilter(headerFilter => headerFilter.Visible(true))
 
-              .FilterRow(filterRow => filterRow
-                .Visible(true)
-                .ApplyFilter(GridApplyFilterMode.Auto)
-            )
+                  .FilterRow(filterRow => filterRow
+                    .Visible(true)
+                    .ApplyFilter(GridApplyFilterMode.Auto)
+                )
 
-            .AllowColumnReordering(true)
-            .AllowColumnResizing(true)
-            .ColumnAutoWidth(true)
-            .ShowBorders(true)
-            .ColumnChooser(c => c.Enabled(true))
-            .ColumnFixing(c => c.Enabled(true))
+                .FilterPanel(filterPanel => filterPanel.Visible(true))
 
-            .Columns(columns =>
-            {
-                columns.AddFor(m => m.FirstName);
-                columns.AddFor(m => m.MiddleName);
-                columns.AddFor(m => m.LastName);
-                columns.AddFor(m => m.Phone)
-                .Caption("Mobile Phone");
-                columns.AddFor(m => m.Email);
-            })
+                .AllowColumnReordering(true)
+                .AllowColumnResizing(true)
+                .ColumnAutoWidth(true)
+                .ShowBorders(true)
+                .ColumnChooser(c => c.Enabled(true))
+                .ColumnFixing(c => c.Enabled(true))
+
+                .Columns(columns =>
+                {
+                    columns.AddFor(m => m.FirstName);
+                    columns.AddFor(m => m.MiddleName);
+                    columns.AddFor(m => m.LastName);
+                    columns.AddFor(m => m.Phone)
+                    .Caption("Mobile Phone");
+                    columns.AddFor(m => m.Email);
+                })
 
 
         //    .DataSource(d => d.WebApi()
@@ -71,4 +79,4 @@
         //.DeleteAction("DeleteOrder")
         //.Key("OrderID")
         //.OnBeforeSend("beforeSend")
-    )
+)

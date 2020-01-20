@@ -1,4 +1,5 @@
-﻿@using DevExtreme.AspNet.Mvc
+﻿
+@using DevExtreme.AspNet.Mvc
 
 @model IEnumerable<BLL.Client>
 
@@ -15,14 +16,18 @@
 
                  //.DataSource(Model)
 
-                 .DataSource(d => d.Mvc().Controller("ClientsMVC").Key("Id").LoadAction("Get"))
+                 .DataSource(d => d.Mvc().Controller("ClientsMVC").Key("Id")
+                            .LoadAction("Get")
+                            .InsertAction("Post")
+                            .UpdateAction("Put")
+                            .DeleteAction("Delete"))
 
                 .ShowBorders(true)
 
                 .Selection(s => s.Mode(SelectionMode.Single))
 
                 .Editing(e => e
-                    .Mode(GridEditMode.Form)
+                    .Mode(GridEditMode.Batch)
                     .AllowAdding(true)
                     .AllowDeleting(true)
                     .AllowUpdating(true)
@@ -43,10 +48,11 @@
 
                 .HeaderFilter(headerFilter => headerFilter.Visible(true))
 
-                  .FilterRow(filterRow => filterRow
-                    .Visible(true)
-                    .ApplyFilter(GridApplyFilterMode.Auto)
-                )
+                .FilterRow(filterRow => filterRow
+                   .Visible(true)
+                   .ApplyFilter(GridApplyFilterMode.Auto))
+
+                .FilterPanel(filterPanel => filterPanel.Visible(true))
 
                 .AllowColumnReordering(true)
                 .AllowColumnResizing(true)
@@ -57,11 +63,14 @@
 
                 .Columns(columns =>
                 {
-                    //columns.Add()
-                    //.Caption("Contacts")
-                    //.Width(230)
-                    //.Fixed(true);
-                    //columns.AddFor(m => m.Contact.FirstName);
                     columns.AddFor(m => m.Name);
+                    columns.Add()
+                                           .DataField("Contact.Id")
+                                           .Caption("Contact")
+                                           .Width(125)
+                                           .Lookup(lookup => lookup
+                                           .DataSource(d => d.Mvc().Controller("ContactsMVC").Key("Id").LoadAction("Get"))
+                                           .DisplayExpr("Name")
+                                           .ValueExpr("Id"));
                 })
 )

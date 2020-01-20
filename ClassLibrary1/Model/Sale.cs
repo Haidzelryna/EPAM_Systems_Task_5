@@ -2,7 +2,6 @@
 using System;
 using BLL.Model.BaseEntity;
 using Newtonsoft.Json;
-//using System.Runtime.Serialization;
 
 namespace BLL
 {
@@ -17,7 +16,6 @@ namespace BLL
         public string Sum { get; set; }
 
         [JsonIgnore]
-        //[IgnoreDataMember]
         public virtual Client Client { get; set; }
         [JsonIgnore]
         public virtual Manager Manager { get; set; }
