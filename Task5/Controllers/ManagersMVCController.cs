@@ -104,7 +104,7 @@ namespace DAL.Controllers
         {
             string ID = nameof(Manager.Id);
             string NAME = nameof(Manager.Name);
-            string CONTACT_ID = nameof(Manager.ContactId);
+            string CONTACT_ID = nameof(Manager.Contact);
 
             if (values.Contains(ID))
             {
@@ -118,7 +118,8 @@ namespace DAL.Controllers
 
             if (values.Contains(CONTACT_ID))
             {
-                model.ContactId = Guid.Parse(values[CONTACT_ID].ToString());
+                var guidClient = ((Newtonsoft.Json.Linq.JValue)((Newtonsoft.Json.Linq.JContainer)((Newtonsoft.Json.Linq.JContainer)values["Contact"]).First).First).Value;
+                model.ContactId = Guid.Parse(guidClient.ToString());
             }
         }
 
