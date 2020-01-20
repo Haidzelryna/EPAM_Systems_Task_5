@@ -48,18 +48,16 @@ namespace BLL.Services
         public void Add(DAL.Contact Entity)
         {
             _contactRepository.Add(Entity);
-            SaveChanges();
         }
 
         public void Add(IEnumerable<DAL.Contact> Entities)
         {
             _contactRepository.Add(Entities);
-            SaveChanges();
         }
 
-        public void SaveChanges()
+        public async Task SaveChangesAsync()
         {
-            _contactRepository.SaveChanges();
+            await _contactRepository.SaveChangesAsync();
         }
     }
 }

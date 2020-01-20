@@ -73,7 +73,7 @@ namespace BLL.Services
                         product.Id = Guid.NewGuid();
                         product.Name = sale.ProductName;
                         Add(product);
-                        SaveChanges();
+                        SaveChangesAsync();
                         idProduct = product.Id;
                     }
                 }
@@ -84,7 +84,7 @@ namespace BLL.Services
                     product.Id = Guid.NewGuid();
                     product.Name = sale.ProductName;
                     Add(product);
-                    SaveChanges();
+                    SaveChangesAsync();
                     idProduct = product.Id;
                 }
 
@@ -107,18 +107,16 @@ namespace BLL.Services
         public void Add(DAL.Product Entity)
         {
             _productRepository.Add(Entity);
-            SaveChanges();
         }
 
         public void Add(IEnumerable<DAL.Product> Entities)
         {
             _productRepository.Add(Entities);
-            SaveChanges();
         }
 
-        public void SaveChanges()
+        public async Task SaveChangesAsync()
         {
-            _productRepository.SaveChanges();
+            await _productRepository.SaveChangesAsync();
         }
 
         public DAL.Product Find(Guid productId)

@@ -20,6 +20,6 @@ namespace DAL.Repository
 
         void Delete(IEnumerable<T> entity);
 
-        void SaveChanges();
+        Task SaveChangesAsync();
     }
 }

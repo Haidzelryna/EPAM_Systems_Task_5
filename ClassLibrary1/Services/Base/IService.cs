@@ -1,8 +1,10 @@
 ﻿
+using System.Threading.Tasks;
+
 namespace BLL.Services
 {
     public interface IService
     {
-        void SaveChanges();
+        Task SaveChangesAsync();
     }
 }

@@ -127,18 +127,16 @@ namespace BLL.Services
         public void Add(DAL.Client Entity)
         {
             _clientRepository.Add(Entity);
-            SaveChanges();
         }
 
         public void Add(IEnumerable<DAL.Client> Entities)
         {
             _clientRepository.Add(Entities);
-            SaveChanges();
         }
 
-        public void SaveChanges()
+        public async Task SaveChangesAsync()
         {
-            _clientRepository.SaveChanges();
+            await _clientRepository.SaveChangesAsync();
         }
 
         public DAL.Client Find(Guid clientId)

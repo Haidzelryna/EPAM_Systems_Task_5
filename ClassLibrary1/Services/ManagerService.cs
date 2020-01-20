@@ -49,18 +49,16 @@ namespace BLL.Services
         public void Add(DAL.Manager Entity)
         {
             _managerRepository.Add(Entity);
-            SaveChanges();
         }
 
         public void Add(IEnumerable<DAL.Manager> Entities)
         {
             _managerRepository.Add(Entities);
-            SaveChanges();
         }
 
-        public void SaveChanges()
+        public async Task SaveChangesAsync()
         {
-            _managerRepository.SaveChanges();
+            await _managerRepository.SaveChangesAsync();
         }
 
         public async Task<DAL.Manager> FindAsync(Guid managerId)

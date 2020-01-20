@@ -38,13 +38,11 @@ namespace BLL.Services
         public void Add(DAL.Sale Entity)
         {
             _saleRepository.Add(Entity);
-            SaveChanges();
         }
 
         public void Add(IEnumerable<DAL.Sale> Entities)
         {
             _saleRepository.Add(Entities);
-            SaveChanges();
         }
 
         public void Remove(DAL.Sale Entity)
@@ -57,9 +55,9 @@ namespace BLL.Services
             _saleRepository.Delete(Entities);
         }
 
-        public void SaveChanges()
+        public async Task SaveChangesAsync()
         {
-            _saleRepository.SaveChanges();
+            await _saleRepository.SaveChangesAsync();
         }
     }
 }

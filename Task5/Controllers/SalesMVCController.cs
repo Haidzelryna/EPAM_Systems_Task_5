@@ -77,22 +77,22 @@ namespace DAL.Controllers
             newSale.CreatedDateTime = DateTime.UtcNow;
 
             _saleService.Add(newSale);
-            //_saleService.SaveChanges();
+            _saleService.SaveChangesAsync();
             //return Json(result.OrderID);
         }
 
         //// Update an order
         //[HttpPut]
-        //public async Task<ActionResult> Put(int key, string values)
+        //public void Put(int key, string values)
         //{
-        //    var order = await _context.Orders.FirstOrDefaultAsync(item => item.OrderID == key);
+        //    var order = await _saleService.FirstOrDefaultAsync(item => item.OrderID == key);
         //    PopulateModel(order, JsonConvert.DeserializeObject<IDictionary>(values));
 
         //    if (!TryValidateModel(order))
         //        return NewtonsoftJson(VALIDATION_ERROR, 400);
 
-        //    await _context.SaveChangesAsync();
-        //    return new EmptyResult();
+        //    await _context.SaveChanges;
+        //    //return new EmptyResult();
         //}
 
         //// Remove an order
@@ -116,7 +116,7 @@ namespace DAL.Controllers
         //        order.ShipCity = Convert.ToString(values["ShipCity"]);
         //}
 
- 
+
         private void PopulateModel(Sale model, IDictionary values)
         {
             string ID = nameof(Sale.Id);

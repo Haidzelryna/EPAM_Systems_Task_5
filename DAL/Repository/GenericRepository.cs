@@ -52,13 +52,11 @@ namespace DAL.Repository
         public void Add(T entity)
         {
             _context.Set<T>().Add(entity);
-            SaveChanges();
         }
 
         public void Add(IEnumerable<T> entity)
         {
             _context.Set<T>().AddRange(entity);
-            SaveChanges();
         }
 
         public void Delete(T entity)
@@ -71,9 +69,9 @@ namespace DAL.Repository
             _context.Set<T>().RemoveRange(entity);
         }
 
-        public void SaveChanges()
+        public async Task SaveChangesAsync()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }
