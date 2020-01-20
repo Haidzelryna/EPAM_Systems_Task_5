@@ -1,8 +1,7 @@
-﻿
-using System;
-using BLL.Model.BaseEntity;
+﻿using System;
+using Task5.Model.BaseEntity;
 
-namespace BLL
+namespace Task5
 {
     public class Client : Entity
     {

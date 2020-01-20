@@ -1,7 +1,7 @@
 ﻿
 using System;
 
-namespace BLL.Model.BaseEntity
+namespace Task5.Model.BaseEntity
 {
     public class BaseEntity : Entity
     {

@@ -9,7 +9,7 @@ using DAL;
 
 namespace BLL.Services
 {
-    public class ProductService //: IService<DAL.Product, BLL.Product>
+    public class ProductService : IProductService
     {
         private readonly IGenericRepository<DAL.Product> _productRepository;
         private readonly IMapper _mapper;
@@ -28,17 +28,7 @@ namespace BLL.Services
             _mapper = mapper;
         }
 
-        //public DAL.Product Get(BLL.Product Entity)
-        //{
-        //    return _mapper.Map<DAL.Product>(Entity);
-        //}
-
-        //public IEnumerable<DAL.Product> Get(IEnumerable<BLL.Product> Entities)
-        //{
-        //    return _mapper.Map<IEnumerable<DAL.Product>>(Entities);
-        //}
-
-        public async Task<IEnumerable<DAL.Product>> GetAll()
+        public async Task<IEnumerable<DAL.Product>> GetAllAsync()
         {
             IEnumerable<DAL.Product> result = Enumerable.Empty<DAL.Product>();
             await _locker.LockAsync(async () =>
@@ -50,7 +40,7 @@ namespace BLL.Services
 
         public async Task<bool> Check(IEnumerable<string> productsCheck)
         {
-            IEnumerable<DAL.Product> products = await GetAll();
+            IEnumerable<DAL.Product> products = await GetAllAsync();
             foreach (string productName in productsCheck)
             {
                 if (products.Select(p => p.Name).ToList().Contains(productName) == false)
@@ -64,7 +54,7 @@ namespace BLL.Services
         //для сопоставления Id - name
         public async Task<IEnumerable<DAL.Sale>> CheckNameId(IEnumerable<DAL.Sale> Entities)
         {
-            IEnumerable<DAL.Product> products = await GetAll();
+            IEnumerable<DAL.Product> products = await GetAllAsync();
 
             Guid idProduct = new Guid();
 
@@ -137,16 +127,6 @@ namespace BLL.Services
         {
             return _productRepository.Find(productId);
         }
-
-        //public DAL.Product Get(BLL.Product Entity)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
-        //public IEnumerable<DAL.Product> Get(IEnumerable<Product> Entities)
-        //{
-        //    throw new NotImplementedException();
-        //}
     }
 }
 

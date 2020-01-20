@@ -7,14 +7,17 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Task5.Models;
-using DAL;
 
-namespace Task5.Controllers
+namespace DAL.Controllers
 {
     public class ManagersController : Controller
     {
-        private SalesEntities db = new SalesEntities();
+        private SalesEntities db;
+
+        public ManagersController(SalesEntities db)
+        {
+            this.db = db;
+        }
 
         // GET: Managers
         public async Task<ActionResult> Index()

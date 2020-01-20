@@ -30,8 +30,10 @@ namespace BLL
             unityContainer.RegisterSingleton<IService, ContactService>();
             unityContainer.RegisterSingleton<IService, ClientService>();
             unityContainer.RegisterSingleton<IService, ManagerService>();
-            unityContainer.RegisterSingleton<IService, ProductService>();
+            unityContainer.RegisterSingleton<IProductService, ProductService>();
             unityContainer.RegisterSingleton<IService, SaleService>();
+
+            unityContainer.RegisterType<DAL.Repository.IGenericRepository<DAL.Product>, DAL.Repository.GenericRepository<DAL.Product>>();
         }
     }
 }

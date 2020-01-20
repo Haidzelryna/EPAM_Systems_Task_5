@@ -1,6 +1,6 @@
 ﻿@using DevExtreme.AspNet.Mvc
 
-@model IEnumerable<DAL.Sale>
+@model IEnumerable<Sale>
 
 @{
     ViewBag.Title = "Sales";
@@ -24,7 +24,7 @@
     .Include("~/Scripts/aspnet/dx.aspnet.data.js")
     .Include("~/Scripts/aspnet/dx.aspnet.mvc.js"); }*@
 
-@(Html.DevExtreme().DataGrid<DAL.Sale>
+@(Html.DevExtreme().DataGrid<Sale>
                                 ()
                                 .ID("gridContainerSales")
 

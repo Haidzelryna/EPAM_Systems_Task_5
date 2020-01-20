@@ -3,7 +3,7 @@ using BLL.Model.BaseEntity;
 
 namespace BLL
 {
-    class Product: Entity
+    public class Product: Entity
     {
         public string Name { get; set; }
 

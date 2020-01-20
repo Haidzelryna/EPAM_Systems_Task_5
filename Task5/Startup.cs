@@ -1,7 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
 using Unity;
-using BLL;
 using AutoMapper;
 
 [assembly: OwinStartupAttribute(typeof(Task5.Startup))]
@@ -22,14 +21,14 @@ namespace Task5
 
             container.RegisterInstance(SetupMapper());
 
-            DAL.Facade.SetupDependencies(container);
+            BLL.Facade.SetupDependencies(container);
         }
 
         private IMapper SetupMapper()
         {
             var config = new MapperConfiguration(cfg =>
             {
-                DAL.Facade.SetupMapping(cfg);
+                BLL.Facade.SetupMapping(cfg);
 
                 cfg.CreateMap<BLL.Sale, Sale>();
                 cfg.CreateMap<BLL.Contact, Contact>();

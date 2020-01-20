@@ -7,13 +7,17 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using DAL;
 
-namespace Task5.Controllers
+namespace DAL.Controllers
 {
     public class ClientsController : Controller
     {
-        private SalesEntities db = new SalesEntities();
+        private SalesEntities db;
+
+        public ClientsController(SalesEntities db)
+        {
+            this.db = db;
+        }
 
         // GET: Clients
         public async Task<ActionResult> Index()

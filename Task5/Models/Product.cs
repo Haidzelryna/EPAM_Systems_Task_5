@@ -1,9 +1,9 @@
 ﻿
-using BLL.Model.BaseEntity;
+using Task5.Model.BaseEntity;
 
-namespace BLL
+namespace Task5
 {
-    class Product: Entity
+    public class Product: Entity
     {
         public string Name { get; set; }
 

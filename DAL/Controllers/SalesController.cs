@@ -2,10 +2,9 @@
 using System.Web.Mvc;
 using System.Data.Entity;
 using System.Threading.Tasks;
-using Task5.Models;
-using DAL;
 
-namespace DevExtreme.MVC.Demos.Controllers
+//namespace DevExtreme.MVC.Demos.Controllers
+namespace Task5.Controllers
 {
     public class SalesController : Controller
     {

@@ -1,47 +1,64 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using Task5.Models;
-using DAL;
+﻿//using DevExtreme.MVC.Demos.Models;
+//using DevExtreme.MVC.Demos.Models.DataGrid;
+//using DevExtreme.MVC.Demos.Models.SampleData;
 
-namespace Task5.Controllers
+
+
+using System;
+using System.Linq;
+using System.Web.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Data.Entity;
+using System.Net;
+
+namespace DAL.Controllers
 {
-    public class Contacts2Controller : Controller
+    public class ContactsController : Controller
     {
-        private SalesEntities db = new SalesEntities();
+        //For DevExtreme
+        //public ActionResult ColumnCustomization()
+        //{
+        //    return View(db.Contact.ToListAsync());
+        //}
+
+        private SalesEntities db;
+
+        public ContactsController(SalesEntities db)
+        {
+            this.db = db;
+        }
 
         // GET: Contacts
-        public async Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            return View(await db.Contact.ToListAsync());
+            //return View(await db.Contact.ToListAsync());
+
+            var i = db.Contact.ToList();
+
+            return View((IEnumerable<Contact>)db.Contact.ToList());
         }
 
         // GET: Contacts/Details/5
-        public async Task<ActionResult> Details(Guid? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Contact contact = await db.Contact.FindAsync(id);
-            if (contact == null)
-            {
-                return HttpNotFound();
-            }
-            return View(contact);
-        }
+        //public async Task<ActionResult> Details(Guid? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    Contact contact = await db.Contact.FindAsync(id);
+        //    if (contact == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+        //    return View(contact);
+        //}
 
-        // GET: Contacts/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+        //// GET: Contacts/Create
+        //public ActionResult Create()
+        //{
+        //    return View();
+        //}
 
         // POST: Contacts/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -118,13 +135,13 @@ namespace Task5.Controllers
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

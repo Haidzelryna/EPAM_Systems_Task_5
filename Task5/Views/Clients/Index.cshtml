@@ -1,6 +1,6 @@
 ﻿@using DevExtreme.AspNet.Mvc
 
-@model IEnumerable<DAL.Client>
+@model IEnumerable<Client>
 
 @{
     ViewBag.Title = "Cliens";
@@ -8,7 +8,7 @@
 
 <h2>Clients List</h2>
 
-@(Html.DevExtreme().DataGrid<DAL.Client>()
+@(Html.DevExtreme().DataGrid<Client>()
                 .ID("gridContainerClients")
 
                 .DataSource(Model)
@@ -57,7 +57,7 @@
                     .Caption("Contacts")
                     .Width(230)
                     .Fixed(true);
-                    columns.AddFor(m => m.Contact.FirstName);
+                    //columns.AddFor(m => m.Contact.FirstName);
                     columns.AddFor(m => m.Name);
                 })
 )
