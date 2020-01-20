@@ -81,19 +81,26 @@ namespace DAL.Controllers
             //return Json(result.OrderID);
         }
 
-        //// Update an order
-        //[HttpPut]
-        //public void Put(int key, string values)
-        //{
-        //    var order = await _saleService.FirstOrDefaultAsync(item => item.OrderID == key);
-        //    PopulateModel(order, JsonConvert.DeserializeObject<IDictionary>(values));
+       //// Update an order
+       ////[HttpPut]
+       // public async Task<ActionResult> Put()
+       // {
+       //     return new EmptyResult();
+       // }
 
-        //    if (!TryValidateModel(order))
-        //        return NewtonsoftJson(VALIDATION_ERROR, 400);
+        // Update an order
+        [HttpPut]
+        public async Task<ActionResult> Put(Guid key, string values)
+        {
+            var sale = await _saleService.FindAsync(Guid.Parse(key.ToString()));
+            PopulateModel(sale, JsonConvert.DeserializeObject<IDictionary>(values));
 
-        //    await _context.SaveChanges;
-        //    //return new EmptyResult();
-        //}
+            //if (!TryValidateModel(order))
+            //    return NewtonsoftJson(VALIDATION_ERROR, 400);
+
+            await _saleService.SaveChangesAsync();
+            return new EmptyResult();
+        }
 
         //// Remove an order
         //[HttpDelete]

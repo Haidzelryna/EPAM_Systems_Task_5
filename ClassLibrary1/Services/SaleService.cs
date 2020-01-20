@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
 using DAL.Repository;
 using System.Threading.Tasks;
@@ -31,6 +32,16 @@ namespace BLL.Services
             await _locker.LockAsync(async () =>
             {
                 result = await _saleRepository.GetAllAsync();
+            });
+            return result;
+        }
+
+        public async Task<DAL.Sale> FindAsync(Guid managerId)
+        {
+            DAL.Sale result = new DAL.Sale();
+            await _locker.LockAsync(async () =>
+            {
+                result = await _saleRepository.FindAsync(managerId);
             });
             return result;
         }

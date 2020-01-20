@@ -28,7 +28,10 @@
                                     ()
                                     .ID("gridContainerSales")
 
-                                    .DataSource(d => d.Mvc().Controller("SalesMVC").Key("Id").LoadAction("Get").InsertAction("Post"))
+                                    .DataSource(d => d.Mvc().Controller("SalesMVC").Key("Id")
+                                        .LoadAction("Get")
+                                        .InsertAction("Post")
+                                        .UpdateAction("Put"))
 
                                     .RemoteOperations(true)
 
@@ -37,7 +40,7 @@
                                     .Selection(s => s.Mode(SelectionMode.Single))
 
                                     .Editing(e => e
-                                    .Mode(GridEditMode.Cell)
+                                    .Mode(GridEditMode.Batch)
                                     .AllowAdding(true)
                                     .AllowDeleting(true)
                                     .AllowUpdating(true))
@@ -54,6 +57,8 @@
                                     .AllowedPageSizes(new[] { 10, 25, 50, 100 }))
 
                                     .HeaderFilter(headerFilter => headerFilter.Visible(true))
+
+                                     .FilterPanel(filterPanel => filterPanel.Visible(true))
 
                                     .FilterRow(filterRow => filterRow
                                     .Visible(true)
