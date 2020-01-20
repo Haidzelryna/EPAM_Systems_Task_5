@@ -92,7 +92,7 @@ namespace DAL.Controllers
         [HttpPut]
         public async Task<ActionResult> Put(Guid key, string values)
         {
-            var sale = await _saleService.FindAsync(Guid.Parse(key.ToString()));
+            var sale = await _saleService.FindAsync(key);
             PopulateModel(sale, JsonConvert.DeserializeObject<IDictionary>(values));
 
             //if (!TryValidateModel(order))
@@ -102,14 +102,14 @@ namespace DAL.Controllers
             return new EmptyResult();
         }
 
-        //// Remove an order
-        //[HttpDelete]
-        //public async Task Delete(int key)
-        //{
-        //    var order = await _context.Orders.FirstOrDefaultAsync(item => item.OrderID == key);
-        //    _context.Orders.Remove(order);
-        //    await _context.SaveChangesAsync();
-        //}
+        // Remove an order
+        [HttpDelete]
+        public async Task Delete(Guid key)
+        {
+            var sale = await _saleService.FindAsync(key);
+            _saleService.Remove(sale);
+            await _saleService.SaveChangesAsync();
+        }
 
         //void PopulateModel(Order order, IDictionary values)
         //{

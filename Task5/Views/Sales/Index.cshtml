@@ -31,7 +31,8 @@
                                     .DataSource(d => d.Mvc().Controller("SalesMVC").Key("Id")
                                         .LoadAction("Get")
                                         .InsertAction("Post")
-                                        .UpdateAction("Put"))
+                                        .UpdateAction("Put")
+                                        .DeleteAction("Delete"))
 
                                     .RemoteOperations(true)
 
