@@ -25,85 +25,151 @@
     .Include("~/Scripts/aspnet/dx.aspnet.mvc.js"); }*@
 
 @(Html.DevExtreme().DataGrid<BLL.Sale>
-                                ()
-                                .ID("gridContainerSales")
+                                    ()
+                                    .ID("gridContainerSales")
 
-                                //.DataSource(Model)
+                                    //.DataSource(Model)
 
-                                //.DataSource(d => d.WebApi().RouteName("SalesWebApi").Key("Id").LoadMethod("Get"))
+                                    //.DataSource(d => d.WebApi().RouteName("SalesWebApi").Key("Id").LoadMethod("Get"))
 
-                                .DataSource(d => d.Mvc().Controller("SalesMVC").Key("Id").LoadAction("Get").InsertAction("Post"))
-
-
-                                //.DataSource(Model)
+                                    .DataSource(d => d.Mvc().Controller("SalesMVC").Key("Id").LoadAction("Get").InsertAction("Post"))
 
 
-                                //.DataSource(d => d.WebApi().Controller("ABC").Key("Id").LoadMethod("Get"))
+                                    //.DataSource(Model)
 
-                                //.DataSource(ds => ds.WebApi()
-                                //    //.RouteName("SalesWebApi")
-                                //    .LoadMethod("api/SalesWebApi/Get")
-                                //    .LoadAction("Get")
-                                //    .InsertAction("Post")
-                                //    .UpdateAction("Put")
-                                //    .DeleteAction("Delete")
-                                //    .Key("Id"))
 
-                                //.DataSource(d => d.Mvc().Controller("SalesWebApi").Key("Id").LoadAction("Get"))
+                                    //.DataSource(d => d.WebApi().Controller("ABC").Key("Id").LoadMethod("Get"))
 
-                                .RemoteOperations(true)
+                                    //.DataSource(ds => ds.WebApi()
+                                    //    //.RouteName("SalesWebApi")
+                                    //    .LoadMethod("api/SalesWebApi/Get")
+                                    //    .LoadAction("Get")
+                                    //    .InsertAction("Post")
+                                    //    .UpdateAction("Put")
+                                    //    .DeleteAction("Delete")
+                                    //    .Key("Id"))
 
-                                .ShowBorders(true)
+                                    //.DataSource(d => d.Mvc().Controller("SalesWebApi").Key("Id").LoadAction("Get"))
 
-                                .Selection(s => s.Mode(SelectionMode.Single))
+                                    .RemoteOperations(true)
 
-                                .Editing(e => e
-                                .Mode(GridEditMode.Form)
-                                .AllowAdding(true)
-                                .AllowDeleting(true)
-                                .AllowUpdating(true)
-                                )
+                                    .ShowBorders(true)
 
-                                .SearchPanel(searchPanel => searchPanel
-                                .Visible(true)
-                                .Width(240)
-                                .Placeholder("Search..."))
+                                    .Selection(s => s.Mode(SelectionMode.Single))
 
-                                .Paging(p => p.PageSize(10))
+                                    .Editing(e => e
+                                    .Mode(GridEditMode.Cell)
+                                    .AllowAdding(true)
+                                    .AllowDeleting(true)
+                                    .AllowUpdating(true))
 
-                                .Pager(p => p
-                                .ShowPageSizeSelector(true)
-                                .AllowedPageSizes(new[] { 10, 25, 50, 100 }))
+                                    .SearchPanel(searchPanel => searchPanel
+                                    .Visible(true)
+                                    .Width(240)
+                                    .Placeholder("Search..."))
 
-                                .HeaderFilter(headerFilter => headerFilter.Visible(true))
+                                    .Paging(p => p.PageSize(10))
 
-                                .FilterRow(filterRow => filterRow
-                                .Visible(true)
-                                .ApplyFilter(GridApplyFilterMode.Auto))
+                                    .Pager(p => p
+                                    .ShowPageSizeSelector(true)
+                                    .AllowedPageSizes(new[] { 10, 25, 50, 100 }))
 
-                                .AllowColumnReordering(true)
-                                .AllowColumnResizing(true)
-                                .ColumnAutoWidth(true)
-                                .ShowBorders(true)
-                                .ColumnChooser(c => c.Enabled(true))
-                                .ColumnFixing(c => c.Enabled(true))
+                                    .HeaderFilter(headerFilter => headerFilter.Visible(true))
 
-                                .Columns(columns =>
-                                {
-                                    columns.Add()
-                                      .DataField("Date")
-                                      .DataType(GridColumnDataType.Date);
-                                    columns.AddFor(m => m.ClientName);
-                                    //.Width(125)
-                                    //.Lookup(lookup => lookup
-                                    //.DataSource(d => d.Mvc.Controller("SalesWebApi").LoadAction("ClientLookup").Key("Id"))
-                                    //.DisplayExpr("Name")
-                                    //.ValueExpr("Id"));
-                                    columns.AddFor(m => m.ProductName);
-                                    columns.AddFor(m => m.Sum);
-                                }
+                                    .FilterRow(filterRow => filterRow
+                                    .Visible(true)
+                                    .ApplyFilter(GridApplyFilterMode.Auto))
 
-                                )
+                                    .AllowColumnReordering(true)
+                                    .AllowColumnResizing(true)
+                                    .ColumnAutoWidth(true)
+                                    .ShowBorders(true)
+                                    .ColumnChooser(c => c.Enabled(true))
+                                    .ColumnFixing(c => c.Enabled(true))
+
+                                    .Columns(columns =>
+                                    {
+                                        columns.Add()
+                                          .DataField("Date")
+                                          .DataType(GridColumnDataType.Date);
+                                        columns.AddFor(m => m.ClientName);
+
+                                        columns.AddFor(m => m.ProductName);
+                                        columns.AddFor(m => m.Sum);
+                                        //columns.Add()
+                                        //    .Caption("Clients")
+                                        //    .Width(125)
+                                        //    .Lookup(lookup => lookup
+                                        //    .DataSource(d => d.Mvc().Controller("SalesMVC").Key("Id").LoadAction("ClientLookup"))
+                                        //    .DisplayExpr("Name")
+                                        //    .ValueExpr("Id"));
+                                    })
+
+
+
+     @*.columns: [{
+                dataField: "CustomerID",
+                caption: "Customer",
+                validationRules: [{
+                    type: "stringLength",
+                    message: "The field Customer must be a string with a maximum length of 5.",
+                    max: 5
+                }],
+                lookup: {
+                    dataSource: DevExpress.data.AspNet.createStore({
+                        key: "Value",
+                        loadUrl: url + "/CustomersLookup",
+                        onBeforeSend: function(method, ajaxOptions)
+        {
+            ajaxOptions.xhrFields = { withCredentials: true };
+        }
+    }),
+                    valueExpr: "Value",
+                    displayExpr: "Text"
+                }
+            }, { 
+                dataField: "OrderDate",
+                dataType: "date",
+                validationRules: [{
+                    type: "required",
+                    message: "The OrderDate field is required."
+                }]
+            }, { 
+                dataField: "Freight",
+                headerFilter: {
+                    groupInterval: 100
+                },
+                validationRules: [{
+                    type: "range",
+                    message: "The field Freight must be between 0 and 2000.",
+                    min: 0,
+                    max: 2000
+                }]
+            }, {
+                dataField: "ShipCountry",
+                validationRules: [{
+                    type: "stringLength",
+                    message: "The field ShipCountry must be a string with a maximum length of 15.",
+                    max: 15
+                }]
+            }, {
+                dataField: "ShipVia",
+                caption: "Shipping Company",
+                dataType: "number",
+                lookup: {
+                    dataSource: DevExpress.data.AspNet.createStore({
+                        key: "Value",
+                        loadUrl: url + "/ShippersLookup",
+                        onBeforeSend: function(method, ajaxOptions)
+    {
+        ajaxOptions.xhrFields = { withCredentials: true };
+    }
+                    }),
+                    valueExpr: "Value",
+                    displayExpr: "Text"
+                }
+            }
+        ]*@
 )
 
 @(Html.DevExtreme().Button()

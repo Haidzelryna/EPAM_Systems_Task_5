@@ -111,17 +111,20 @@ namespace DAL.Controllers
         [HttpGet]
         public async Task<ActionResult> ClientLookup(DataSourceLoadOptions loadOptions)
         {
+            loadOptions.RequireTotalCount = false;
+
             var Clients = await _clientService.GetAllAsync();
 
-            var lookup = from i in _mapper.Map<IEnumerable<BLL.Client>>(Clients)
-                         orderby i.Name
-                         select new
-                         {
-                             Value = i.Id,
-                             Text = i.Name
-                         };
+            //var lookup = from i in _mapper.Map<IEnumerable<BLL.Client>>(Clients)
+            //             orderby i.Name
+            //             select new
+            //             {
+            //                 Value = i.Id,
+            //                 Text = i.Name
+            //             };
 
-            return Json(await Task.Run(() => DataSourceLoader.Load(lookup, loadOptions)), JsonRequestBehavior.AllowGet);
+            return Json(await Task.Run(() => DataSourceLoader.Load(_mapper.Map<IEnumerable<BLL.Client>>(Clients), loadOptions)), JsonRequestBehavior.AllowGet);
+            //return Json(await DataSourceLoader.LoadAsync((IQueryable)lookup, loadOptions));
         }
 
         [HttpGet]
