@@ -8,52 +8,54 @@
 
 <h2>Managers List</h2>
 
+<script src="https://unpkg.com/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
+
 @(Html.DevExtreme().DataGrid<BLL.Manager>()
-                    .ID("gridContainerManagers")
+                        .ID("gridContainerManagers")
 
-                    .DataSource(Model)
+                        .DataSource(d => d.Mvc().Controller("ManagersMVC").Key("Id").LoadAction("Get"))
 
-                    .ShowBorders(true)
+                        .ShowBorders(true)
 
-                    .Selection(s => s.Mode(SelectionMode.Single))
+                        .Selection(s => s.Mode(SelectionMode.Single))
 
-                    .Editing(e => e
-                        .Mode(GridEditMode.Form)
-                        .AllowAdding(true)
-                        .AllowDeleting(true)
-                        .AllowUpdating(true)
-                    )
+                        .Editing(e => e
+                            .Mode(GridEditMode.Form)
+                            .AllowAdding(true)
+                            .AllowDeleting(true)
+                            .AllowUpdating(true)
+                        )
 
-                    .SearchPanel(searchPanel => searchPanel
-                        .Visible(true)
-                        .Width(240)
-                        .Placeholder("Search...")
-                    )
+                        .SearchPanel(searchPanel => searchPanel
+                            .Visible(true)
+                            .Width(240)
+                            .Placeholder("Search...")
+                        )
 
-                    .Paging(p => p.PageSize(10))
+                        .Paging(p => p.PageSize(10))
 
-                    .Pager(p => p
-                        .ShowPageSizeSelector(true)
-                        .AllowedPageSizes(new[] { 10, 25, 50, 100 })
-                    )
+                        .Pager(p => p
+                            .ShowPageSizeSelector(true)
+                            .AllowedPageSizes(new[] { 10, 25, 50, 100 })
+                        )
 
-                    .HeaderFilter(headerFilter => headerFilter.Visible(true))
+                        .HeaderFilter(headerFilter => headerFilter.Visible(true))
 
-                      .FilterRow(filterRow => filterRow
-                        .Visible(true)
-                        .ApplyFilter(GridApplyFilterMode.Auto)
-                    )
+                          .FilterRow(filterRow => filterRow
+                            .Visible(true)
+                            .ApplyFilter(GridApplyFilterMode.Auto)
+                        )
 
-                    .AllowColumnReordering(true)
-                    .AllowColumnResizing(true)
-                    .ColumnAutoWidth(true)
-                    .ShowBorders(true)
-                    .ColumnChooser(c => c.Enabled(true))
-                    .ColumnFixing(c => c.Enabled(true))
+                        .AllowColumnReordering(true)
+                        .AllowColumnResizing(true)
+                        .ColumnAutoWidth(true)
+                        .ShowBorders(true)
+                        .ColumnChooser(c => c.Enabled(true))
+                        .ColumnFixing(c => c.Enabled(true))
 
-                    .Columns(columns =>
-                    {
-                        //columns.AddFor(m => m.Contact.FirstName);
-                        columns.AddFor(m => m.Name);
-                    })
+                        .Columns(columns =>
+                        {
+                //columns.AddFor(m => m.Contact.FirstName);
+                columns.AddFor(m => m.Name);
+                        })
 )

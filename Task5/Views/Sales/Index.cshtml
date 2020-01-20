@@ -28,28 +28,7 @@
                                     ()
                                     .ID("gridContainerSales")
 
-                                    //.DataSource(Model)
-
-                                    //.DataSource(d => d.WebApi().RouteName("SalesWebApi").Key("Id").LoadMethod("Get"))
-
                                     .DataSource(d => d.Mvc().Controller("SalesMVC").Key("Id").LoadAction("Get").InsertAction("Post"))
-
-
-                                    //.DataSource(Model)
-
-
-                                    //.DataSource(d => d.WebApi().Controller("ABC").Key("Id").LoadMethod("Get"))
-
-                                    //.DataSource(ds => ds.WebApi()
-                                    //    //.RouteName("SalesWebApi")
-                                    //    .LoadMethod("api/SalesWebApi/Get")
-                                    //    .LoadAction("Get")
-                                    //    .InsertAction("Post")
-                                    //    .UpdateAction("Put")
-                                    //    .DeleteAction("Delete")
-                                    //    .Key("Id"))
-
-                                    //.DataSource(d => d.Mvc().Controller("SalesWebApi").Key("Id").LoadAction("Get"))
 
                                     .RemoteOperations(true)
 
@@ -93,17 +72,32 @@
                                           .DataField("Date")
                                           .DataType(GridColumnDataType.Date);
                                         columns.AddFor(m => m.ClientName);
-
                                         columns.AddFor(m => m.ProductName);
                                         columns.AddFor(m => m.Sum);
                                         columns.Add()
-                                        .DataField("Client.Id")
-                                        .Caption("Clients")
-                                        .Width(125)
-                                        .Lookup(lookup => lookup
-                                        .DataSource(d => d.Mvc().Controller("ClientsMVC").Key("Id").LoadAction("Get"))
-                                        .DisplayExpr("Name")
-                                        .ValueExpr("Id"));
+                                            .DataField("Client.Id")
+                                            .Caption("Client")
+                                            .Width(125)
+                                            .Lookup(lookup => lookup
+                                            .DataSource(d => d.Mvc().Controller("ClientsMVC").Key("Id").LoadAction("Get"))
+                                            .DisplayExpr("Name")
+                                            .ValueExpr("Id"));
+                                        columns.Add()
+                                            .DataField("Product.Id")
+                                            .Caption("Product")
+                                            .Width(125)
+                                            .Lookup(lookup => lookup
+                                            .DataSource(d => d.Mvc().Controller("ProductsMVC").Key("Id").LoadAction("Get"))
+                                            .DisplayExpr("Name")
+                                            .ValueExpr("Id"));
+                                        columns.Add()
+                                           .DataField("Manager.Id")
+                                           .Caption("Manager")
+                                           .Width(125)
+                                           .Lookup(lookup => lookup
+                                           .DataSource(d => d.Mvc().Controller("ManagersMVC").Key("Id").LoadAction("Get"))
+                                           .DisplayExpr("Name")
+                                           .ValueExpr("Id"));
                                     })
 
 

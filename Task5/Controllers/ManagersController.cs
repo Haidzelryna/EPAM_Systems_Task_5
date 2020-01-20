@@ -24,8 +24,10 @@ namespace DAL.Controllers
             //var manager = db.Manager.Include(m => m.Contact);
             //return View(await manager.ToListAsync());
 
-            var bllEntities = await _managerService.GetAllAsync();
-            return View(_mapper.Map<IEnumerable<BLL.Manager>>(bllEntities));
+            //var bllEntities = await _managerService.GetAllAsync();
+            //return View(_mapper.Map<IEnumerable<BLL.Manager>>(bllEntities));
+
+            return View();
         }
 
         //// GET: Managers/Details/5

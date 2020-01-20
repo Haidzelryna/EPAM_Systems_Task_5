@@ -229,6 +229,7 @@
     <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="Controllers\ClientsMVCController.cs" />
     <Compile Include="Controllers\ProductsMVCController.cs" />
+    <Compile Include="Controllers\ManagersMVCController.cs" />
     <Compile Include="Controllers\SalesMVCController.cs" />
     <Compile Include="Controllers\SalesWebApiController.cs" />
     <Compile Include="Global.asax.cs">

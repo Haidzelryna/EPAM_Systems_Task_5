@@ -8,7 +8,7 @@ namespace BLL
 {
     public class Sale: BaseEntity
     {
-        public DateTime? Date { get; set; }
+        public DateTime Date { get; set; }
 
         public string ClientName { get; set; }
 

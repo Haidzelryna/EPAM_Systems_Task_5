@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
 using Newtonsoft.Json;
-using System.Linq;
+using System;
 using System.Collections;
 using System.Data.Entity;
 using System.Linq;
@@ -28,7 +28,7 @@ using System.Web.Mvc;
 
 namespace DAL.Controllers
 {
-    public class SalesMVCController : Controller
+    public class ManagersMVCController : Controller
     {
         private SalesEntities db = new SalesEntities();
 
@@ -39,18 +39,13 @@ namespace DAL.Controllers
         //    return View(await sale.ToListAsync());
         //}
 
-        private const string ADMINID = "80AB7036-5D4A-11E6-9903-0050569977A1";
-        private static Guid adminGuid = Guid.Parse(ADMINID);
-
-        //80ab7036-5d4a-11e6-9903-0050569977a1
-
         const string VALIDATION_ERROR = "The request failed due to a validation error";
 
         private static IMapper _mapper = BLL.Mapper.SetupMapping.SetupMapper();
-        private readonly SaleService _saleService = new SaleService(_mapper);
-        private readonly ClientService _clientService = new ClientService(_mapper);
-        private readonly ManagerService _managerService = new ManagerService(_mapper);
-        private readonly ProductService _productService = new ProductService(_mapper);
+        //private readonly SaleService _saleService = new SaleService(_mapper);
+        //private readonly ClientService _clientService = new ClientService(_mapper);
+        private readonly ManagerService _managersService = new ManagerService(_mapper);
+        //private readonly ProductService _productService = new ProductService(_mapper);
 
         // Load orders according to load options
         [HttpGet]
@@ -58,28 +53,25 @@ namespace DAL.Controllers
         {
             loadOptions.RequireTotalCount = false;
 
-            var bllEntities = await _saleService.GetAllAsync();
+            var bllEntities = await _managersService.GetAllAsync();
 
-            return Json(await Task.Run(() => DataSourceLoader.Load(_mapper.Map<IEnumerable<BLL.Sale>>(bllEntities), loadOptions)), JsonRequestBehavior.AllowGet);
+            return Json(await Task.Run(() => DataSourceLoader.Load(_mapper.Map<IEnumerable<BLL.Manager>>(bllEntities), loadOptions)), JsonRequestBehavior.AllowGet);
         }
 
-        // Insert a new order
-        [HttpPost]
-        public void Post(string values)
-        {
-            var newSale = new Sale();
-            PopulateModel(newSale, JsonConvert.DeserializeObject<IDictionary>(values));
+        //// Insert a new order
+        //[HttpPost]
+        //public void Post(string values)
+        //{
+        //    var newSale = new Sale();
+        //    //PopulateModel(newSale, JsonConvert.DeserializeObject<IDictionary>(values));
 
-            //if (!TryValidateModel(newSale))
-            //    return Json(VALIDATION_ERROR, "400");
+        //    //if (!TryValidateModel(newSale))
+        //        //return Json(VALIDATION_ERROR, "400");
 
-            newSale.CreatedByUserId = adminGuid;
-            newSale.CreatedDateTime = DateTime.UtcNow;
-
-            _saleService.Add(newSale);
-            //_saleService.SaveChanges();
-            //return Json(result.OrderID);
-        }
+        //    _saleService.Add(newSale);
+        //    _saleService.SaveChanges();
+        //    //return Json(result.OrderID);
+        //}
 
         //// Update an order
         //[HttpPut]
@@ -120,8 +112,8 @@ namespace DAL.Controllers
         private void PopulateModel(Sale model, IDictionary values)
         {
             string ID = nameof(Sale.Id);
-            string CLIENT_ID = nameof(Sale.Client);
-            string PRODUCT_ID = nameof(Sale.Product);
+            string CLIENT_ID = nameof(Sale.ClientId);
+            string PRODUCT_ID = nameof(Sale.ProductId);
             string SUM = nameof(Sale.Sum);
             string DATE = nameof(Sale.Date);
             string CLIENT_NAME = nameof(Sale.ClientName);
@@ -136,14 +128,12 @@ namespace DAL.Controllers
 
             if (values.Contains(CLIENT_ID))
             {
-                var guidClient = ((Newtonsoft.Json.Linq.JValue)((Newtonsoft.Json.Linq.JContainer)((Newtonsoft.Json.Linq.JContainer)values["Client"]).First).First).Value;
-                model.ClientId = Guid.Parse(guidClient.ToString());
+                model.ClientId = Guid.Parse(values[CLIENT_ID].ToString());
             }
 
             if (values.Contains(PRODUCT_ID))
             {
-                var guidProduct = ((Newtonsoft.Json.Linq.JValue)((Newtonsoft.Json.Linq.JContainer)((Newtonsoft.Json.Linq.JContainer)values["Product"]).First).First).Value;
-                model.ProductId = Guid.Parse(guidProduct.ToString());
+                model.ProductId = Guid.Parse(values[PRODUCT_ID].ToString());
             }
 
             if (values.Contains(SUM))
