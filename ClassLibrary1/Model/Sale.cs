@@ -4,7 +4,7 @@ using BLL.Model.BaseEntity;
 
 namespace BLL
 {
-    public class Sale//: BaseEntity
+    public class Sale: BaseEntity
     {
         public DateTime? Date { get; set; }
 

@@ -38,19 +38,9 @@ namespace BLL.Services
             return result;
         }
 
-        public async Task<IEnumerable<DAL.Client>> GetAll()
-        {
-            IEnumerable<DAL.Client> result = Enumerable.Empty<DAL.Client>();
-            await _locker.LockAsync(async () =>
-            {
-                result = await _clientRepository.GetAllAsync();
-            });
-            return result;
-        }
-
         public async Task<bool> Check(IEnumerable<string> clientsCheck)
         {
-            IEnumerable<DAL.Client> clients = await GetAll();
+            IEnumerable<DAL.Client> clients = await GetAllAsync();
             foreach (string clientName in clientsCheck)
             {
                 if (clients.Select(c => c.Name).ToList().Contains(clientName) == false)
@@ -66,7 +56,7 @@ namespace BLL.Services
         {
             var _contactRepository = new GenericRepository<DAL.Contact>();
 
-            IEnumerable<DAL.Client> clients = await GetAll();
+            IEnumerable<DAL.Client> clients = await GetAllAsync();
 
             foreach (var sale in Entities)
             {
@@ -97,7 +87,7 @@ namespace BLL.Services
                         //SaveChanges();
                         idClient = client.Id;
 
-                        clients = await GetAll();
+                        clients = await GetAllAsync();
                     }
                 }
                 //создать в БД
@@ -116,7 +106,7 @@ namespace BLL.Services
                     Add(client);
                     idClient = client.Id;
 
-                    clients = await GetAll();
+                    clients = await GetAllAsync();
                 }
                 sale.ClientId = idClient;
             }

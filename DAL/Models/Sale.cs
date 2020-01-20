@@ -11,7 +11,8 @@ namespace DAL
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Runtime.Serialization;
+
     public partial class Sale: Entity
     {
         //public System.Guid Id { get; set; }
@@ -23,7 +24,7 @@ namespace DAL
         public string ProductName { get; set; }
         public System.Guid CreatedByUserId { get; set; }
         public System.DateTime CreatedDateTime { get; set; }
-    
+
         public virtual Client Client { get; set; }
         public virtual Manager Manager { get; set; }
         public virtual Product Product { get; set; }

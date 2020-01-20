@@ -23,11 +23,11 @@ namespace Task5.Controllers
 
         public async Task<ActionResult> Index()
         {
-            //return View(await db.Sale.ToListAsync());
-            //return View();
+           // return View(await db.Sale.ToListAsync());
+            return View();
 
-            var bllEntities = await _saleService.GetAllAsync();
-            return View(_mapper.Map<IEnumerable<BLL.Sale>>(bllEntities));
+            //var bllEntities = await _saleService.GetAllAsync();
+            //return View(_mapper.Map<IEnumerable<BLL.Sale>>(bllEntities));
         }
     }
 }

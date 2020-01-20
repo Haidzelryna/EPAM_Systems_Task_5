@@ -32,7 +32,7 @@
 
                                 //.DataSource(d => d.WebApi().RouteName("SalesWebApi").Key("Id").LoadMethod("Get"))
 
-                                .DataSource(d => d.Mvc().Controller("SalesMVC").Key("Id").LoadAction("Get"))
+                                .DataSource(d => d.Mvc().Controller("SalesMVC").Key("Id").LoadAction("Get").InsertAction("Post"))
 
 
                                 //.DataSource(Model)
@@ -90,17 +90,17 @@
 
                                 .Columns(columns =>
                                 {
-                                    //columns.AddFor(m => m.Date);
-                                    //columns.AddFor(m => m.Client)
+                                    columns.Add()
+                                      .DataField("Date")
+                                      .DataType(GridColumnDataType.Date);
+                                    columns.AddFor(m => m.ClientName);
                                     //.Width(125)
                                     //.Lookup(lookup => lookup
-                                    ////.DataSource(d => d.WebApi().Controller("SalesWebApi").LoadAction("ClientLookup").Key("Id"))
+                                    //.DataSource(d => d.Mvc.Controller("SalesWebApi").LoadAction("ClientLookup").Key("Id"))
                                     //.DisplayExpr("Name")
                                     //.ValueExpr("Id"));
                                     columns.AddFor(m => m.ProductName);
-                                    //columns.Add()
-                                    //.DataField("C1")
-                                    //.DataType(GridColumnDataType.String);
+                                    columns.AddFor(m => m.Sum);
                                 }
 
                                 )
