@@ -4,7 +4,7 @@ using BLL.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DAL.Controllers
+namespace Task5.Controllers
 {
     public class ProductsController : Controller
     {      
@@ -14,8 +14,10 @@ namespace DAL.Controllers
         //GET: Products
         public async Task<ActionResult> Index()
         {
-            var bllEntities = await _productService.GetAllAsync();
-            return View(_mapper.Map<IEnumerable<BLL.Product>>(bllEntities));
+            //var bllEntities = await _productService.GetAllAsync();
+            //return View(_mapper.Map<IEnumerable<BLL.Product>>(bllEntities));
+
+            return View();
         }
 
         //// GET: Products/Details/5

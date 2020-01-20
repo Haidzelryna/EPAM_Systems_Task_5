@@ -8,10 +8,14 @@
 
 <h2>Clients List</h2>
 
+<script src="https://unpkg.com/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
+
 @(Html.DevExtreme().DataGrid<BLL.Client>()
                 .ID("gridContainerClients")
 
-                .DataSource(Model)
+                 //.DataSource(Model)
+
+                 .DataSource(d => d.Mvc().Controller("ClientsMVC").Key("Id").LoadAction("Get"))
 
                 .ShowBorders(true)
 
@@ -53,10 +57,10 @@
 
                 .Columns(columns =>
                 {
-                    columns.Add()
-                    .Caption("Contacts")
-                    .Width(230)
-                    .Fixed(true);
+                    //columns.Add()
+                    //.Caption("Contacts")
+                    //.Width(230)
+                    //.Fixed(true);
                     //columns.AddFor(m => m.Contact.FirstName);
                     columns.AddFor(m => m.Name);
                 })

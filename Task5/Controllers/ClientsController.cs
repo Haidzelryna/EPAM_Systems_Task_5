@@ -21,8 +21,9 @@ namespace DAL.Controllers
         // GET: Clients
         public async Task<ActionResult> Index()
         {
-            var bllEntities = await _clientService.GetAllAsync();
-            return View(_mapper.Map<IEnumerable<BLL.Client>>(bllEntities));
+            //var bllEntities = await _clientService.GetAllAsync();
+            //return View(_mapper.Map<IEnumerable<BLL.Client>>(bllEntities));
+            return View();
         }
 
         // GET: Clients/Details/5

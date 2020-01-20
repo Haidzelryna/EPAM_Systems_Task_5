@@ -8,10 +8,14 @@
 
 <h2>Products List</h2>
 
+<script src="https://unpkg.com/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
+
 @(Html.DevExtreme().DataGrid<BLL.Product>()
     .ID("gridContainerProducts")
 
-    .DataSource(Model)
+    //.DataSource(Model)
+
+    .DataSource(d => d.Mvc().Controller("ProductsMVC").Key("Id").LoadAction("Get"))
 
     .ShowBorders(true)
 

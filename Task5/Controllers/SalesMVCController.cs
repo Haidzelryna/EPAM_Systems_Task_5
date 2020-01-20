@@ -108,57 +108,7 @@ namespace DAL.Controllers
         //        order.ShipCity = Convert.ToString(values["ShipCity"]);
         //}
 
-        [HttpGet]
-        public async Task<ActionResult> ClientLookup(DataSourceLoadOptions loadOptions)
-        {
-            loadOptions.RequireTotalCount = false;
-
-            var Clients = await _clientService.GetAllAsync();
-
-            //var lookup = from i in _mapper.Map<IEnumerable<BLL.Client>>(Clients)
-            //             orderby i.Name
-            //             select new
-            //             {
-            //                 Value = i.Id,
-            //                 Text = i.Name
-            //             };
-
-            return Json(await Task.Run(() => DataSourceLoader.Load(_mapper.Map<IEnumerable<BLL.Client>>(Clients), loadOptions)), JsonRequestBehavior.AllowGet);
-            //return Json(await DataSourceLoader.LoadAsync((IQueryable)lookup, loadOptions));
-        }
-
-        [HttpGet]
-        public async Task<ActionResult> ManagerLookup(DataSourceLoadOptions loadOptions)
-        {
-            var Managers = await _managerService.GetAllAsync();
-
-            var lookup = from i in _mapper.Map<IEnumerable<BLL.Manager>>(Managers)
-                         orderby i.Name
-                         select new
-                         {
-                             Value = i.Id,
-                             Text = i.Name
-                         };
-
-            return Json(await Task.Run(() => DataSourceLoader.Load(lookup, loadOptions)), JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpGet]
-        public async Task<ActionResult> ProductLookup(DataSourceLoadOptions loadOptions)
-        {
-            var Products = await _productService.GetAllAsync();
-
-            var lookup = from i in _mapper.Map<IEnumerable<BLL.Product>>(Products)
-                         orderby i.Name
-                         select new
-                         {
-                             Value = i.Id,
-                             Text = i.Name
-                         };
-
-            return Json(await Task.Run(() => DataSourceLoader.Load(lookup, loadOptions)), JsonRequestBehavior.AllowGet);
-        }
-
+ 
         private void PopulateModel(Sale model, IDictionary values)
         {
             string ID = nameof(Sale.Id);
@@ -216,12 +166,6 @@ namespace DAL.Controllers
                 model.CreatedDateTime = Convert.ToDateTime(values[CREATED_DATE_TIME]);
             }
         }
-
-        //ActionResult NewtonsoftJson(object obj, int statusCode = 200)
-        //{
-        //    Response.StatusCode = statusCode;
-        //    return Content(JsonConvert.SerializeObject(obj), "application/json");
-        //}
 
         //protected override void Dispose(bool disposing)
         //{

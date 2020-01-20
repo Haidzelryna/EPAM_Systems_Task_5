@@ -96,13 +96,14 @@
 
                                         columns.AddFor(m => m.ProductName);
                                         columns.AddFor(m => m.Sum);
-                                        //columns.Add()
-                                        //    .Caption("Clients")
-                                        //    .Width(125)
-                                        //    .Lookup(lookup => lookup
-                                        //    .DataSource(d => d.Mvc().Controller("SalesMVC").Key("Id").LoadAction("ClientLookup"))
-                                        //    .DisplayExpr("Name")
-                                        //    .ValueExpr("Id"));
+                                        columns.Add()
+                                        .DataField("Client.Id")
+                                        .Caption("Clients")
+                                        .Width(125)
+                                        .Lookup(lookup => lookup
+                                        .DataSource(d => d.Mvc().Controller("ClientsMVC").Key("Id").LoadAction("Get"))
+                                        .DisplayExpr("Name")
+                                        .ValueExpr("Id"));
                                     })
 
 
