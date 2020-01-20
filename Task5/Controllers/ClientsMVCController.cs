@@ -1,30 +1,13 @@
-﻿
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using DevExtreme.AspNet.Mvc;
-
 using DevExtreme.AspNet.Data;
 using Newtonsoft.Json;
-
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Web.Mvc;
-using System.Threading.Tasks;
 using AutoMapper;
 using BLL.Services;
-using System.Collections.Generic;
-
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Mvc;
-using Newtonsoft.Json;
-using System;
 using System.Collections;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace DAL.Controllers
 {
@@ -38,7 +21,7 @@ namespace DAL.Controllers
         private static IMapper _mapper = BLL.Mapper.SetupMapping.SetupMapper();
         private readonly ClientService _clientService = new ClientService(_mapper);
 
-        // Load orders according to load options
+        // Load clients according to load options
         [HttpGet]
         public async Task<ActionResult> Get(DataSourceLoadOptions loadOptions)
         {
@@ -49,7 +32,7 @@ namespace DAL.Controllers
             return Json(await Task.Run(() => DataSourceLoader.Load(_mapper.Map<IEnumerable<BLL.Client>>(bllEntities), loadOptions)), JsonRequestBehavior.AllowGet);
         }
 
-        // Insert a new sale
+        // Insert a new client
         [HttpPost]
         public void Post(string values)
         {
@@ -64,7 +47,7 @@ namespace DAL.Controllers
             //return Json(result.OrderID);
         }
 
-        // Update an sale
+        // Update an client
         [HttpPut]
         public async Task<ActionResult> Put(Guid key, string values)
         {
@@ -78,7 +61,7 @@ namespace DAL.Controllers
             return new EmptyResult();
         }
 
-        // Remove an sale
+        // Remove an client
         [HttpDelete]
         public async Task Delete(Guid key)
         {
@@ -86,69 +69,6 @@ namespace DAL.Controllers
             _clientService.Remove(sale);
             await _clientService.SaveChangesAsync();
         }
-
-        //void PopulateModel(Order order, IDictionary values)
-        //{
-        //    if (values.Contains("OrderID"))
-        //        order.OrderID = Convert.ToInt32(values["OrderID"]);
-
-        //    if (values.Contains("OrderDate"))
-        //        order.OrderDate = values["OrderDate"] != null ? Convert.ToDateTime(values["OrderDate"]) : (DateTime?)null;
-
-        //    if (values.Contains("ShipCity"))
-        //        order.ShipCity = Convert.ToString(values["ShipCity"]);
-        //}
-
-        //[HttpGet]
-        //public async Task<ActionResult> ClientLookup(DataSourceLoadOptions loadOptions)
-        //{
-        //    loadOptions.RequireTotalCount = false;
-
-        //    var Clients = await _clientService.GetAllAsync();
-
-        //    //var lookup = from i in _mapper.Map<IEnumerable<BLL.Client>>(Clients)
-        //    //             orderby i.Name
-        //    //             select new
-        //    //             {
-        //    //                 Value = i.Id,
-        //    //                 Text = i.Name
-        //    //             };
-
-        //    return Json(await Task.Run(() => DataSourceLoader.Load(_mapper.Map<IEnumerable<BLL.Client>>(Clients), loadOptions)), JsonRequestBehavior.AllowGet);
-        //    //return Json(await DataSourceLoader.LoadAsync((IQueryable)lookup, loadOptions));
-        //}
-
-        //[HttpGet]
-        //public async Task<ActionResult> ManagerLookup(DataSourceLoadOptions loadOptions)
-        //{
-        //    var Managers = await _managerService.GetAllAsync();
-
-        //    var lookup = from i in _mapper.Map<IEnumerable<BLL.Manager>>(Managers)
-        //                 orderby i.Name
-        //                 select new
-        //                 {
-        //                     Value = i.Id,
-        //                     Text = i.Name
-        //                 };
-
-        //    return Json(await Task.Run(() => DataSourceLoader.Load(lookup, loadOptions)), JsonRequestBehavior.AllowGet);
-        //}
-
-        //[HttpGet]
-        //public async Task<ActionResult> ProductLookup(DataSourceLoadOptions loadOptions)
-        //{
-        //    var Products = await _productService.GetAllAsync();
-
-        //    var lookup = from i in _mapper.Map<IEnumerable<BLL.Product>>(Products)
-        //                 orderby i.Name
-        //                 select new
-        //                 {
-        //                     Value = i.Id,
-        //                     Text = i.Name
-        //                 };
-
-        //    return Json(await Task.Run(() => DataSourceLoader.Load(lookup, loadOptions)), JsonRequestBehavior.AllowGet);
-        //}
 
         private void PopulateModel(Client model, IDictionary values)
         {
@@ -172,20 +92,5 @@ namespace DAL.Controllers
                 model.ContactId = Guid.Parse(guidClient.ToString());
             }
         }
-
-        //ActionResult NewtonsoftJson(object obj, int statusCode = 200)
-        //{
-        //    Response.StatusCode = statusCode;
-        //    return Content(JsonConvert.SerializeObject(obj), "application/json");
-        //}
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        _context.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
     }
 }

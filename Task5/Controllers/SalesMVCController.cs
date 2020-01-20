@@ -1,30 +1,13 @@
-﻿
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Web.Mvc;
 using DevExtreme.AspNet.Mvc;
-
 using DevExtreme.AspNet.Data;
 using Newtonsoft.Json;
-
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Web.Mvc;
-using System.Threading.Tasks;
 using AutoMapper;
 using BLL.Services;
-using System.Collections.Generic;
-
-using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Mvc;
-using Newtonsoft.Json;
-using System.Linq;
 using System.Collections;
-using System.Data.Entity;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web.Mvc;
 
 namespace DAL.Controllers
 {
@@ -89,19 +72,6 @@ namespace DAL.Controllers
             _saleService.Remove(sale);
             await _saleService.SaveChangesAsync();
         }
-
-        //void PopulateModel(Order order, IDictionary values)
-        //{
-        //    if (values.Contains("OrderID"))
-        //        order.OrderID = Convert.ToInt32(values["OrderID"]);
-
-        //    if (values.Contains("OrderDate"))
-        //        order.OrderDate = values["OrderDate"] != null ? Convert.ToDateTime(values["OrderDate"]) : (DateTime?)null;
-
-        //    if (values.Contains("ShipCity"))
-        //        order.ShipCity = Convert.ToString(values["ShipCity"]);
-        //}
-
 
         private void PopulateModel(Sale model, IDictionary values)
         {
