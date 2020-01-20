@@ -8,7 +8,7 @@ using DAL.Repository;
 
 namespace BLL.Services
 {
-    public class ClientService : IService<DAL.Client, BLL.Client>
+    public class ClientService : IService<DAL.Client>
     {
         private readonly IGenericRepository<DAL.Client> _clientRepository;
         private readonly IMapper _mapper;
@@ -27,16 +27,6 @@ namespace BLL.Services
         {
             _clientRepository = clientRepository;
             _mapper = mapper;
-        }
-
-        public DAL.Client Get(BLL.Client Entity)
-        {
-            return _mapper.Map<DAL.Client>(Entity);
-        }
-
-        public IEnumerable<DAL.Client> Get(IEnumerable<BLL.Client> Entities)
-        {
-            return _mapper.Map<IEnumerable<DAL.Client>>(Entities);
         }
 
         public async Task<IEnumerable<DAL.Client>> GetAll()

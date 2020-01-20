@@ -5,7 +5,7 @@ using BLL.Services.Base;
 
 namespace BLL.Services
 {
-    public class SaleService : IService<DAL.Sale, BLL.Sale>
+    public class SaleService : IService<DAL.Sale>
     {
         private readonly IGenericRepository<DAL.Sale> _saleRepository;
         private readonly IMapper _mapper;
@@ -20,16 +20,6 @@ namespace BLL.Services
         {
             _saleRepository = saleRepository;
             _mapper = mapper;
-        }
-
-        public DAL.Sale Get(Sale Entity)
-        {
-            return _mapper.Map<DAL.Sale>(Entity);
-        }
-
-        public IEnumerable<DAL.Sale> Get(IEnumerable<BLL.Sale> Entities)
-        {
-            return _mapper.Map<IEnumerable<DAL.Sale>>(Entities);
         }
 
         public void Add(DAL.Sale Entity)

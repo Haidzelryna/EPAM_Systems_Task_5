@@ -7,7 +7,7 @@ using BLL.Services.Base;
 
 namespace BLL.Services
 {
-    public class ManagerService : IService<DAL.Manager, BLL.Manager>
+    public class ManagerService : IService<DAL.Manager>
     {
         private readonly IGenericRepository<DAL.Manager> _managerRepository;
         private readonly IMapper _mapper;
@@ -24,16 +24,6 @@ namespace BLL.Services
         {
             _managerRepository = managerRepository;
             _mapper = mapper;
-        }
-
-        public DAL.Manager Get(BLL.Manager Entity)
-        {
-            return _mapper.Map<DAL.Manager>(Entity);
-        }
-
-        public IEnumerable<DAL.Manager> Get(IEnumerable<BLL.Manager> Entities)
-        {
-            return _mapper.Map<IEnumerable<DAL.Manager>>(Entities);
         }
 
         public void Remove(DAL.Manager Entity)

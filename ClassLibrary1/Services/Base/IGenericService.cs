@@ -3,11 +3,9 @@ using System.Collections.Generic;
 
 namespace BLL.Services.Base
 {
-    public interface IService<T, V> : IService
+    public interface IService<T> : IService
     {
-        T Get(V Entity);
-
-        IEnumerable<T> Get(IEnumerable<V> Entities);
+        //Task<IEnumerable<DAL.Product>> GetAllAsync();
 
         void Add(T Entity);
 

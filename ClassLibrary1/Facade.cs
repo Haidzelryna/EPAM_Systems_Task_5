@@ -27,13 +27,14 @@ namespace BLL
         {
             DAL.Facade.SetupDependencies(unityContainer);
 
-            unityContainer.RegisterSingleton<IService, ContactService>();
+            unityContainer.RegisterSingleton<IContactService, ContactService>();
             unityContainer.RegisterSingleton<IService, ClientService>();
             unityContainer.RegisterSingleton<IService, ManagerService>();
             unityContainer.RegisterSingleton<IProductService, ProductService>();
             unityContainer.RegisterSingleton<IService, SaleService>();
 
             unityContainer.RegisterType<DAL.Repository.IGenericRepository<DAL.Product>, DAL.Repository.GenericRepository<DAL.Product>>();
+            unityContainer.RegisterType<DAL.Repository.IGenericRepository<DAL.Contact>, DAL.Repository.GenericRepository<DAL.Contact>>();
         }
     }
 }

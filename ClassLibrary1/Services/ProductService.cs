@@ -4,8 +4,6 @@ using AutoMapper;
 using DAL.Repository;
 using System.Threading.Tasks;
 using System.Linq;
-using BLL.Services.Base;
-using DAL;
 
 namespace BLL.Services
 {

@@ -5,10 +5,6 @@ namespace BLL.Services
 {
     public interface IProductService : IService
     {
-        //Product Get(V Entity);
-
-        //IEnumerable<Product> Get(IEnumerable<V> Entities);
-
         Task<IEnumerable<DAL.Product>> GetAllAsync();
 
         void Add(DAL.Product Entity);

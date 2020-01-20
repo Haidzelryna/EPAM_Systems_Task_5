@@ -99,7 +99,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ClientsController.cs" />
-    <Compile Include="Controllers\ContactsController.cs" />
     <Compile Include="Controllers\ManagersController.cs" />
     <Compile Include="Controllers\SalesController.cs" />
     <Compile Include="Controllers\SalesMVCController.cs" />
@@ -138,6 +137,7 @@
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\ContactRepository.cs" />
     <Compile Include="Repository\ProductRepository.cs" />
     <Compile Include="Repository\GenericRepository.cs" />
     <Compile Include="Repository\IGenericReposory.cs" />

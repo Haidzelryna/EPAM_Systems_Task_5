@@ -2,13 +2,17 @@
 using AutoMapper;
 using DAL.Repository;
 using BLL.Services.Base;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace BLL.Services
 {
-    public class ContactService : IService<DAL.Contact, BLL.Contact>
+    public class ContactService : IContactService
     {
         private readonly IGenericRepository<DAL.Contact> _contactRepository;
         private readonly IMapper _mapper;
+
+        private static readonly SemaphoreLocker _locker = new SemaphoreLocker();
 
         public ContactService(IMapper mapper)
         {
@@ -22,14 +26,14 @@ namespace BLL.Services
             _mapper = mapper;
         }
 
-        public DAL.Contact Get(BLL.Contact Entity)
+        public async Task<IEnumerable<DAL.Contact>> GetAllAsync()
         {
-            return _mapper.Map<DAL.Contact>(Entity);
-        }
-
-        public IEnumerable<DAL.Contact> Get(IEnumerable<BLL.Contact> Entities)
-        {
-            return _mapper.Map<IEnumerable<DAL.Contact>>(Entities);
+            IEnumerable<DAL.Contact> result = Enumerable.Empty<DAL.Contact>();
+            await _locker.LockAsync(async () =>
+            {
+                result = await _contactRepository.GetAllAsync();
+            });
+            return result;
         }
 
         public void Remove(DAL.Contact Entity)

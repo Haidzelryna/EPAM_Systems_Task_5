@@ -15,7 +15,5 @@ namespace Task5
         public string Phone { get; set; }
 
         public string Email { get; set; }
-
-        public virtual ICollection<Manager> Managers { get; set; }
     }
 }

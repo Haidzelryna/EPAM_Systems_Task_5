@@ -1,116 +1,126 @@
-﻿using System.Web.Mvc;
-using AutoMapper;
-using BLL.Services;
+﻿using System;
+using System.Linq;
+using System.Web.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Data.Entity;
+using System.Net;
+using AutoMapper;
+using BLL.Services;
 
 namespace DAL.Controllers
 {
-    public class ProductsController : Controller
-    {      
+    public class ContactsController : Controller
+    {
         private static IMapper _mapper = BLL.Mapper.SetupMapping.SetupMapper();
-        private readonly ProductService _productService = new ProductService(_mapper);
+        private readonly ContactService _contactService = new ContactService(_mapper);
 
-        //GET: Products
+        // GET: Contacts
         public async Task<ActionResult> Index()
         {
-            var bllEntities = await _productService.GetAllAsync();
+            var bllEntities = await _contactService.GetAllAsync();
 
-            return View(_mapper.Map<IEnumerable<Task5.Product>>(bllEntities));
+            return View(_mapper.Map<IEnumerable<Task5.Contact>>(bllEntities));
         }
 
-        //// GET: Products/Details/5
+        // GET: Contacts/Details/5
         //public async Task<ActionResult> Details(Guid? id)
         //{
         //    if (id == null)
         //    {
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         //    }
-        //    DAL.Product product = await db.Product.FindAsync(id);
-        //    if (product == null)
+        //    Contact contact = await db.Contact.FindAsync(id);
+        //    if (contact == null)
         //    {
         //        return HttpNotFound();
         //    }
-        //    return View(product);
+        //    return View(contact);
         //}
 
-        //// GET: Products/Create
+        //// GET: Contacts/Create
         //public ActionResult Create()
         //{
         //    return View();
         //}
 
-        //// POST: Products/Create
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Contacts/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
+
+
+
+
+
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Create([Bind(Include = "Id,Price,Name")] DAL.Product product)
+        //public async Task<ActionResult> Create([Bind(Include = "Id,FirstName,MiddleName,LastName,Phone,Email")] Contact contact)
         //{
         //    if (ModelState.IsValid)
         //    {
-        //        product.Id = Guid.NewGuid();
-        //        db.Product.Add(product);
+        //        contact.Id = Guid.NewGuid();
+        //        db.Contact.Add(contact);
         //        await db.SaveChangesAsync();
         //        return RedirectToAction("Index");
         //    }
 
-        //    return View(product);
+        //    return View(contact);
         //}
 
-        //// GET: Products/Edit/5
+        //// GET: Contacts/Edit/5
         //public async Task<ActionResult> Edit(Guid? id)
         //{
         //    if (id == null)
         //    {
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         //    }
-        //    DAL.Product product = await db.Product.FindAsync(id);
-        //    if (product == null)
+        //    Contact contact = await db.Contact.FindAsync(id);
+        //    if (contact == null)
         //    {
         //        return HttpNotFound();
         //    }
-        //    return View(product);
+        //    return View(contact);
         //}
 
-        //// POST: Products/Edit/5
+        //// POST: Contacts/Edit/5
         //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Edit([Bind(Include = "Id,Price,Name")] DAL.Product product)
+        //public async Task<ActionResult> Edit([Bind(Include = "Id,FirstName,MiddleName,LastName,Phone,Email")] Contact contact)
         //{
         //    if (ModelState.IsValid)
         //    {
-        //        db.Entry(product).State = EntityState.Modified;
+        //        db.Entry(contact).State = EntityState.Modified;
         //        await db.SaveChangesAsync();
         //        return RedirectToAction("Index");
         //    }
-        //    return View(product);
+        //    return View(contact);
         //}
 
-        //// GET: Products/Delete/5
+        //// GET: Contacts/Delete/5
         //public async Task<ActionResult> Delete(Guid? id)
         //{
         //    if (id == null)
         //    {
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         //    }
-        //    DAL.Product product = await db.Product.FindAsync(id);
-        //    if (product == null)
+        //    Contact contact = await db.Contact.FindAsync(id);
+        //    if (contact == null)
         //    {
         //        return HttpNotFound();
         //    }
-        //    return View(product);
+        //    return View(contact);
         //}
 
-        //// POST: Products/Delete/5
+        //// POST: Contacts/Delete/5
         //[HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
         //public async Task<ActionResult> DeleteConfirmed(Guid id)
         //{
-        //    DAL.Product product = await db.Product.FindAsync(id);
-        //    db.Product.Remove(product);
+        //    Contact contact = await db.Contact.FindAsync(id);
+        //    db.Contact.Remove(contact);
         //    await db.SaveChangesAsync();
         //    return RedirectToAction("Index");
         //}
@@ -119,7 +129,7 @@ namespace DAL.Controllers
         //{
         //    if (disposing)
         //    {
-        //        //db.Dispose();
+        //        db.Dispose();
         //    }
         //    base.Dispose(disposing);
         //}
