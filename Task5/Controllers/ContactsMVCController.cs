@@ -28,7 +28,7 @@ using System.Web.Mvc;
 
 namespace DAL.Controllers
 {
-    public class ClientsMVCController : Controller
+    public class ContactsMVCController : Controller
     {
         private const string ADMINID = "80AB7036-5D4A-11E6-9903-0050569977A1";
         private static Guid adminGuid = Guid.Parse(ADMINID);
@@ -36,7 +36,7 @@ namespace DAL.Controllers
         const string VALIDATION_ERROR = "The request failed due to a validation error";
 
         private static IMapper _mapper = BLL.Mapper.SetupMapping.SetupMapper();
-        private readonly ClientService _clientService = new ClientService(_mapper);
+        private readonly ContactService _contactService = new ContactService(_mapper);
 
         // Load orders according to load options
         [HttpGet]
@@ -44,23 +44,23 @@ namespace DAL.Controllers
         {
             loadOptions.RequireTotalCount = false;
 
-            var bllEntities = await _clientService.GetAllAsync();
+            var bllEntities = await _contactService.GetAllAsync();
 
-            return Json(await Task.Run(() => DataSourceLoader.Load(_mapper.Map<IEnumerable<BLL.Client>>(bllEntities), loadOptions)), JsonRequestBehavior.AllowGet);
+            return Json(await Task.Run(() => DataSourceLoader.Load(_mapper.Map<IEnumerable<BLL.Contact>>(bllEntities), loadOptions)), JsonRequestBehavior.AllowGet);
         }
 
         // Insert a new sale
         [HttpPost]
         public void Post(string values)
         {
-            var newClient = new Client();
-            PopulateModel(newClient, JsonConvert.DeserializeObject<IDictionary>(values));
+            var newContact = new Contact();
+            PopulateModel(newContact, JsonConvert.DeserializeObject<IDictionary>(values));
 
-            //if (!TryValidateModel(newClient))
+            //if (!TryValidateModel(newContact))
             //    return Json(VALIDATION_ERROR, "400");
 
-            _clientService.Add(newClient);
-            _clientService.SaveChangesAsync();
+            _contactService.Add(newContact);
+            _contactService.SaveChangesAsync();
             //return Json(result.OrderID);
         }
 
@@ -68,13 +68,13 @@ namespace DAL.Controllers
         [HttpPut]
         public async Task<ActionResult> Put(Guid key, string values)
         {
-            var sale = await _clientService.FindAsync(key);
+            var sale = await _contactService.FindAsync(key);
             PopulateModel(sale, JsonConvert.DeserializeObject<IDictionary>(values));
 
             //if (!TryValidateModel(order))
             //    return NewtonsoftJson(VALIDATION_ERROR, 400);
 
-            await _clientService.SaveChangesAsync();
+            await _contactService.SaveChangesAsync();
             return new EmptyResult();
         }
 
@@ -82,9 +82,9 @@ namespace DAL.Controllers
         [HttpDelete]
         public async Task Delete(Guid key)
         {
-            var sale = await _clientService.FindAsync(key);
-            _clientService.Remove(sale);
-            await _clientService.SaveChangesAsync();
+            var sale = await _contactService.FindAsync(key);
+            _contactService.Remove(sale);
+            await _contactService.SaveChangesAsync();
         }
 
         //void PopulateModel(Order order, IDictionary values)
@@ -100,13 +100,13 @@ namespace DAL.Controllers
         //}
 
         //[HttpGet]
-        //public async Task<ActionResult> ClientLookup(DataSourceLoadOptions loadOptions)
+        //public async Task<ActionResult> ContactLookup(DataSourceLoadOptions loadOptions)
         //{
         //    loadOptions.RequireTotalCount = false;
 
-        //    var Clients = await _clientService.GetAllAsync();
+        //    var Contacts = await _contactService.GetAllAsync();
 
-        //    //var lookup = from i in _mapper.Map<IEnumerable<BLL.Client>>(Clients)
+        //    //var lookup = from i in _mapper.Map<IEnumerable<BLL.Contact>>(Contacts)
         //    //             orderby i.Name
         //    //             select new
         //    //             {
@@ -114,7 +114,7 @@ namespace DAL.Controllers
         //    //                 Text = i.Name
         //    //             };
 
-        //    return Json(await Task.Run(() => DataSourceLoader.Load(_mapper.Map<IEnumerable<BLL.Client>>(Clients), loadOptions)), JsonRequestBehavior.AllowGet);
+        //    return Json(await Task.Run(() => DataSourceLoader.Load(_mapper.Map<IEnumerable<BLL.Contact>>(Contacts), loadOptions)), JsonRequestBehavior.AllowGet);
         //    //return Json(await DataSourceLoader.LoadAsync((IQueryable)lookup, loadOptions));
         //}
 
@@ -150,25 +150,43 @@ namespace DAL.Controllers
         //    return Json(await Task.Run(() => DataSourceLoader.Load(lookup, loadOptions)), JsonRequestBehavior.AllowGet);
         //}
 
-        private void PopulateModel(Client model, IDictionary values)
+        private void PopulateModel(Contact model, IDictionary values)
         {
-            string ID = nameof(Client.Id);
-            string NAME = nameof(Client.Name);
-            string CONTACT_ID = nameof(Client.ContactId);
+            string ID = nameof(Contact.Id);
+            string FIRSTNAME = nameof(Contact.FirstName);
+            string LASTNAME = nameof(Contact.LastName);
+            string MIDDLENAME = nameof(Contact.MiddleName);
+            string EMAIL = nameof(Contact.Email);
+            string PHONE = nameof(Contact.Phone);
 
             if (values.Contains(ID))
             {
                 model.Id = Guid.Parse(values[ID].ToString());
             }
 
-            if (values.Contains(NAME))
+            if (values.Contains(FIRSTNAME))
             {
-                model.Name = Convert.ToString(values[NAME]);
+                model.FirstName = Convert.ToString(values[FIRSTNAME]);
             }
 
-            if (values.Contains(CONTACT_ID))
+            if (values.Contains(LASTNAME))
             {
-                model.ContactId = Guid.Parse(values[CONTACT_ID].ToString());
+                model.LastName = Convert.ToString(values[LASTNAME]);
+            }
+
+            if (values.Contains(MIDDLENAME))
+            {
+                model.MiddleName = Convert.ToString(values[MIDDLENAME]);
+            }
+
+            if (values.Contains(EMAIL))
+            {
+                model.Email = Convert.ToString(values[EMAIL]);
+            }
+
+            if (values.Contains(PHONE))
+            {
+                model.Phone = Convert.ToString(values[PHONE]);
             }
         }
 

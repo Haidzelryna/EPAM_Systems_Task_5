@@ -30,27 +30,13 @@ namespace DAL.Controllers
 {
     public class SalesMVCController : Controller
     {
-        private SalesEntities db = new SalesEntities();
-
-        // GET: SalesMVC
-        //public async Task<ActionResult> Index()
-        //{
-        //    var sale = db.Sale.Include(s => s.Client).Include(s => s.Manager).Include(s => s.Product);
-        //    return View(await sale.ToListAsync());
-        //}
-
         private const string ADMINID = "80AB7036-5D4A-11E6-9903-0050569977A1";
         private static Guid adminGuid = Guid.Parse(ADMINID);
-
-        //80ab7036-5d4a-11e6-9903-0050569977a1
 
         const string VALIDATION_ERROR = "The request failed due to a validation error";
 
         private static IMapper _mapper = BLL.Mapper.SetupMapping.SetupMapper();
         private readonly SaleService _saleService = new SaleService(_mapper);
-        private readonly ClientService _clientService = new ClientService(_mapper);
-        private readonly ManagerService _managerService = new ManagerService(_mapper);
-        private readonly ProductService _productService = new ProductService(_mapper);
 
         // Load orders according to load options
         [HttpGet]
@@ -63,7 +49,7 @@ namespace DAL.Controllers
             return Json(await Task.Run(() => DataSourceLoader.Load(_mapper.Map<IEnumerable<BLL.Sale>>(bllEntities), loadOptions)), JsonRequestBehavior.AllowGet);
         }
 
-        // Insert a new order
+        // Insert a new sale
         [HttpPost]
         public void Post(string values)
         {
@@ -81,14 +67,7 @@ namespace DAL.Controllers
             //return Json(result.OrderID);
         }
 
-       //// Update an order
-       ////[HttpPut]
-       // public async Task<ActionResult> Put()
-       // {
-       //     return new EmptyResult();
-       // }
-
-        // Update an order
+        // Update an sale
         [HttpPut]
         public async Task<ActionResult> Put(Guid key, string values)
         {
@@ -102,7 +81,7 @@ namespace DAL.Controllers
             return new EmptyResult();
         }
 
-        // Remove an order
+        // Remove an sale
         [HttpDelete]
         public async Task Delete(Guid key)
         {
@@ -184,13 +163,13 @@ namespace DAL.Controllers
             }
         }
 
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        _context.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                //
+            }
+            base.Dispose(disposing);
+        }
     }
 }

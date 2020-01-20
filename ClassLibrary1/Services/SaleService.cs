@@ -36,12 +36,12 @@ namespace BLL.Services
             return result;
         }
 
-        public async Task<DAL.Sale> FindAsync(Guid managerId)
+        public async Task<DAL.Sale> FindAsync(Guid Id)
         {
             DAL.Sale result = new DAL.Sale();
             await _locker.LockAsync(async () =>
             {
-                result = await _saleRepository.FindAsync(managerId);
+                result = await _saleRepository.FindAsync(Id);
             });
             return result;
         }

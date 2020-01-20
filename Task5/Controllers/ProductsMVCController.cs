@@ -30,21 +30,12 @@ namespace DAL.Controllers
 {
     public class ProductsMVCController : Controller
     {
-        private SalesEntities db = new SalesEntities();
-
-        // GET: SalesMVC
-        //public async Task<ActionResult> Index()
-        //{
-        //    var sale = db.Sale.Include(s => s.Client).Include(s => s.Manager).Include(s => s.Product);
-        //    return View(await sale.ToListAsync());
-        //}
+        private const string ADMINID = "80AB7036-5D4A-11E6-9903-0050569977A1";
+        private static Guid adminGuid = Guid.Parse(ADMINID);
 
         const string VALIDATION_ERROR = "The request failed due to a validation error";
 
         private static IMapper _mapper = BLL.Mapper.SetupMapping.SetupMapper();
-        //private readonly SaleService _saleService = new SaleService(_mapper);
-        //private readonly ClientService _clientService = new ClientService(_mapper);
-        //private readonly ManagerService _managerService = new ManagerService(_mapper);
         private readonly ProductService _productService = new ProductService(_mapper);
 
         // Load orders according to load options
@@ -58,43 +49,43 @@ namespace DAL.Controllers
             return Json(await Task.Run(() => DataSourceLoader.Load(_mapper.Map<IEnumerable<BLL.Product>>(bllEntities), loadOptions)), JsonRequestBehavior.AllowGet);
         }
 
-        //// Insert a new order
-        //[HttpPost]
-        //public void Post(string values)
-        //{
-        //    var newSale = new Sale();
-        //    //PopulateModel(newSale, JsonConvert.DeserializeObject<IDictionary>(values));
+        // Insert a new sale
+        [HttpPost]
+        public void Post(string values)
+        {
+            var newProduct = new Product();
+            PopulateModel(newProduct, JsonConvert.DeserializeObject<IDictionary>(values));
 
-        //    //if (!TryValidateModel(newSale))
-        //        //return Json(VALIDATION_ERROR, "400");
+            //if (!TryValidateModel(newProduct))
+            //    return Json(VALIDATION_ERROR, "400");
 
-        //    _saleService.Add(newSale);
-        //    _saleService.SaveChanges();
-        //    //return Json(result.OrderID);
-        //}
+            _productService.Add(newProduct);
+            _productService.SaveChangesAsync();
+            //return Json(result.OrderID);
+        }
 
-        //// Update an order
-        //[HttpPut]
-        //public async Task<ActionResult> Put(int key, string values)
-        //{
-        //    var order = await _context.Orders.FirstOrDefaultAsync(item => item.OrderID == key);
-        //    PopulateModel(order, JsonConvert.DeserializeObject<IDictionary>(values));
+        // Update an sale
+        [HttpPut]
+        public async Task<ActionResult> Put(Guid key, string values)
+        {
+            var sale = await _productService.FindAsync(key);
+            PopulateModel(sale, JsonConvert.DeserializeObject<IDictionary>(values));
 
-        //    if (!TryValidateModel(order))
-        //        return NewtonsoftJson(VALIDATION_ERROR, 400);
+            //if (!TryValidateModel(order))
+            //    return NewtonsoftJson(VALIDATION_ERROR, 400);
 
-        //    await _context.SaveChangesAsync();
-        //    return new EmptyResult();
-        //}
+            await _productService.SaveChangesAsync();
+            return new EmptyResult();
+        }
 
-        //// Remove an order
-        //[HttpDelete]
-        //public async Task Delete(int key)
-        //{
-        //    var order = await _context.Orders.FirstOrDefaultAsync(item => item.OrderID == key);
-        //    _context.Orders.Remove(order);
-        //    await _context.SaveChangesAsync();
-        //}
+        // Remove an sale
+        [HttpDelete]
+        public async Task Delete(Guid key)
+        {
+            var sale = await _productService.FindAsync(key);
+            _productService.Remove(sale);
+            await _productService.SaveChangesAsync();
+        }
 
         //void PopulateModel(Order order, IDictionary values)
         //{
@@ -159,63 +150,27 @@ namespace DAL.Controllers
         //    return Json(await Task.Run(() => DataSourceLoader.Load(lookup, loadOptions)), JsonRequestBehavior.AllowGet);
         //}
 
-        //private void PopulateModel(Sale model, IDictionary values)
-        //{
-        //    string ID = nameof(Sale.Id);
-        //    string CLIENT_ID = nameof(Sale.ClientId);
-        //    string PRODUCT_ID = nameof(Sale.ProductId);
-        //    string SUM = nameof(Sale.Sum);
-        //    string DATE = nameof(Sale.Date);
-        //    string CLIENT_NAME = nameof(Sale.ClientName);
-        //    string PRODUCT_NAME = nameof(Sale.ProductName);
-        //    string CREATED_BY_USER_ID = nameof(Sale.CreatedByUserId);
-        //    string CREATED_DATE_TIME = nameof(Sale.CreatedDateTime);
+        private void PopulateModel(Product model, IDictionary values)
+        {
+            string ID = nameof(Product.Id);
+            string NAME = nameof(Product.Name);
+            string PRICE = nameof(Product.Price);
 
-        //    if (values.Contains(ID))
-        //    {
-        //        model.Id = Guid.Parse(values[ID].ToString());
-        //    }
+            if (values.Contains(ID))
+            {
+                model.Id = Guid.Parse(values[ID].ToString());
+            }
 
-        //    if (values.Contains(CLIENT_ID))
-        //    {
-        //        model.ClientId = Guid.Parse(values[CLIENT_ID].ToString());
-        //    }
+            if (values.Contains(NAME))
+            {
+                model.Name = Convert.ToString(values[NAME]);
+            }
 
-        //    if (values.Contains(PRODUCT_ID))
-        //    {
-        //        model.ProductId = Guid.Parse(values[PRODUCT_ID].ToString());
-        //    }
-
-        //    if (values.Contains(SUM))
-        //    {
-        //        model.Sum = Convert.ToDecimal(values[SUM]);
-        //    }
-
-        //    if (values.Contains(DATE))
-        //    {
-        //        model.Date = Convert.ToDateTime(values[DATE]);
-        //    }
-
-        //    if (values.Contains(CLIENT_NAME))
-        //    {
-        //        model.ClientName = Convert.ToString(values[CLIENT_NAME]);
-        //    }
-
-        //    if (values.Contains(PRODUCT_NAME))
-        //    {
-        //        model.ProductName = Convert.ToString(values[PRODUCT_NAME]);
-        //    }
-
-        //    if (values.Contains(CREATED_BY_USER_ID))
-        //    {
-        //        model.CreatedByUserId = Guid.Parse(values[CREATED_BY_USER_ID].ToString());
-        //    }
-
-        //    if (values.Contains(CREATED_DATE_TIME))
-        //    {
-        //        model.CreatedDateTime = Convert.ToDateTime(values[CREATED_DATE_TIME]);
-        //    }
-        //}
+            if (values.Contains(PRICE))
+            {
+                model.Price = Convert.ToDecimal(values[PRICE]);
+            }
+        }
 
         //ActionResult NewtonsoftJson(object obj, int statusCode = 200)
         //{

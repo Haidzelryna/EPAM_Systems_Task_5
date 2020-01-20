@@ -36,6 +36,16 @@ namespace BLL.Services
             return result;
         }
 
+        public async Task<DAL.Product> FindAsync(Guid Id)
+        {
+            DAL.Product result = new DAL.Product();
+            await _locker.LockAsync(async () =>
+            {
+                result = await _productRepository.FindAsync(Id);
+            });
+            return result;
+        }
+
         public async Task<bool> Check(IEnumerable<string> productsCheck)
         {
             IEnumerable<DAL.Product> products = await GetAllAsync();

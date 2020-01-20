@@ -38,6 +38,16 @@ namespace BLL.Services
             return result;
         }
 
+        public async Task<DAL.Client> FindAsync(Guid Id)
+        {
+            DAL.Client result = new DAL.Client();
+            await _locker.LockAsync(async () =>
+            {
+                result = await _clientRepository.FindAsync(Id);
+            });
+            return result;
+        }
+
         public async Task<bool> Check(IEnumerable<string> clientsCheck)
         {
             IEnumerable<DAL.Client> clients = await GetAllAsync();
