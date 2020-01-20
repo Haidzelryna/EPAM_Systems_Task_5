@@ -29,19 +29,6 @@ namespace Task5
             var config = new MapperConfiguration(cfg =>
             {
                 BLL.Facade.SetupMapping(cfg);
-
-                cfg.CreateMap<BLL.Sale, Sale>();
-                cfg.CreateMap<BLL.Contact, Contact>();
-                cfg.CreateMap<BLL.Manager, Manager>();
-                cfg.CreateMap<BLL.Client, Client>();
-                cfg.CreateMap<BLL.Product, Product>();
-
-                cfg.CreateMap<Sale, BLL.Sale>();
-                cfg.CreateMap<Contact, BLL.Contact>();
-                cfg.CreateMap<Manager, BLL.Manager>();
-                cfg.CreateMap<Client, BLL.Client>();
-                cfg.CreateMap<Product, BLL.Product>();
-
             });
 
             return new Mapper(config);

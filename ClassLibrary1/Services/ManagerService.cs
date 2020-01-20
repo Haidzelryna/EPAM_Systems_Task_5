@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using AutoMapper;
 using DAL.Repository;
 using System.Threading.Tasks;
-using BLL.Services.Base;
+using System.Linq;
 
 namespace BLL.Services
 {
@@ -24,6 +24,16 @@ namespace BLL.Services
         {
             _managerRepository = managerRepository;
             _mapper = mapper;
+        }
+
+        public async Task<IEnumerable<DAL.Manager>> GetAllAsync()
+        {
+            IEnumerable<DAL.Manager> result = Enumerable.Empty<DAL.Manager>();
+            await _locker.LockAsync(async () =>
+            {
+                result = await _managerRepository.GetAllAsync();
+            });
+            return result;
         }
 
         public void Remove(DAL.Manager Entity)

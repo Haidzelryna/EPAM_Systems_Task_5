@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BLL.Services.Base;
 using AutoMapper;
 using DAL.Repository;
 
@@ -27,6 +26,16 @@ namespace BLL.Services
         {
             _clientRepository = clientRepository;
             _mapper = mapper;
+        }
+
+        public async Task<IEnumerable<DAL.Client>> GetAllAsync()
+        {
+            IEnumerable<DAL.Client> result = Enumerable.Empty<DAL.Client>();
+            await _locker.LockAsync(async () =>
+            {
+                result = await _clientRepository.GetAllAsync();
+            });
+            return result;
         }
 
         public async Task<IEnumerable<DAL.Client>> GetAll()

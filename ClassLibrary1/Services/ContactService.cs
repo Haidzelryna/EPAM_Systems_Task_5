@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
 using DAL.Repository;
-using BLL.Services.Base;
 using System.Threading.Tasks;
 using System.Linq;
 
 namespace BLL.Services
 {
-    public class ContactService : IContactService
+    public class ContactService : IService<DAL.Contact>
     {
         private readonly IGenericRepository<DAL.Contact> _contactRepository;
         private readonly IMapper _mapper;

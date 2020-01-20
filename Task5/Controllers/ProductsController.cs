@@ -15,8 +15,7 @@ namespace DAL.Controllers
         public async Task<ActionResult> Index()
         {
             var bllEntities = await _productService.GetAllAsync();
-
-            return View(_mapper.Map<IEnumerable<Task5.Product>>(bllEntities));
+            return View(_mapper.Map<IEnumerable<BLL.Product>>(bllEntities));
         }
 
         //// GET: Products/Details/5

@@ -1,6 +1,6 @@
 ﻿@using DevExtreme.AspNet.Mvc
 
-@model IEnumerable<Client>
+@model IEnumerable<BLL.Client>
 
 @{
     ViewBag.Title = "Cliens";
@@ -8,7 +8,7 @@
 
 <h2>Clients List</h2>
 
-@(Html.DevExtreme().DataGrid<Client>()
+@(Html.DevExtreme().DataGrid<BLL.Client>()
                 .ID("gridContainerClients")
 
                 .DataSource(Model)

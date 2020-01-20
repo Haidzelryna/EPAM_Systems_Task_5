@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace BLL.Services
 {
-    public class ProductService : IProductService
+    public class ProductService : IService<DAL.Product>
     {
         private readonly IGenericRepository<DAL.Product> _productRepository;
         private readonly IMapper _mapper;

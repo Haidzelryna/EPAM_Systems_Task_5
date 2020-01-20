@@ -1,6 +1,6 @@
 ﻿@using DevExtreme.AspNet.Mvc
 
-@model IEnumerable<Sale>
+@model IEnumerable<BLL.Sale>
 
 @{
     ViewBag.Title = "Sales";
@@ -24,7 +24,7 @@
     .Include("~/Scripts/aspnet/dx.aspnet.data.js")
     .Include("~/Scripts/aspnet/dx.aspnet.mvc.js"); }*@
 
-@(Html.DevExtreme().DataGrid<Sale>
+@(Html.DevExtreme().DataGrid<BLL.Sale>
                                 ()
                                 .ID("gridContainerSales")
 
@@ -32,7 +32,11 @@
 
                                 //.DataSource(d => d.WebApi().RouteName("SalesWebApi").Key("Id").LoadMethod("Get"))
 
-                                .DataSource(d => d.Mvc().Controller("SalesMVC").Key("Id").LoadAction("Get"))
+                                //.DataSource(d => d.Mvc().Controller("SalesMVC").Key("Id").LoadAction("Get"))
+
+
+                                .DataSource(Model)
+
 
                                 //.DataSource(d => d.WebApi().Controller("ABC").Key("Id").LoadMethod("Get"))
 

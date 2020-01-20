@@ -1,7 +1,7 @@
 ﻿
 @using DevExtreme.AspNet.Mvc
 
-@model List<Task5.Contact>
+@model List<BLL.Contact>
 
 @{
     ViewBag.Title = "Contacts";
@@ -9,7 +9,7 @@
 
 <h2>Contacts List</h2>
 
-@(Html.DevExtreme().DataGrid<Task5.Contact>()
+@(Html.DevExtreme().DataGrid<BLL.Contact>()
             .ID("gridContainerContacts")
 
             .DataSource(Model)

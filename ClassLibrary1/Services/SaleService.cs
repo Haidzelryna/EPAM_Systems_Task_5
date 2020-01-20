@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using AutoMapper;
 using DAL.Repository;
-using BLL.Services.Base;
+using System.Threading.Tasks;
+using System.Linq;
 
 namespace BLL.Services
 {
@@ -9,6 +10,8 @@ namespace BLL.Services
     {
         private readonly IGenericRepository<DAL.Sale> _saleRepository;
         private readonly IMapper _mapper;
+
+        private static readonly SemaphoreLocker _locker = new SemaphoreLocker();
 
         public SaleService(IMapper mapper)
         {
@@ -20,6 +23,16 @@ namespace BLL.Services
         {
             _saleRepository = saleRepository;
             _mapper = mapper;
+        }
+
+        public async Task<IEnumerable<DAL.Sale>> GetAllAsync()
+        {
+            IEnumerable<DAL.Sale> result = Enumerable.Empty<DAL.Sale>();
+            await _locker.LockAsync(async () =>
+            {
+                result = await _saleRepository.GetAllAsync();
+            });
+            return result;
         }
 
         public void Add(DAL.Sale Entity)

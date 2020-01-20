@@ -1,125 +1,126 @@
 ﻿using System;
-using System.Linq;
-using System.Web.Mvc;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Data;
 using System.Data.Entity;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Net;
-using AutoMapper;
+using System.Web;
+using System.Web.Mvc;
+
 using BLL.Services;
+using AutoMapper;
 
 namespace DAL.Controllers
 {
-    public class ContactsController : Controller
+    public class ClientsController : Controller
     {
         private static IMapper _mapper = BLL.Mapper.SetupMapping.SetupMapper();
-        private readonly ContactService _contactService = new ContactService(_mapper);
+        private readonly ClientService _clientService = new ClientService(_mapper);
 
-        // GET: Contacts
+        // GET: Clients
         public async Task<ActionResult> Index()
         {
-            var bllEntities = await _contactService.GetAllAsync();
-            return View(_mapper.Map<IEnumerable<BLL.Contact>>(bllEntities));
+            var bllEntities = await _clientService.GetAllAsync();
+            return View(_mapper.Map<IEnumerable<BLL.Client>>(bllEntities));
         }
 
-        // GET: Contacts/Details/5
+        // GET: Clients/Details/5
         //public async Task<ActionResult> Details(Guid? id)
         //{
         //    if (id == null)
         //    {
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         //    }
-        //    Contact contact = await db.Contact.FindAsync(id);
-        //    if (contact == null)
+        //    Client client = await db.Client.FindAsync(id);
+        //    if (client == null)
         //    {
         //        return HttpNotFound();
         //    }
-        //    return View(contact);
+        //    return View(client);
         //}
 
-        //// GET: Contacts/Create
+        //GET: Clients/Create
         //public ActionResult Create()
         //{
+        //    ViewBag.ContactId = new SelectList(db.Contact, "Id", "FirstName");
         //    return View();
         //}
 
-        // POST: Contacts/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        //POST: Clients/Create
+        //To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-
-
-
-
-
-
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Create([Bind(Include = "Id,FirstName,MiddleName,LastName,Phone,Email")] Contact contact)
+        //public async Task<ActionResult> Create([Bind(Include = "Id,ContactId,Name")] Client client)
         //{
         //    if (ModelState.IsValid)
         //    {
-        //        contact.Id = Guid.NewGuid();
-        //        db.Contact.Add(contact);
+        //        client.Id = Guid.NewGuid();
+        //        db.Client.Add(client);
         //        await db.SaveChangesAsync();
         //        return RedirectToAction("Index");
         //    }
 
-        //    return View(contact);
+        //    ViewBag.ContactId = new SelectList(db.Contact, "Id", "FirstName", client.ContactId);
+        //    return View(client);
         //}
 
-        //// GET: Contacts/Edit/5
+        //GET: Clients/Edit/5
         //public async Task<ActionResult> Edit(Guid? id)
         //{
         //    if (id == null)
         //    {
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         //    }
-        //    Contact contact = await db.Contact.FindAsync(id);
-        //    if (contact == null)
+        //    Client client = await db.Client.FindAsync(id);
+        //    if (client == null)
         //    {
         //        return HttpNotFound();
         //    }
-        //    return View(contact);
+        //    ViewBag.ContactId = new SelectList(db.Contact, "Id", "FirstName", client.ContactId);
+        //    return View(client);
         //}
 
-        //// POST: Contacts/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        //POST: Clients/Edit/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         //[HttpPost]
         //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Edit([Bind(Include = "Id,FirstName,MiddleName,LastName,Phone,Email")] Contact contact)
+        //public async Task<ActionResult> Edit([Bind(Include = "Id,ContactId,Name")] Client client)
         //{
         //    if (ModelState.IsValid)
         //    {
-        //        db.Entry(contact).State = EntityState.Modified;
+        //        db.Entry(client).State = EntityState.Modified;
         //        await db.SaveChangesAsync();
         //        return RedirectToAction("Index");
         //    }
-        //    return View(contact);
+        //    ViewBag.ContactId = new SelectList(db.Contact, "Id", "FirstName", client.ContactId);
+        //    return View(client);
         //}
 
-        //// GET: Contacts/Delete/5
+        //GET: Clients/Delete/5
         //public async Task<ActionResult> Delete(Guid? id)
         //{
         //    if (id == null)
         //    {
         //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
         //    }
-        //    Contact contact = await db.Contact.FindAsync(id);
-        //    if (contact == null)
+        //    Client client = await db.Client.FindAsync(id);
+        //    if (client == null)
         //    {
         //        return HttpNotFound();
         //    }
-        //    return View(contact);
+        //    return View(client);
         //}
 
-        //// POST: Contacts/Delete/5
+        //POST: Clients/Delete/5
         //[HttpPost, ActionName("Delete")]
         //[ValidateAntiForgeryToken]
         //public async Task<ActionResult> DeleteConfirmed(Guid id)
         //{
-        //    Contact contact = await db.Contact.FindAsync(id);
-        //    db.Contact.Remove(contact);
+        //    Client client = await db.Client.FindAsync(id);
+        //    db.Client.Remove(client);
         //    await db.SaveChangesAsync();
         //    return RedirectToAction("Index");
         //}

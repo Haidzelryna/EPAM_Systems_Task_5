@@ -1,11 +1,12 @@
 ﻿
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace BLL.Services.Base
+namespace BLL.Services
 {
     public interface IService<T> : IService
     {
-        //Task<IEnumerable<DAL.Product>> GetAllAsync();
+        Task<IEnumerable<T>> GetAllAsync();
 
         void Add(T Entity);
 
