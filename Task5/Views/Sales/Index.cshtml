@@ -63,7 +63,8 @@
     {
         columns.Add()
             .DataField("Date")
-            .DataType(GridColumnDataType.Date);
+            .DataType(GridColumnDataType.Date)
+            .Format(Format.ShortDate);
         columns.AddFor(m => m.ClientName);
         columns.AddFor(m => m.ProductName);
         columns.AddFor(m => m.Sum);
