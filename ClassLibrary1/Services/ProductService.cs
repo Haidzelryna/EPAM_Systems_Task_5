@@ -46,19 +46,6 @@ namespace BLL.Services
             return result;
         }
 
-        public async Task<bool> Check(IEnumerable<string> productsCheck)
-        {
-            IEnumerable<DAL.Product> products = await GetAllAsync();
-            foreach (string productName in productsCheck)
-            {
-                if (products.Select(p => p.Name).ToList().Contains(productName) == false)
-                {
-                    return false;
-                };
-            }
-            return true;
-        }
-
         public void Remove(DAL.Product Entity)
         {
             _productRepository.Delete(Entity);
@@ -82,11 +69,6 @@ namespace BLL.Services
         public async Task SaveChangesAsync()
         {
             await _productRepository.SaveChangesAsync();
-        }
-
-        public DAL.Product Find(Guid productId)
-        {
-            return _productRepository.Find(productId);
         }
     }
 }

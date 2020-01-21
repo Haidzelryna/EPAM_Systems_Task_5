@@ -48,19 +48,6 @@ namespace BLL.Services
             return result;
         }
 
-        public async Task<bool> Check(IEnumerable<string> clientsCheck)
-        {
-            IEnumerable<DAL.Client> clients = await GetAllAsync();
-            foreach (string clientName in clientsCheck)
-            {
-                if (clients.Select(c => c.Name).ToList().Contains(clientName) == false)
-                {
-                    return false;
-                };
-            }
-            return true;
-        }
-
         public void Remove(DAL.Client Entity)
         {
             _clientRepository.Delete(Entity);
@@ -84,11 +71,6 @@ namespace BLL.Services
         public async Task SaveChangesAsync()
         {
             await _clientRepository.SaveChangesAsync();
-        }
-
-        public DAL.Client Find(Guid clientId)
-        {
-            return _clientRepository.Find(clientId);
         }
     }
 }

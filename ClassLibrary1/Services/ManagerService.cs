@@ -36,6 +36,16 @@ namespace BLL.Services
             return result;
         }
 
+        public async Task<DAL.Manager> FindAsync(Guid managerId)
+        {
+            DAL.Manager result = new DAL.Manager();
+            await _locker.LockAsync(async () =>
+            {
+                result = await _managerRepository.FindAsync(managerId);
+            });
+            return result;
+        }
+
         public void Remove(DAL.Manager Entity)
         {
             _managerRepository.Delete(Entity);
@@ -59,16 +69,6 @@ namespace BLL.Services
         public async Task SaveChangesAsync()
         {
             await _managerRepository.SaveChangesAsync();
-        }
-
-        public async Task<DAL.Manager> FindAsync(Guid managerId)
-        {
-            DAL.Manager result = new DAL.Manager();
-            await _locker.LockAsync(async () =>
-            {
-                result = await _managerRepository.FindAsync(managerId);
-            });
-            return result;
         }
     }
 }
