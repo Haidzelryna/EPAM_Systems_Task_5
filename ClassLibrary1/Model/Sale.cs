@@ -15,11 +15,8 @@ namespace BLL
 
         public string Sum { get; set; }
 
-        [JsonIgnore]
-        public virtual Client Client { get; set; }
-        [JsonIgnore]
-        public virtual Manager Manager { get; set; }
-        [JsonIgnore]
-        public virtual Product Product { get; set; }
+        public System.Guid ClientId { get; set; }
+
+        public System.Guid ProductId { get; set; }
     }
 }

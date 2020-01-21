@@ -29,14 +29,16 @@ namespace DAL.Controllers
 
             var bllEntities = await _saleService.GetAllAsync();
 
-            return Json(await Task.Run(() => DataSourceLoader.Load(_mapper.Map<IEnumerable<BLL.Sale>>(bllEntities), loadOptions)), JsonRequestBehavior.AllowGet);
+            //return Json(await Task.Run(() => DataSourceLoader.Load(_mapper.Map<IEnumerable<BLL.Sale>>(bllEntities), loadOptions)), JsonRequestBehavior.AllowGet);
+
+            return NewtonsoftJson(await Task.Run(() => DataSourceLoader.Load(_mapper.Map<IEnumerable<BLL.Sale>>(bllEntities), loadOptions)));
         }
 
-        //ActionResult NewtonsoftJson(object obj, int statusCode = 200)
-        //{
-        //    Response.StatusCode = statusCode;
-        //    return Content(JsonConvert.SerializeObject(obj), "application/json");
-        //}
+        ActionResult NewtonsoftJson(object obj, int statusCode = 200)
+        {
+            Response.StatusCode = statusCode;
+            return Content(JsonConvert.SerializeObject(obj), "application/json");
+        }
 
         // Insert a new sale
         [HttpPost]
@@ -82,8 +84,8 @@ namespace DAL.Controllers
         private void PopulateModel(Sale model, IDictionary values)
         {
             string ID = nameof(Sale.Id);
-            string CLIENT_ID = nameof(Sale.Client);
-            string PRODUCT_ID = nameof(Sale.Product);
+            string CLIENT_ID = nameof(Sale.ClientId);
+            string PRODUCT_ID = nameof(Sale.ProductId);
             string SUM = nameof(Sale.Sum);
             string DATE = nameof(Sale.Date);
             string CLIENT_NAME = nameof(Sale.ClientName);
@@ -98,14 +100,16 @@ namespace DAL.Controllers
 
             if (values.Contains(CLIENT_ID))
             {
-                var guidClient = ((Newtonsoft.Json.Linq.JValue)((Newtonsoft.Json.Linq.JContainer)((Newtonsoft.Json.Linq.JContainer)values["Client"]).First).First).Value;
-                model.ClientId = Guid.Parse(guidClient.ToString());
+                //var guidClient = ((Newtonsoft.Json.Linq.JValue)((Newtonsoft.Json.Linq.JContainer)((Newtonsoft.Json.Linq.JContainer)values["Client"]).First).First).Value;
+                //model.ClientId = Guid.Parse(guidClient.ToString());
+                model.ClientId = Guid.Parse(values[CLIENT_ID].ToString());
             }
 
             if (values.Contains(PRODUCT_ID))
             {
-                var guidProduct = ((Newtonsoft.Json.Linq.JValue)((Newtonsoft.Json.Linq.JContainer)((Newtonsoft.Json.Linq.JContainer)values["Product"]).First).First).Value;
-                model.ProductId = Guid.Parse(guidProduct.ToString());
+                //var guidProduct = ((Newtonsoft.Json.Linq.JValue)((Newtonsoft.Json.Linq.JContainer)((Newtonsoft.Json.Linq.JContainer)values["Product"]).First).First).Value;
+                //model.ProductId = Guid.Parse(guidProduct.ToString());
+                model.ProductId = Guid.Parse(values[PRODUCT_ID].ToString());
             }
 
             if (values.Contains(SUM))
