@@ -61,7 +61,7 @@ namespace DAL.Repository
 
         public void Delete(T entity)
         {
-            _context.Set<T>().Add(entity);
+            _context.Set<T>().Remove(entity);
         }
 
         public void Delete(IEnumerable<T> entity)
