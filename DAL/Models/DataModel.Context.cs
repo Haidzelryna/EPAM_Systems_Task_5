@@ -25,8 +25,9 @@ namespace DAL
         public IGenericRepository<Sale> SaleRepository => new GenericRepository<Sale>(this);
 
         public SalesEntities()
-            : base("name=SalesEntities")
+            : base("SalesEntities")
         {
+            Database.CreateIfNotExists();
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

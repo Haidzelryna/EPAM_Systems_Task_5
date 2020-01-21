@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace DAL
 {
     using System;
@@ -19,9 +21,13 @@ namespace DAL
         {
             this.Sale = new HashSet<Sale>();
         }
-    
+
         //public System.Guid Id { get; set; }
+        [Required]
         public System.Guid ContactId { get; set; }
+
+        [Required]
+        [MaxLength(255)]
         public string Name { get; set; }
     
         public virtual Contact Contact { get; set; }

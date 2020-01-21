@@ -88,8 +88,6 @@ namespace DAL.Controllers
             string PRODUCT_ID = nameof(Sale.ProductId);
             string SUM = nameof(Sale.Sum);
             string DATE = nameof(Sale.Date);
-            string CLIENT_NAME = nameof(Sale.ClientName);
-            string PRODUCT_NAME = nameof(Sale.ProductName);
             string CREATED_BY_USER_ID = nameof(Sale.CreatedByUserId);
             string CREATED_DATE_TIME = nameof(Sale.CreatedDateTime);
 
@@ -120,16 +118,6 @@ namespace DAL.Controllers
             if (values.Contains(DATE))
             {
                 model.Date = Convert.ToDateTime(values[DATE]);
-            }
-
-            if (values.Contains(CLIENT_NAME))
-            {
-                model.ClientName = Convert.ToString(values[CLIENT_NAME]);
-            }
-
-            if (values.Contains(PRODUCT_NAME))
-            {
-                model.ProductName = Convert.ToString(values[PRODUCT_NAME]);
             }
 
             if (values.Contains(CREATED_BY_USER_ID))

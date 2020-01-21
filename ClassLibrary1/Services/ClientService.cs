@@ -61,69 +61,6 @@ namespace BLL.Services
             return true;
         }
 
-        //для сопоставления Id - name
-        public async Task<IEnumerable<DAL.Sale>> CheckNameId(IEnumerable<DAL.Sale> Entities)
-        {
-            var _contactRepository = new GenericRepository<DAL.Contact>();
-
-            IEnumerable<DAL.Client> clients = await GetAllAsync();
-
-            foreach (var sale in Entities)
-            {
-                Guid idClient = new Guid();
-                if (clients.Any())
-                {
-                    var clients1 = clients.Where(c => c.Name == sale.ClientName);
-                    var i = clients1.Where(x => x != null).Select(c => c.Id);
-                    if (i.Count() > 0)
-                    {
-                        idClient = i.Where(x => x != null).First();
-                    }
-                    //создать в БД
-                    else
-                    {
-                        //контакт
-                        DAL.Contact contact = new DAL.Contact();
-                        contact.Id = Guid.NewGuid();
-                        contact.LastName = sale.ClientName;
-                        _contactRepository.Add(contact);
-                        //SaveChanges();
-                        //клиент
-                        DAL.Client client = new DAL.Client();
-                        client.Id = Guid.NewGuid();
-                        client.Name = sale.ClientName;
-                        client.ContactId = contact.Id;
-                        Add(client);
-                        //SaveChanges();
-                        idClient = client.Id;
-
-                        clients = await GetAllAsync();
-                    }
-                }
-                //создать в БД
-                else
-                {
-                    //контакт
-                    DAL.Contact contact = new DAL.Contact();
-                    contact.Id = Guid.NewGuid();
-                    contact.LastName = sale.ClientName;
-                    _contactRepository.Add(contact);
-                    //клиент
-                    DAL.Client client = new DAL.Client();
-                    client.Id = Guid.NewGuid();
-                    client.Name = sale.ClientName;
-                    client.ContactId = contact.Id;
-                    Add(client);
-                    idClient = client.Id;
-
-                    clients = await GetAllAsync();
-                }
-                sale.ClientId = idClient;
-            }
-
-            return Entities;
-        }
-
         public void Remove(DAL.Client Entity)
         {
             _clientRepository.Delete(Entity);

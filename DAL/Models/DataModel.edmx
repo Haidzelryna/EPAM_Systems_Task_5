@@ -49,8 +49,6 @@
           <Property Name="ProductId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Sum" Type="money" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
-          <Property Name="ClientName" Type="nvarchar" MaxLength="4000" Nullable="false" />
-          <Property Name="ProductName" Type="nvarchar" MaxLength="4000" Nullable="false" />
           <Property Name="CreatedByUserId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CreatedDateTime" Type="datetime" Nullable="false" />
         </EntityType>
@@ -197,8 +195,6 @@
           <Property Name="ProductId" Type="Guid" Nullable="false" />
           <Property Name="Sum" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ClientName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="ProductName" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="CreatedByUserId" Type="Guid" Nullable="false" />
           <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Client" Relationship="Self.FK_Sale_Client" FromRole="Sale" ToRole="Client" />
@@ -345,8 +341,6 @@
                 <ScalarProperty Name="ProductId" ColumnName="ProductId" />
                 <ScalarProperty Name="Sum" ColumnName="Sum" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="ClientName" ColumnName="ClientName" />
-                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="CreatedByUserId" ColumnName="CreatedByUserId" />
                 <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
               </MappingFragment>

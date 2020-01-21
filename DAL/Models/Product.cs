@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace DAL
 {
     using System;
@@ -19,9 +21,12 @@ namespace DAL
         {
             this.Sale = new HashSet<Sale>();
         }
-    
+
         //public System.Guid Id { get; set; }
+        [Required]
         public Nullable<decimal> Price { get; set; }
+        [Required]
+        [MaxLength(255)]
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

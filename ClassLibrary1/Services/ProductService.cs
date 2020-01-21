@@ -59,51 +59,6 @@ namespace BLL.Services
             return true;
         }
 
-        //для сопоставления Id - name
-        public async Task<IEnumerable<DAL.Sale>> CheckNameId(IEnumerable<DAL.Sale> Entities)
-        {
-            IEnumerable<DAL.Product> products = await GetAllAsync();
-
-            Guid idProduct = new Guid();
-
-            foreach (var sale in Entities)
-            {
-                if (products != null)
-                {
-                    var products1 = products.Where(c => c.Name == sale.ProductName);
-                    var i = products1.Where(x => x != null).Select(c => c.Id);
-                    if (i.Count() > 0)
-                    {
-                        idProduct = i.Where(x => x != null).First();
-                    }
-                    //создать в БД
-                    else
-                    {
-                        DAL.Product product = new DAL.Product();
-                        product.Id = Guid.NewGuid();
-                        product.Name = sale.ProductName;
-                        Add(product);
-                        SaveChangesAsync();
-                        idProduct = product.Id;
-                    }
-                }
-                //создать в БД
-                else
-                {
-                    DAL.Product product = new DAL.Product();
-                    product.Id = Guid.NewGuid();
-                    product.Name = sale.ProductName;
-                    Add(product);
-                    SaveChangesAsync();
-                    idProduct = product.Id;
-                }
-
-                sale.ProductId = idProduct;
-            }
-
-            return Entities;
-        }
-
         public void Remove(DAL.Product Entity)
         {
             _productRepository.Delete(Entity);

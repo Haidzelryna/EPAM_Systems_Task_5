@@ -9,10 +9,6 @@ namespace BLL
     {
         public DateTime Date { get; set; }
 
-        public string ClientName { get; set; }
-
-        public string ProductName { get; set; }
-
         public string Sum { get; set; }
 
         public System.Guid ClientId { get; set; }

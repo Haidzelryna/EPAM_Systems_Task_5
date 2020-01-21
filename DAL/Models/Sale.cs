@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace DAL
 {
     using System;
@@ -16,14 +18,17 @@ namespace DAL
     public partial class Sale: Entity
     {
         //public System.Guid Id { get; set; }
+        [Required]
         public System.Guid ClientId { get; set; }
+        [Required]
         public System.Guid ProductId { get; set; }
+        [Required]
         public decimal Sum { get; set; }
-
+        [Required]
         public System.DateTime Date { get; set; }
-        public string ClientName { get; set; }
-        public string ProductName { get; set; }
+        [Required]
         public System.Guid CreatedByUserId { get; set; }
+        [Required]
         public System.DateTime CreatedDateTime { get; set; }
 
         public virtual Client Client { get; set; }
