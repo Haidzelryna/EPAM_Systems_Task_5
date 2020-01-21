@@ -29,14 +29,14 @@ namespace DAL.Controllers
 
             var bllEntities = await _saleService.GetAllAsync();
 
-            return NewtonsoftJson(await Task.Run(() => DataSourceLoader.Load(_mapper.Map<IEnumerable<BLL.Sale>>(bllEntities), loadOptions)));
+            return Json(await Task.Run(() => DataSourceLoader.Load(_mapper.Map<IEnumerable<BLL.Sale>>(bllEntities), loadOptions)), JsonRequestBehavior.AllowGet);
         }
 
-        ActionResult NewtonsoftJson(object obj, int statusCode = 200)
-        {
-            Response.StatusCode = statusCode;
-            return Content(JsonConvert.SerializeObject(obj), "application/json");
-        }
+        //ActionResult NewtonsoftJson(object obj, int statusCode = 200)
+        //{
+        //    Response.StatusCode = statusCode;
+        //    return Content(JsonConvert.SerializeObject(obj), "application/json");
+        //}
 
         // Insert a new sale
         [HttpPost]
