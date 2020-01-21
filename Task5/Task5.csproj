@@ -220,6 +220,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Base2MVCController.cs" />
+    <Compile Include="Controllers\Base\BaseMVCController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\ContactsMVCController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />

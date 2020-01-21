@@ -1,6 +1,5 @@
 ﻿
 using System;
-using BLL.Model.BaseEntity;
 using Newtonsoft.Json;
 
 namespace BLL

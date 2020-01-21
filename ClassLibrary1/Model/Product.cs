@@ -1,6 +1,4 @@
 ﻿
-using BLL.Model.BaseEntity;
-
 namespace BLL
 {
     public class Product: Entity

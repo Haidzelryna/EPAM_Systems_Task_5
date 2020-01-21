@@ -1,87 +1,44 @@
-﻿using System.Threading.Tasks;
-using System.Web.Mvc;
-using DevExtreme.AspNet.Mvc;
-using DevExtreme.AspNet.Data;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using AutoMapper;
-using BLL.Services;
+﻿using System;
 using System.Collections;
+using System.Web.Mvc;
+using System.Threading.Tasks;
+using DevExtreme.AspNet.Mvc;
+using BLL.Services;
 
 namespace DAL.Controllers
 {
-    public class SalesMVCController : Controller
+    public class SalesMVCController : BaseMVCController<DAL.Sale, BLL.Sale>
     {
-        private const string ADMINID = "80AB7036-5D4A-11E6-9903-0050569977A1";
-        private static Guid adminGuid = Guid.Parse(ADMINID);
+        public SalesMVCController()
+        {
+            _service = new SaleService(_mapper);
+        }
 
-        const string VALIDATION_ERROR = "The request failed due to a validation error";
-
-        private static IMapper _mapper = BLL.Mapper.SetupMapping.SetupMapper();
-        private readonly SaleService _saleService = new SaleService(_mapper);
-
-        // Load orders according to load options
         [HttpGet]
-        public async Task<ActionResult> Get(DataSourceLoadOptions loadOptions)
+        public override Task<ActionResult> Get(DataSourceLoadOptions loadOptions)
         {
-            loadOptions.RequireTotalCount = false;
-
-            var bllEntities = await _saleService.GetAllAsync();
-
-            //return Json(await Task.Run(() => DataSourceLoader.Load(_mapper.Map<IEnumerable<BLL.Sale>>(bllEntities), loadOptions)), JsonRequestBehavior.AllowGet);
-
-            return NewtonsoftJson(await Task.Run(() => DataSourceLoader.Load(_mapper.Map<IEnumerable<BLL.Sale>>(bllEntities), loadOptions)));
+            return base.Get(loadOptions);
         }
 
-        ActionResult NewtonsoftJson(object obj, int statusCode = 200)
-        {
-            Response.StatusCode = statusCode;
-            return Content(JsonConvert.SerializeObject(obj), "application/json");
-        }
-
-        // Insert a new sale
         [HttpPost]
-        public async Task<ActionResult> Post(string values)
+        public override Task<ActionResult> Post(string values)
         {
-            var newSale = new Sale();
-            PopulateModel(newSale, JsonConvert.DeserializeObject<IDictionary>(values));
-
-            if (!TryValidateModel(newSale))
-                return NewtonsoftJson(VALIDATION_ERROR, 400);
-
-            newSale.CreatedByUserId = adminGuid;
-            newSale.CreatedDateTime = DateTime.UtcNow;
-
-            _saleService.Add(newSale);
-            await _saleService.SaveChangesAsync();
-            return NewtonsoftJson(newSale.Id);
+            return base.Post(values);
         }
 
-        // Update an sale
         [HttpPut]
-        public async Task<ActionResult> Put(Guid key, string values)
+        public override Task<ActionResult> Put(Guid key, string values)
         {
-            var sale = await _saleService.FindAsync(key);
-            PopulateModel(sale, JsonConvert.DeserializeObject<IDictionary>(values));
-
-            if (!TryValidateModel(sale))
-                return NewtonsoftJson(VALIDATION_ERROR, 400);
-
-            await _saleService.SaveChangesAsync();
-            return new EmptyResult();
+            return base.Put(key, values);
         }
 
-        // Remove an sale
         [HttpDelete]
-        public async Task Delete(Guid key)
+        public override Task Delete(Guid key)
         {
-            var sale = await _saleService.FindAsync(key);
-            _saleService.Remove(sale);
-            await _saleService.SaveChangesAsync();
+            return base.Delete(key);
         }
 
-        private void PopulateModel(Sale model, IDictionary values)
+        protected override void PopulateModel(DAL.Sale model, IDictionary values)
         {
             string ID = nameof(Sale.Id);
             string CLIENT_ID = nameof(Sale.ClientId);
@@ -129,15 +86,6 @@ namespace DAL.Controllers
             {
                 model.CreatedDateTime = Convert.ToDateTime(values[CREATED_DATE_TIME]);
             }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                //
-            }
-            base.Dispose(disposing);
         }
     }
 }

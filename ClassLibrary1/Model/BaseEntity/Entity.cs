@@ -1,7 +1,7 @@
 ﻿
 using System;
 
-namespace BLL.Model.BaseEntity
+namespace BLL
 {
     /// <summary>
     /// Base class for all entities.

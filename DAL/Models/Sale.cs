@@ -15,7 +15,7 @@ namespace DAL
     using System.Collections.Generic;
     using System.Runtime.Serialization;
 
-    public partial class Sale: Entity
+    public partial class Sale: BaseEntity
     {
         //public System.Guid Id { get; set; }
         [Required]

@@ -1,7 +1,4 @@
 ﻿
-using System.Collections.Generic;
-using BLL.Model.BaseEntity;
-
 namespace BLL
 {
     public class Contact : Entity
