@@ -34,28 +34,28 @@ namespace DAL.Controllers
 
         // Insert a new client
         [HttpPost]
-        public void Post(string values)
+        public async Task<ActionResult> Post(string values)
         {
             var newClient = new Client();
             PopulateModel(newClient, JsonConvert.DeserializeObject<IDictionary>(values));
 
-            //if (!TryValidateModel(newClient))
-            //    return Json(VALIDATION_ERROR, "400");
+            if (!TryValidateModel(newClient))
+                return NewtonsoftJson(VALIDATION_ERROR, 400);
 
             _clientService.Add(newClient);
-            _clientService.SaveChangesAsync();
-            //return Json(result.OrderID);
+            await _clientService.SaveChangesAsync();
+            return NewtonsoftJson(newClient.Id);
         }
 
         // Update an client
         [HttpPut]
         public async Task<ActionResult> Put(Guid key, string values)
         {
-            var sale = await _clientService.FindAsync(key);
-            PopulateModel(sale, JsonConvert.DeserializeObject<IDictionary>(values));
+            var client = await _clientService.FindAsync(key);
+            PopulateModel(client, JsonConvert.DeserializeObject<IDictionary>(values));
 
-            //if (!TryValidateModel(order))
-            //    return NewtonsoftJson(VALIDATION_ERROR, 400);
+            if (!TryValidateModel(client))
+                return NewtonsoftJson(VALIDATION_ERROR, 400);
 
             await _clientService.SaveChangesAsync();
             return new EmptyResult();
@@ -91,6 +91,12 @@ namespace DAL.Controllers
                 var guidClient = ((Newtonsoft.Json.Linq.JValue)((Newtonsoft.Json.Linq.JContainer)((Newtonsoft.Json.Linq.JContainer)values["Contact"]).First).First).Value;
                 model.ContactId = Guid.Parse(guidClient.ToString());
             }
+        }
+
+        ActionResult NewtonsoftJson(object obj, int statusCode = 200)
+        {
+            Response.StatusCode = statusCode;
+            return Content(JsonConvert.SerializeObject(obj), "application/json");
         }
     }
 }

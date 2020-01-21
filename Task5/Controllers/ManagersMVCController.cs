@@ -35,17 +35,17 @@ namespace DAL.Controllers
 
         // Insert a new manager
         [HttpPost]
-        public void Post(string values)
+        public async Task<ActionResult> Post(string values)
         {
             var newManager = new Manager();
             PopulateModel(newManager, JsonConvert.DeserializeObject<IDictionary>(values));
 
-            //if (!TryValidateModel(newManager))
-            //    return Json(VALIDATION_ERROR, "400");
+            if (!TryValidateModel(newManager))
+                return NewtonsoftJson(VALIDATION_ERROR, 400);
 
             _managerService.Add(newManager);
-            _managerService.SaveChangesAsync();
-            //return Json(result.OrderID);
+            await _managerService.SaveChangesAsync();
+            return NewtonsoftJson(newManager.Id);
         }
 
         // Update an manager
@@ -55,8 +55,8 @@ namespace DAL.Controllers
             var manager = await _managerService.FindAsync(key);
             PopulateModel(manager, JsonConvert.DeserializeObject<IDictionary>(values));
 
-            //if (!TryValidateModel(order))
-            //    return NewtonsoftJson(VALIDATION_ERROR, 400);
+            if (!TryValidateModel(manager))
+                return NewtonsoftJson(VALIDATION_ERROR, 400);
 
             await _managerService.SaveChangesAsync();
             return new EmptyResult();
@@ -92,6 +92,12 @@ namespace DAL.Controllers
                 var guidClient = ((Newtonsoft.Json.Linq.JValue)((Newtonsoft.Json.Linq.JContainer)((Newtonsoft.Json.Linq.JContainer)values["Contact"]).First).First).Value;
                 model.ContactId = Guid.Parse(guidClient.ToString());
             }
+        }
+
+        ActionResult NewtonsoftJson(object obj, int statusCode = 200)
+        {
+            Response.StatusCode = statusCode;
+            return Content(JsonConvert.SerializeObject(obj), "application/json");
         }
     }
 }

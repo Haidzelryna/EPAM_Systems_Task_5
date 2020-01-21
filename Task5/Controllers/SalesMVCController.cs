@@ -42,20 +42,20 @@ namespace DAL.Controllers
 
         // Insert a new sale
         [HttpPost]
-        public void Post(string values)
+        public async Task<ActionResult> Post(string values)
         {
             var newSale = new Sale();
             PopulateModel(newSale, JsonConvert.DeserializeObject<IDictionary>(values));
 
-            //if (!TryValidateModel(newSale))
-            //    return Json(VALIDATION_ERROR, "400");
+            if (!TryValidateModel(newSale))
+                return NewtonsoftJson(VALIDATION_ERROR, 400);
 
             newSale.CreatedByUserId = adminGuid;
             newSale.CreatedDateTime = DateTime.UtcNow;
 
             _saleService.Add(newSale);
-            _saleService.SaveChangesAsync();
-            //return Json(result.OrderID);
+            await _saleService.SaveChangesAsync();
+            return NewtonsoftJson(newSale.Id);
         }
 
         // Update an sale
@@ -65,8 +65,8 @@ namespace DAL.Controllers
             var sale = await _saleService.FindAsync(key);
             PopulateModel(sale, JsonConvert.DeserializeObject<IDictionary>(values));
 
-            //if (!TryValidateModel(order))
-            //    return NewtonsoftJson(VALIDATION_ERROR, 400);
+            if (!TryValidateModel(sale))
+                return NewtonsoftJson(VALIDATION_ERROR, 400);
 
             await _saleService.SaveChangesAsync();
             return new EmptyResult();

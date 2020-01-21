@@ -34,28 +34,28 @@ namespace DAL.Controllers
 
         // Insert a new product
         [HttpPost]
-        public void Post(string values)
+        public async Task<ActionResult> Post(string values)
         {
             var newProduct = new Product();
             PopulateModel(newProduct, JsonConvert.DeserializeObject<IDictionary>(values));
 
-            //if (!TryValidateModel(newProduct))
-            //    return Json(VALIDATION_ERROR, "400");
+            if (!TryValidateModel(newProduct))
+                return NewtonsoftJson(VALIDATION_ERROR, 400);
 
             _productService.Add(newProduct);
-            _productService.SaveChangesAsync();
-            //return Json(result.OrderID);
+            await _productService.SaveChangesAsync();
+            return NewtonsoftJson(newProduct.Id);
         }
 
         // Update an product
         [HttpPut]
         public async Task<ActionResult> Put(Guid key, string values)
         {
-            var sale = await _productService.FindAsync(key);
-            PopulateModel(sale, JsonConvert.DeserializeObject<IDictionary>(values));
+            var product = await _productService.FindAsync(key);
+            PopulateModel(product, JsonConvert.DeserializeObject<IDictionary>(values));
 
-            //if (!TryValidateModel(order))
-            //    return NewtonsoftJson(VALIDATION_ERROR, 400);
+            if (!TryValidateModel(product))
+                return NewtonsoftJson(VALIDATION_ERROR, 400);
 
             await _productService.SaveChangesAsync();
             return new EmptyResult();
@@ -90,6 +90,12 @@ namespace DAL.Controllers
             {
                 model.Price = Convert.ToDecimal(values[PRICE]);
             }
+        }
+
+        ActionResult NewtonsoftJson(object obj, int statusCode = 200)
+        {
+            Response.StatusCode = statusCode;
+            return Content(JsonConvert.SerializeObject(obj), "application/json");
         }
     }
 }

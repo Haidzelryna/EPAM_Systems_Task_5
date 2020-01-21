@@ -34,28 +34,28 @@ namespace DAL.Controllers
 
         // Insert a new contact
         [HttpPost]
-        public void Post(string values)
+        public async Task<ActionResult> Post(string values)
         {
             var newContact = new Contact();
             PopulateModel(newContact, JsonConvert.DeserializeObject<IDictionary>(values));
 
-            //if (!TryValidateModel(newContact))
-            //    return Json(VALIDATION_ERROR, "400");
+            if (!TryValidateModel(newContact))
+                return NewtonsoftJson(VALIDATION_ERROR, 400);
 
             _contactService.Add(newContact);
-            _contactService.SaveChangesAsync();
-            //return Json(result.OrderID);
+            await _contactService.SaveChangesAsync();
+            return NewtonsoftJson(newContact.Id);
         }
 
         // Update an contact
         [HttpPut]
         public async Task<ActionResult> Put(Guid key, string values)
         {
-            var sale = await _contactService.FindAsync(key);
-            PopulateModel(sale, JsonConvert.DeserializeObject<IDictionary>(values));
+            var contact = await _contactService.FindAsync(key);
+            PopulateModel(contact, JsonConvert.DeserializeObject<IDictionary>(values));
 
-            //if (!TryValidateModel(order))
-            //    return NewtonsoftJson(VALIDATION_ERROR, 400);
+            if (!TryValidateModel(contact))
+                return NewtonsoftJson(VALIDATION_ERROR, 400);
 
             await _contactService.SaveChangesAsync();
             return new EmptyResult();
@@ -108,6 +108,12 @@ namespace DAL.Controllers
             {
                 model.Phone = Convert.ToString(values[PHONE]);
             }
+        }
+
+        ActionResult NewtonsoftJson(object obj, int statusCode = 200)
+        {
+            Response.StatusCode = statusCode;
+            return Content(JsonConvert.SerializeObject(obj), "application/json");
         }
     }
 }
