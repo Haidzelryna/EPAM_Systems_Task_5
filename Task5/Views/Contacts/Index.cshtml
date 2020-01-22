@@ -14,7 +14,7 @@
 @(Html.DevExtreme().DataGrid<Contact>()
                     .ID("gridContainerContacts")
 
-                    .DataSource(d => d.Mvc().Controller("ContactsMVC").Key("Id")
+                    .DataSource(   d => d.Mvc().Controller("ContactsMVC").Key("Id")
                                     .LoadAction("Get")
                                     .InsertAction("Post")
                                     .UpdateAction("Put")
@@ -25,7 +25,7 @@
                     .Selection(s => s.Mode(SelectionMode.Single))
 
                     .Editing(e => e
-                        .Mode(GridEditMode.Batch)
+                        .Mode(GridEditMode.Popup)
                         .AllowAdding(true)
                         .AllowDeleting(true)
                         .AllowUpdating(true)

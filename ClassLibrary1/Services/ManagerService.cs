@@ -46,18 +46,6 @@ namespace BLL.Services
             return _mapper.Map<BLL.Manager>(dalEntity);
         }
 
-        public void Remove(BLL.Manager Entity)
-        {
-            var dalEntity = _mapper.Map<DAL.Manager>(Entity);
-            _managerRepository.Delete(dalEntity);
-        }
-
-        public void Remove(IEnumerable<BLL.Manager> Entities)
-        {
-            var dalEntities = _mapper.Map<IEnumerable<DAL.Manager>>(Entities);
-            _managerRepository.Delete(dalEntities);
-        }
-
         public void Add(BLL.Manager Entity)
         {
             var dalEntity = _mapper.Map<DAL.Manager>(Entity);
@@ -68,6 +56,18 @@ namespace BLL.Services
         {
             var dalEntities = _mapper.Map<IEnumerable<DAL.Manager>>(Entities);
             _managerRepository.Add(dalEntities);
+        }
+
+        public void Remove(BLL.Manager Entity)
+        {
+            var dalEntity = _mapper.Map<DAL.Manager>(Entity);
+            _managerRepository.Delete(dalEntity);
+        }
+
+        public void Remove(IEnumerable<BLL.Manager> Entities)
+        {
+            var dalEntities = _mapper.Map<IEnumerable<DAL.Manager>>(Entities);
+            _managerRepository.Delete(dalEntities);
         }
 
         public async Task SaveChangesAsync()
