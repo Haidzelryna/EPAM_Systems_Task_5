@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace BLL.Services
 {
-    public class ContactService : IService<DAL.Contact>
+    public class ContactService : IService<BLL.Contact>
     {
         private readonly IGenericRepository<DAL.Contact> _contactRepository;
         private readonly IMapper _mapper;
@@ -26,44 +26,48 @@ namespace BLL.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<DAL.Contact>> GetAllAsync()
+        public async Task<IEnumerable<BLL.Contact>> GetAllAsync()
         {
-            IEnumerable<DAL.Contact> result = Enumerable.Empty<DAL.Contact>();
+            IEnumerable<DAL.Contact> dalEntities = Enumerable.Empty<DAL.Contact>();
             await _locker.LockAsync(async () =>
             {
-                result = await _contactRepository.GetAllAsync();
+                dalEntities = await _contactRepository.GetAllAsync();
             });
-            return result;
+            return _mapper.Map<IEnumerable<BLL.Contact>>(dalEntities);
         }
 
-        public async Task<DAL.Contact> FindAsync(Guid Id)
+        public async Task<BLL.Contact> FindAsync(Guid Id)
         {
-            DAL.Contact result = new DAL.Contact();
+            DAL.Contact dalEntity = new DAL.Contact();
             await _locker.LockAsync(async () =>
             {
-                result = await _contactRepository.FindAsync(Id);
+                dalEntity = await _contactRepository.FindAsync(Id);
             });
-            return result;
+            return _mapper.Map<BLL.Contact>(dalEntity);
         }
 
-        public void Remove(DAL.Contact Entity)
+        public void Remove(BLL.Contact Entity)
         {
-            _contactRepository.Delete(Entity);
+            var dalEntity = _mapper.Map<DAL.Contact>(Entity);
+            _contactRepository.Delete(dalEntity);
         }
 
-        public void Remove(IEnumerable<DAL.Contact> Entities)
+        public void Remove(IEnumerable<BLL.Contact> Entities)
         {
-            _contactRepository.Delete(Entities);
+            var dalEntities = _mapper.Map<IEnumerable<DAL.Contact>>(Entities);
+            _contactRepository.Delete(dalEntities);
         }
 
-        public void Add(DAL.Contact Entity)
+        public void Add(BLL.Contact Entity)
         {
-            _contactRepository.Add(Entity);
+            var dalEntity = _mapper.Map<DAL.Contact>(Entity);
+            _contactRepository.Add(dalEntity);
         }
 
-        public void Add(IEnumerable<DAL.Contact> Entities)
+        public void Add(IEnumerable<BLL.Contact> Entities)
         {
-            _contactRepository.Add(Entities);
+            var dalEntities = _mapper.Map<IEnumerable<DAL.Contact>>(Entities);
+            _contactRepository.Add(dalEntities);
         }
 
         public async Task SaveChangesAsync()

@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace BLL.Services
 {
-    public class ManagerService : IService<DAL.Manager>
+    public class ManagerService : IService<BLL.Manager>
     {
         private readonly IGenericRepository<DAL.Manager> _managerRepository;
         private readonly IMapper _mapper;
@@ -26,44 +26,48 @@ namespace BLL.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<DAL.Manager>> GetAllAsync()
+        public async Task<IEnumerable<BLL.Manager>> GetAllAsync()
         {
-            IEnumerable<DAL.Manager> result = Enumerable.Empty<DAL.Manager>();
+            IEnumerable<DAL.Manager> dalEntities = Enumerable.Empty<DAL.Manager>();
             await _locker.LockAsync(async () =>
             {
-                result = await _managerRepository.GetAllAsync();
+                dalEntities = await _managerRepository.GetAllAsync();
             });
-            return result;
+            return _mapper.Map<IEnumerable<BLL.Manager>>(dalEntities);
         }
 
-        public async Task<DAL.Manager> FindAsync(Guid managerId)
+        public async Task<BLL.Manager> FindAsync(Guid managerId)
         {
-            DAL.Manager result = new DAL.Manager();
+            DAL.Manager dalEntity = new DAL.Manager();
             await _locker.LockAsync(async () =>
             {
-                result = await _managerRepository.FindAsync(managerId);
+                dalEntity = await _managerRepository.FindAsync(managerId);
             });
-            return result;
+            return _mapper.Map<BLL.Manager>(dalEntity);
         }
 
-        public void Remove(DAL.Manager Entity)
+        public void Remove(BLL.Manager Entity)
         {
-            _managerRepository.Delete(Entity);
+            var dalEntity = _mapper.Map<DAL.Manager>(Entity);
+            _managerRepository.Delete(dalEntity);
         }
 
-        public void Remove(IEnumerable<DAL.Manager> Entities)
+        public void Remove(IEnumerable<BLL.Manager> Entities)
         {
-            _managerRepository.Delete(Entities);
+            var dalEntities = _mapper.Map<IEnumerable<DAL.Manager>>(Entities);
+            _managerRepository.Delete(dalEntities);
         }
 
-        public void Add(DAL.Manager Entity)
+        public void Add(BLL.Manager Entity)
         {
-            _managerRepository.Add(Entity);
+            var dalEntity = _mapper.Map<DAL.Manager>(Entity);
+            _managerRepository.Add(dalEntity);
         }
 
-        public void Add(IEnumerable<DAL.Manager> Entities)
+        public void Add(IEnumerable<BLL.Manager> Entities)
         {
-            _managerRepository.Add(Entities);
+            var dalEntities = _mapper.Map<IEnumerable<DAL.Manager>>(Entities);
+            _managerRepository.Add(dalEntities);
         }
 
         public async Task SaveChangesAsync()

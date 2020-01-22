@@ -64,7 +64,7 @@ namespace BLL.Services
             _saleRepository.Delete(dalEntity);
         }
 
-        public void Remove(IEnumerable<DAL.Sale> Entities)
+        public void Remove(IEnumerable<BLL.Sale> Entities)
         {
             var dalEntities = _mapper.Map<IEnumerable<DAL.Sale>>(Entities);
             _saleRepository.Delete(dalEntities);
