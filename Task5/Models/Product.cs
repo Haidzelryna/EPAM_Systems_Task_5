@@ -12,4 +12,3 @@ namespace Task5
         public string Name { get; set; }
     }
 }
-}

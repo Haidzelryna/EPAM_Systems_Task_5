@@ -7,7 +7,7 @@ using BLL.Services;
 
 namespace DAL.Controllers
 {
-    public class ManagersMVCController : BaseMVCController<DAL.Manager>
+    public class ManagersMVCController : BaseMVCController<DAL.Manager, Manager>
     {
         public ManagersMVCController()
         {
@@ -38,7 +38,7 @@ namespace DAL.Controllers
             return base.Delete(key);
         }
 
-        protected override void PopulateModel(DAL.Manager model, IDictionary values)
+        protected override void PopulateModel(Manager model, IDictionary values)
         {
             string ID = nameof(Manager.Id);
             string NAME = nameof(Manager.Name);

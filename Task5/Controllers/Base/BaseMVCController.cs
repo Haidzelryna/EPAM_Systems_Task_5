@@ -11,8 +11,9 @@ using System.Collections;
 
 namespace DAL.Controllers
 {
-    public abstract class BaseMVCController<T> : Controller 
+    public abstract class BaseMVCController<T,V> : Controller 
         where T: DAL.Entity, new()
+        where V: Entity, new()
     {
         private const string ADMINID = "80AB7036-5D4A-11E6-9903-0050569977A1";
         private static Guid adminGuid = Guid.Parse(ADMINID);
@@ -30,7 +31,7 @@ namespace DAL.Controllers
 
             var bllEntities = await _service.GetAllAsync();
 
-            return NewtonsoftJson(await Task.Run(() => DataSourceLoader.Load(bllEntities, loadOptions)));
+            return NewtonsoftJson(await Task.Run(() => DataSourceLoader.Load(_mapper.Map<ICollection<V>>(bllEntities), loadOptions)));
         }
 
         ActionResult NewtonsoftJson(object obj, int statusCode = 200)
