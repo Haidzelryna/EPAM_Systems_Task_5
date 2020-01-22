@@ -54,6 +54,8 @@ namespace DAL.Controllers
 
             if (newEntity is DAL.Sale)
             {
+                (newEntity as DAL.Sale).CreatedByUserId = adminGuid;
+                (newEntity as DAL.Sale).CreatedDateTime = DateTime.UtcNow;
                 (newEntity as DAL.BaseEntity).CreatedByUserId = adminGuid;
                 (newEntity as DAL.BaseEntity).CreatedDateTime = DateTime.UtcNow;
             }
