@@ -1,7 +1,7 @@
 ﻿
 @using DevExtreme.AspNet.Mvc
 
-@model IEnumerable<DAL.Client>
+@model IEnumerable<Client>
 
 @{
     ViewBag.Title = "Cliens";
@@ -11,7 +11,7 @@
 
 <script src="https://unpkg.com/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
 
-@(Html.DevExtreme().DataGrid<DAL.Client>()
+@(Html.DevExtreme().DataGrid<Client>()
                     .ID("gridContainerClients")
 
                      //.DataSource(Model)

@@ -1,7 +1,7 @@
 ﻿
 @using DevExtreme.AspNet.Mvc
 
-@model IEnumerable<DAL.Contact>
+@model IEnumerable<Contact>
 
 @{
     ViewBag.Title = "Contacts";
@@ -11,7 +11,7 @@
 
 <script src="https://unpkg.com/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
 
-@(Html.DevExtreme().DataGrid<DAL.Contact>()
+@(Html.DevExtreme().DataGrid<Contact>()
                     .ID("gridContainerContacts")
 
                     .DataSource(d => d.Mvc().Controller("ContactsMVC").Key("Id")

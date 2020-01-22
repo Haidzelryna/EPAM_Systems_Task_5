@@ -1,7 +1,7 @@
 ﻿
 using System;
 
-namespace Task5.Model.BaseEntity
+namespace Task5
 {
     /// <summary>
     /// Base class for all entities.
