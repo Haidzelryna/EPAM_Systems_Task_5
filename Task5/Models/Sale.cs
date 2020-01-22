@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Task5
 {
-    public class Sale
+    public class Sale: Entity
     {
         [Required]
         public System.Guid ClientId { get; set; }

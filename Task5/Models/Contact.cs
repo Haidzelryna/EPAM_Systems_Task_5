@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Task5
 {
-    public class Contact
+    public class Contact: Entity
     {
         [Column("I")]
         [MaxLength(255)]

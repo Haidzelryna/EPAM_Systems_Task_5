@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Task5
 {
-    public class Manager
+    public class Manager: Entity
     {
         [Required]
         [MaxLength(255)]

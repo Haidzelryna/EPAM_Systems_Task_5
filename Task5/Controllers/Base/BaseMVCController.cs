@@ -9,11 +9,11 @@ using AutoMapper;
 using BLL.Services;
 using System.Collections;
 
-namespace DAL.Controllers
+namespace Task5.Controllers
 {
     public abstract class BaseMVCController<T,V> : Controller 
-        where T: DAL.Entity, new()
-        where V: Entity, new()
+        where T: BLL.Entity, new()
+        where V: Task5.Entity, new()
     {
         private const string ADMINID = "80AB7036-5D4A-11E6-9903-0050569977A1";
         private static Guid adminGuid = Guid.Parse(ADMINID);
@@ -51,10 +51,10 @@ namespace DAL.Controllers
             if (!TryValidateModel(newEntity))
                 return NewtonsoftJson(VALIDATION_ERROR, 400);
 
-            if (newEntity is DAL.Sale)
+            if (newEntity is BLL.Sale)
             {
-                (newEntity as DAL.Sale).CreatedByUserId = adminGuid;
-                (newEntity as DAL.Sale).CreatedDateTime = DateTime.UtcNow;
+                //(newEntity as DAL.Sale).CreatedByUserId = adminGuid;
+                //(newEntity as DAL.Sale).CreatedDateTime = DateTime.UtcNow;
                 (newEntity as DAL.BaseEntity).CreatedByUserId = adminGuid;
                 (newEntity as DAL.BaseEntity).CreatedDateTime = DateTime.UtcNow;
             }

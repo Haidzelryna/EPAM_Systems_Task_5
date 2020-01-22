@@ -8,9 +8,9 @@ using BLL.Services;
 using Newtonsoft.Json;
 using DevExtreme.AspNet.Data;
 
-namespace DAL.Controllers
+namespace Task5.Controllers
 {
-    public class SalesMVCController : BaseMVCController<DAL.Sale, Sale>
+    public class SalesMVCController : BaseMVCController<BLL.Sale, Sale>
     {
         public SalesMVCController()
         {
@@ -47,7 +47,7 @@ namespace DAL.Controllers
             return base.Delete(key);
         }
 
-        protected override void PopulateModel(Sale model, IDictionary values)
+        protected override void PopulateModel(BLL.Sale model, IDictionary values)
         {
             string ID = nameof(Sale.Id);
             string CLIENT_ID = nameof(Sale.ClientId);
@@ -74,7 +74,7 @@ namespace DAL.Controllers
 
             if (values.Contains(SUM))
             {
-                model.Sum = Convert.ToDecimal(values[SUM]);
+                model.Sum = Convert.ToString(values[SUM]);
             }
 
             if (values.Contains(DATE))

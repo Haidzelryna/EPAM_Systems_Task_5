@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using DevExtreme.AspNet.Mvc;
 using BLL.Services;
 
-namespace DAL.Controllers
+namespace Task5.Controllers
 {
-    public class ContactsMVCController : BaseMVCController<DAL.Contact, Contact>
+    public class ContactsMVCController : BaseMVCController<BLL.Contact, Contact>
     {
         public ContactsMVCController()
         {
@@ -38,7 +38,7 @@ namespace DAL.Controllers
             return base.Delete(key);
         }
 
-        protected override void PopulateModel(Contact model, IDictionary values)
+        protected override void PopulateModel(BLL.Contact model, IDictionary values)
         {
             string ID = nameof(Contact.Id);
             string FIRSTNAME = nameof(Contact.FirstName);

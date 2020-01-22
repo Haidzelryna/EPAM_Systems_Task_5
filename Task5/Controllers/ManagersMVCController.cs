@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using DevExtreme.AspNet.Mvc;
 using BLL.Services;
 
-namespace DAL.Controllers
+namespace Task5.Controllers
 {
-    public class ManagersMVCController : BaseMVCController<DAL.Manager, Manager>
+    public class ManagersMVCController : BaseMVCController<BLL.Manager, Manager>
     {
         public ManagersMVCController()
         {
@@ -38,11 +38,11 @@ namespace DAL.Controllers
             return base.Delete(key);
         }
 
-        protected override void PopulateModel(Manager model, IDictionary values)
+        protected override void PopulateModel(BLL.Manager model, IDictionary values)
         {
             string ID = nameof(Manager.Id);
             string NAME = nameof(Manager.Name);
-            string CONTACT_ID = nameof(Manager.Contact);
+            string CONTACT_ID = nameof(Manager.ContactId);
 
             if (values.Contains(ID))
             {
@@ -56,8 +56,7 @@ namespace DAL.Controllers
 
             if (values.Contains(CONTACT_ID))
             {
-                var guidClient = ((Newtonsoft.Json.Linq.JValue)((Newtonsoft.Json.Linq.JContainer)((Newtonsoft.Json.Linq.JContainer)values["Contact"]).First).First).Value;
-                model.ContactId = Guid.Parse(guidClient.ToString());
+                model.ContactId = Guid.Parse(values[CONTACT_ID].ToString());
             }
         }
     }

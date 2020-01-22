@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Task5
 {
-    public class Product
+    public class Product: Entity
     {
         [Required]
         public Nullable<decimal> Price { get; set; }
