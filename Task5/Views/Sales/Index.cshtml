@@ -103,12 +103,11 @@
 
 
 <script type="text/javascript">
+
     function reloadData() {
         $("#gridContainerSales").dxDataGrid("getDataSource").reload();
     }
-</script>
 
-<script>
     var addIndexColumns = function (e) {
         if (!e.component.columnOption("№"))
             e.component.addColumn({
@@ -116,10 +115,11 @@
                 visibleIndex: 0,
                 width: 60,
                 cellTemplate: function (cellElement, cellInfo) {
-                    cellElement.append($("<div>").text(cellInfo.rowIndex+1))
+                    cellElement.append($("<div>").text(cellInfo.rowIndex + 1))
                 }
             })
     }
+
 </script>
 
 

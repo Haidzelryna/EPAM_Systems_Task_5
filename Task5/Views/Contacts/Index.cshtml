@@ -69,6 +69,8 @@
                         .Caption("Mobile Phone");
                         columns.AddFor(m => m.Email);
                     })
+
+                    .OnContentReady("addIndexColumns")
 )
 
 @(Html.DevExtreme().Button()
@@ -77,7 +79,21 @@
 )
 
 <script type="text/javascript">
+
     function reloadData() {
         $("#gridContainerContacts").dxDataGrid("getDataSource").reload();
     }
+
+    var addIndexColumns = function (e) {
+        if (!e.component.columnOption("№"))
+            e.component.addColumn({
+                caption: "№",
+                visibleIndex: 0,
+                width: 60,
+                cellTemplate: function (cellElement, cellInfo) {
+                    cellElement.append($("<div>").text(cellInfo.rowIndex + 1))
+                }
+            })
+    }
+
 </script>
