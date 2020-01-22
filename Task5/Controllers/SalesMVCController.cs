@@ -5,9 +5,12 @@ using System.Threading.Tasks;
 using DevExtreme.AspNet.Mvc;
 using BLL.Services;
 
+using Newtonsoft.Json;
+using DevExtreme.AspNet.Data;
+
 namespace DAL.Controllers
 {
-    public class SalesMVCController : BaseMVCController<DAL.Sale, BLL.Sale>
+    public class SalesMVCController : BaseMVCController<DAL.Sale>
     {
         public SalesMVCController()
         {
@@ -18,6 +21,12 @@ namespace DAL.Controllers
         public override Task<ActionResult> Get(DataSourceLoadOptions loadOptions)
         {
             return base.Get(loadOptions);
+        }
+
+        ActionResult NewtonsoftJson(object obj, int statusCode = 200)
+        {
+            Response.StatusCode = statusCode;
+            return Content(JsonConvert.SerializeObject(obj), "application/json");
         }
 
         [HttpPost]
@@ -55,15 +64,11 @@ namespace DAL.Controllers
 
             if (values.Contains(CLIENT_ID))
             {
-                //var guidClient = ((Newtonsoft.Json.Linq.JValue)((Newtonsoft.Json.Linq.JContainer)((Newtonsoft.Json.Linq.JContainer)values["Client"]).First).First).Value;
-                //model.ClientId = Guid.Parse(guidClient.ToString());
                 model.ClientId = Guid.Parse(values[CLIENT_ID].ToString());
             }
 
             if (values.Contains(PRODUCT_ID))
             {
-                //var guidProduct = ((Newtonsoft.Json.Linq.JValue)((Newtonsoft.Json.Linq.JContainer)((Newtonsoft.Json.Linq.JContainer)values["Product"]).First).First).Value;
-                //model.ProductId = Guid.Parse(guidProduct.ToString());
                 model.ProductId = Guid.Parse(values[PRODUCT_ID].ToString());
             }
 
@@ -87,5 +92,23 @@ namespace DAL.Controllers
                 model.CreatedDateTime = Convert.ToDateTime(values[CREATED_DATE_TIME]);
             }
         }
+
+        //public void Validation(DAL.Sale model, ModelState modelState)
+        //{
+        //    if (string.IsNullOrEmpty(model.Sum))
+        //    {
+        //        modelState.AddModelError("Name", "SM!");
+        //    }
+        //    //else if (person.Name.Length > 5)
+        //    //{
+        //    //    ModelState.AddModelError("Name", "Недопустимая длина строки");
+        //    //}
+        //    //if (ModelState.IsValid)
+        //    //{
+        //    //    return Content($"{person.Name} - {person.Email}");
+        //    //}
+
+        //    //return View(person);
+        //}
     }
 }

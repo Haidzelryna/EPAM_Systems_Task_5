@@ -8,6 +8,8 @@
 //------------------------------------------------------------------------------
 
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace DAL
 {
@@ -22,7 +24,7 @@ namespace DAL
         public System.Guid ClientId { get; set; }
         [Required]
         public System.Guid ProductId { get; set; }
-        [Required]
+        [Required (ErrorMessage = "Не указана сумма")]
         public decimal Sum { get; set; }
         [Required]
         public System.DateTime Date { get; set; }
@@ -31,8 +33,14 @@ namespace DAL
         [Required]
         public System.DateTime CreatedDateTime { get; set; }
 
+        [JsonIgnore]
+        [IgnoreDataMember]
         public virtual Client Client { get; set; }
+        [JsonIgnore]
+        [IgnoreDataMember]
         public virtual Manager Manager { get; set; }
+        [JsonIgnore]
+        [IgnoreDataMember]
         public virtual Product Product { get; set; }
     }
 }

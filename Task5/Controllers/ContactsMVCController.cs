@@ -7,7 +7,7 @@ using BLL.Services;
 
 namespace DAL.Controllers
 {
-    public class ContactsMVCController : BaseMVCController<DAL.Contact, BLL.Contact>
+    public class ContactsMVCController : BaseMVCController<DAL.Contact>
     {
         public ContactsMVCController()
         {

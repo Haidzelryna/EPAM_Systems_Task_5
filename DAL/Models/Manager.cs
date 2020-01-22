@@ -8,6 +8,8 @@
 //------------------------------------------------------------------------------
 
 using System.ComponentModel.DataAnnotations;
+using Newtonsoft.Json;
+using System.Runtime.Serialization;
 
 namespace DAL
 {
@@ -28,9 +30,13 @@ namespace DAL
         public string Name { get; set; }
         [Required]
         public System.Guid ContactId { get; set; }
-    
+
+        [JsonIgnore]
+        [IgnoreDataMember]
         public virtual Contact Contact { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        [JsonIgnore]
+        [IgnoreDataMember]
         public virtual ICollection<Sale> Sale { get; set; }
     }
 }

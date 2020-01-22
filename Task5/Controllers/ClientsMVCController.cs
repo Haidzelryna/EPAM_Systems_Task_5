@@ -7,7 +7,7 @@ using BLL.Services;
 
 namespace DAL.Controllers
 {
-    public class ClientsMVCController : BaseMVCController<DAL.Client, BLL.Client>
+    public class ClientsMVCController : BaseMVCController<DAL.Client>
     {
         public ClientsMVCController()
         {
