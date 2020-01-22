@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace BLL.Services
 {
-    public class SaleService : IService<DAL.Sale>
+    public class SaleService : IService<BLL.Sale>
     {
         private readonly IGenericRepository<DAL.Sale> _saleRepository;
         private readonly IMapper _mapper;
@@ -26,44 +26,48 @@ namespace BLL.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<DAL.Sale>> GetAllAsync()
+        public async Task<IEnumerable<BLL.Sale>> GetAllAsync()
         {
-            IEnumerable<DAL.Sale> result = Enumerable.Empty<DAL.Sale>();
+            IEnumerable<DAL.Sale> dalEntities = Enumerable.Empty<DAL.Sale>();
             await _locker.LockAsync(async () =>
             {
-                result = await _saleRepository.GetAllAsync();
+                dalEntities = await _saleRepository.GetAllAsync();
             });
-            return result;
+            return _mapper.Map<IEnumerable<BLL.Sale>>(dalEntities);
         }
 
-        public async Task<DAL.Sale> FindAsync(Guid Id)
+        public async Task<BLL.Sale> FindAsync(Guid Id)
         {
-            DAL.Sale result = new DAL.Sale();
+            DAL.Sale dalEntity = new DAL.Sale();
             await _locker.LockAsync(async () =>
             {
-                result = await _saleRepository.FindAsync(Id);
+                dalEntity = await _saleRepository.FindAsync(Id);
             });
-            return result;
+            return _mapper.Map<BLL.Sale>(dalEntity);
         }
 
-        public void Add(DAL.Sale Entity)
+        public void Add(BLL.Sale Entity)
         {
-            _saleRepository.Add(Entity);
+            var dalEntity = _mapper.Map<DAL.Sale>(Entity);
+            _saleRepository.Add(dalEntity);
         }
 
-        public void Add(IEnumerable<DAL.Sale> Entities)
+        public void Add(IEnumerable<BLL.Sale> Entities)
         {
-            _saleRepository.Add(Entities);
+            var dalEntities = _mapper.Map<IEnumerable<DAL.Sale>>(Entities);
+            _saleRepository.Add(dalEntities);
         }
 
-        public void Remove(DAL.Sale Entity)
+        public void Remove(BLL.Sale Entity)
         {
-            _saleRepository.Delete(Entity);
+            var dalEntity = _mapper.Map<DAL.Sale>(Entity);
+            _saleRepository.Delete(dalEntity);
         }
 
         public void Remove(IEnumerable<DAL.Sale> Entities)
         {
-            _saleRepository.Delete(Entities);
+            var dalEntities = _mapper.Map<IEnumerable<DAL.Sale>>(Entities);
+            _saleRepository.Delete(dalEntities);
         }
 
         public async Task SaveChangesAsync()
