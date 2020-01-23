@@ -4,6 +4,7 @@ using System.Web.Mvc;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Mvc;
 using BLL.Services;
+using AutoMapper;
 
 namespace Task5.Controllers
 {
@@ -12,6 +13,12 @@ namespace Task5.Controllers
         public ClientsMVCController()
         {
             _service = new ClientService(_mapper);
+        }
+
+        public ClientsMVCController(IService<BLL.Client> service, IMapper mapper)
+        {
+            _mapper = mapper;
+            _service = service;
         }
 
         [HttpGet]

@@ -5,15 +5,15 @@ namespace Task5
 {
     public class Sale: Entity
     {
-        [Required]
+        [Required(ErrorMessage = "Сlient not selected")]
         public System.Guid ClientId { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Product not selected")]
         public System.Guid ProductId { get; set; }
-        [Required(ErrorMessage = "Не указана сумма")]
+        [Required(ErrorMessage = "Amount not specified")]
         public decimal Sum { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Date not specified")]
         public System.DateTime Date { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Manager not selected")]
         public System.Guid CreatedByUserId { get; set; }
         [Required]
         public System.DateTime CreatedDateTime { get; set; }

@@ -13,6 +13,8 @@ namespace Task5
     {
         protected void Application_Start()
         {
+            UnityConfig.RegisterComponents();
+
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
@@ -20,6 +22,8 @@ namespace Task5
 
             DevExtremeBundleConfig.RegisterBundles(BundleTable.Bundles);
             WebApiConfig.Register(GlobalConfiguration.Configuration);
+
+            //Bootstrapper.Initialise();
         }
     }
 }

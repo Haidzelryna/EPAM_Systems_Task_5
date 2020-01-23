@@ -13,7 +13,8 @@ namespace DAL.Repository
 
         public GenericRepository()
         {
-            _context = new SalesEntities();
+            if (_context == null)
+                _context = new SalesEntities();
         }
 
         public GenericRepository(SalesEntities salesDbContext)
@@ -61,8 +62,11 @@ namespace DAL.Repository
         public void Delete(T entity)
         {
             try
-            { 
-                _context.Set<T>().Attach(entity);
+            {
+                if (!_context.Set<T>().Local.Contains(entity))
+                {
+                    _context.Set<T>().Attach(entity);
+                }
                 _context.Set<T>().Remove(entity);
             }
             catch (Exception ex)

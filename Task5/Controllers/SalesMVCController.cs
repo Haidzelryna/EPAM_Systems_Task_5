@@ -7,6 +7,7 @@ using BLL.Services;
 
 using Newtonsoft.Json;
 using DevExtreme.AspNet.Data;
+using AutoMapper;
 
 namespace Task5.Controllers
 {
@@ -15,6 +16,12 @@ namespace Task5.Controllers
         public SalesMVCController()
         {
             _service = new SaleService(_mapper);
+        }
+
+        public SalesMVCController(IService<BLL.Sale> service, IMapper mapper)
+        {
+            _mapper = mapper;
+            _service = service;
         }
 
         [HttpGet]
