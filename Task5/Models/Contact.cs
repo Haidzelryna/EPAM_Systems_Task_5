@@ -25,10 +25,11 @@ namespace Task5
         public string FullName { get { return $"{FirstName} {MiddleName} {LastName}"; } }
 
         [MaxLength(255)]
-        //[RegularExpression(@"\(\+\d{3}\)\d{2}-\d{3}-\d{2}=\d{2}$")]
+        [RegularExpression(@"^\(\d{3}\)\ \d{3}-\d{4}$", ErrorMessage = @"Your phone must have ""(555) 555-5555"" format!")]
         public string Phone { get; set; }
 
         [MaxLength(255)]
+        [RegularExpression(@"^[\d\w\._\-]+@([\d\w\._\-]+\.)+[\w]+$", ErrorMessage = @"Email is invalid")]
         public string Email { get; set; }     
     }
 }

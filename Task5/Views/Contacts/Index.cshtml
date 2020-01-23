@@ -67,7 +67,6 @@
                         columns.AddFor(m => m.LastName);
                         columns.AddFor(m => m.Phone)
                         .Caption("Mobile Phone");
-                        //.("(+   )  -   -  -  ");
                         columns.AddFor(m => m.Email);
                     })
 
@@ -96,5 +95,11 @@
                 }
             })
     }
+
+
+    function getCountryWithCapital(rowData) {
+        return rowData.capital + " (" + rowData.country + ")";
+    }
+
 
 </script>
