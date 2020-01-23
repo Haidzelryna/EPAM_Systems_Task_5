@@ -11,7 +11,7 @@ using System.Collections;
 
 namespace Task5.Controllers
 {
-    public abstract class BaseMVCController<T,V> : Controller 
+    public abstract class BaseMVCController<T,V> : Controller
         where T: BLL.Entity, new()
         where V: Task5.Entity, new()
     {
@@ -48,8 +48,14 @@ namespace Task5.Controllers
 
             PopulateModel(newEntity, JsonConvert.DeserializeObject<IDictionary>(values));
 
+           
             if (!TryValidateModel(newEntity))
                 return NewtonsoftJson(VALIDATION_ERROR, 400);
+
+            //if (!ModelState.IsValid)
+            //    return NewtonsoftJson(VALIDATION_ERROR, 400);
+
+            //Validation(newEntity, ModelState);
 
             if (newEntity is BLL.Sale)
             {
@@ -88,6 +94,8 @@ namespace Task5.Controllers
         }
 
         protected abstract void PopulateModel(T model, IDictionary values);
+
+        protected abstract void Validation(T model, ModelStateDictionary modelState);
 
         protected override void Dispose(bool disposing)
         {

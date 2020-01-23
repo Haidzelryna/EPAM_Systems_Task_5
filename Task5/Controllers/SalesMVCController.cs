@@ -100,22 +100,28 @@ namespace Task5.Controllers
             }
         }
 
-        //public void Validation(DAL.Sale model, ModelState modelState)
-        //{
-        //    if (string.IsNullOrEmpty(model.Sum))
-        //    {
-        //        modelState.AddModelError("Name", "SM!");
-        //    }
-        //    //else if (person.Name.Length > 5)
-        //    //{
-        //    //    ModelState.AddModelError("Name", "Недопустимая длина строки");
-        //    //}
-        //    //if (ModelState.IsValid)
-        //    //{
-        //    //    return Content($"{person.Name} - {person.Email}");
-        //    //}
-
-        //    //return View(person);
-        //}
+        protected override void Validation(BLL.Sale model, ModelStateDictionary modelState)
+        {
+            //if (string.IsNullOrEmpty(model.Sum))
+            //{
+            //    modelState.AddModelError("Name", "SM!");
+            //}
+            //else if (person.Name.Length > 5)
+            //{
+            //    ModelState.AddModelError("Name", "Недопустимая длина строки");
+            //}
+            if (model.Sum.Length > 15)
+            {
+                ModelState.AddModelError("Summa", "Недопустимая длина суммы");
+            }
+            //if (ModelState.IsValid)
+            //{
+            //    return Content($"{person.Name} - {person.Email}");
+            //}
+            //if (ModelState.IsValid)
+            //{
+            //    return Content($"{model.Date}");
+            //}
+        }
     }
 }

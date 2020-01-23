@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DevExtreme.AspNet.Mvc;
 using BLL.Services;
 using AutoMapper;
+using BLL;
 
 namespace Task5.Controllers
 {
@@ -65,6 +66,11 @@ namespace Task5.Controllers
             {
                 model.ContactId = Guid.Parse(values[CONTACT_ID].ToString());
             }
+        }
+
+        protected override void Validation(BLL.Client model, ModelStateDictionary modelState)
+        {
+            throw new NotImplementedException();
         }
     }
 }

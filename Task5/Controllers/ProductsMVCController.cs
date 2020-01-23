@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using DevExtreme.AspNet.Mvc;
 using BLL.Services;
 using AutoMapper;
+using BLL;
 
 namespace Task5.Controllers
 {
@@ -59,6 +60,11 @@ namespace Task5.Controllers
             {
                 model.Price = Convert.ToString(values[PRICE]);
             }
+        }
+
+        protected override void Validation(BLL.Product model, ModelStateDictionary modelState)
+        {
+            throw new NotImplementedException();
         }
     }
 }
