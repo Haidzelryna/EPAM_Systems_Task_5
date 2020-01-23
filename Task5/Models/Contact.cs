@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Task5
@@ -15,7 +16,11 @@ namespace Task5
         [Column("F")]
         [MaxLength(255)]
         public string LastName { get; set; }
-        [MaxLength(50)]
+
+        public string FullName { get { return $"{FirstName} {MiddleName} {LastName}"; } }
+
+    [MaxLength(50)]
+        //[RegularExpression(@"\(\+\d{3}\)\d{2}-\d{3}-\d{2}=\d{2}$")]
         public string Phone { get; set; }
         [MaxLength(255)]
         public string Email { get; set; }     

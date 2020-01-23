@@ -65,12 +65,12 @@
                     {
                         columns.AddFor(m => m.Name);
                         columns.Add()
-                                               .DataField("Contact.Id")
+                                               .DataField("ContactId")
                                                .Caption("Contact")
                                                .Width(125)
                                                .Lookup(lookup => lookup
                                                .DataSource(d => d.Mvc().Controller("ContactsMVC").Key("Id").LoadAction("Get"))
-                                               .DisplayExpr("LastName")
+                                               .DisplayExpr("FullName")
                                                .ValueExpr("Id"));
                     })
 
