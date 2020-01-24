@@ -55,7 +55,7 @@ namespace Task5.Controllers
             //if (!ModelState.IsValid)
             //    return NewtonsoftJson(VALIDATION_ERROR, 400);
 
-            //Validation(newEntity, ModelState);
+            Validation(newEntity, ModelState);
 
             if (newEntity is BLL.Sale)
             {

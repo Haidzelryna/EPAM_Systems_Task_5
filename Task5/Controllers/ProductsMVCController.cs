@@ -64,7 +64,10 @@ namespace Task5.Controllers
 
         protected override void Validation(BLL.Product model, ModelStateDictionary modelState)
         {
-            throw new NotImplementedException();
+            if (model.Price.Length > 7)
+            {
+                ModelState.AddModelError("Price", "Недопустимая длина стоимости единицы товара");
+            }
         }
     }
 }

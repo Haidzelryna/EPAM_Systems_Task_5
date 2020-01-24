@@ -88,26 +88,7 @@ namespace Task5.Controllers
 
         protected override void Validation(BLL.Contact model, ModelStateDictionary modelState)
         {
-            //if (string.IsNullOrEmpty(model.Sum))
-            //{
-            //    modelState.AddModelError("Name", "SM!");
-            //}
-            //else if (person.Name.Length > 5)
-            //{
-            //    ModelState.AddModelError("Name", "Недопустимая длина строки");
-            //}
-            //if (model.Sum.Length > 15)
-            //{
-            //    ModelState.AddModelError("Summa", "Недопустимая длина суммы");
-            //}
-            //if (ModelState.IsValid)
-            //{
-            //    return Content($"{person.Name} - {person.Email}");
-            //}
-            //if (ModelState.IsValid)
-            //{
-            //    return Content($"{model.Date}");
-            //}
+            throw new NotImplementedException();
         }
     }
 }
