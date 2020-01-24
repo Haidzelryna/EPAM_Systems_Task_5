@@ -70,7 +70,7 @@ namespace Task5.Controllers
 
         protected override void Validation(BLL.Client model, ModelStateDictionary modelState)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }

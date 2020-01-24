@@ -7,7 +7,7 @@ namespace DAL.Repository
 {
     public class GenericRepository<T> : IGenericRepository<T> where T : Entity
     {
-        private SalesEntities _context;
+        private static SalesEntities _context;
 
         static object locker = new object();
 
@@ -63,11 +63,8 @@ namespace DAL.Repository
         {
             try
             {
-                if (!_context.Set<T>().Local.Contains(entity))
-                {
-                    _context.Set<T>().Attach(entity);
-                }
-                _context.Set<T>().Remove(entity);
+                T deleteEntity = Find(entity.Id);
+                _context.Set<T>().Remove(deleteEntity);
             }
             catch (Exception ex)
             {
@@ -82,15 +79,7 @@ namespace DAL.Repository
 
         public async Task SaveChangesAsync()
         {
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-
-            }
-            
+            await _context.SaveChangesAsync();  
         }
     }
 }

@@ -88,7 +88,7 @@ namespace Task5.Controllers
 
         protected override void Validation(BLL.Contact model, ModelStateDictionary modelState)
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
