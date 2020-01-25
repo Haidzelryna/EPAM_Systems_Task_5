@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Task5.Models;
+using System.Collections.Generic;
 
 namespace Task5.Controllers
 {
@@ -60,6 +61,33 @@ namespace Task5.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
+
+        //// GET: /Account.Role
+        //[HttpGet]
+        //public ActionResult GetRoles()
+        //{        
+        //    IEnumerable<Role> roles = GetMovie();
+        //    return View(roles);
+        //}
+
+
+        public IEnumerable<SelectListItem> GetRoles()
+        {
+            //ICollection<Role> roles = new List<Role>();
+            //roles.Add(new Role { Name = "admin", Id = 1 });
+            //roles.Add(new Role { Name = "user", Id = 2 });
+
+            var list = new List<SelectListItem> ();
+            list.Add(new SelectListItem { Text = "admin", Value = "1" });
+            list.Add(new SelectListItem { Text = "user", Value = "2" });
+
+            //var model = new Role();
+            //model.DropDownList = new SelectList(list, "Key", "Display");
+
+            //return View(model);
+            return list;
+        }
+
 
         //
         // POST: /Account/Login
@@ -169,6 +197,9 @@ namespace Task5.Controllers
             }
 
             // If we got this far, something failed, redisplay form
+
+            model.Roles = GetRoles();
+
             return View(model);
         }
 

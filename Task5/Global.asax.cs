@@ -13,7 +13,7 @@ namespace Task5
     {
         protected void Application_Start()
         {
-            UnityConfig.RegisterComponents();
+            //UnityConfig.RegisterComponents();
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
