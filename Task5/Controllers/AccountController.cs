@@ -208,7 +208,7 @@ namespace Task5.Controllers
 
                 //ROLE
                 IdentityUserRole userrole = new IdentityUserRole();
-                userrole.UserId = user.Id; userrole.RoleId = "1";
+                userrole.UserId = user.Id; userrole.RoleId = model.RoleId.ToString();
 
 
                 user.Roles.Add(userrole);
