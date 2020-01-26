@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Task5.Models;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace Task5.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationRoleManager _roleManager;
 
         public AccountController()
         {
@@ -53,6 +55,18 @@ namespace Task5.Controllers
             }
         }
 
+        public ApplicationRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.GetOwinContext().Get<ApplicationRoleManager>();
+            }
+            private set
+            {
+                _roleManager = value;
+            }
+        }
+
         //
         // GET: /Account/Login
         [AllowAnonymous]
@@ -77,9 +91,19 @@ namespace Task5.Controllers
             //roles.Add(new Role { Name = "admin", Id = 1 });
             //roles.Add(new Role { Name = "user", Id = 2 });
 
-            var list = new List<SelectListItem> ();
+            var list = new List<SelectListItem>();
             list.Add(new SelectListItem { Text = "admin", Value = "1" });
             list.Add(new SelectListItem { Text = "user", Value = "2" });
+
+
+            //get
+            //{
+            //HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            //}
+            //private set
+            //{
+            //    _userManager = value;
+            //}
 
             //var model = new Role();
             //model.DropDownList = new SelectList(list, "Key", "Display");
@@ -180,7 +204,27 @@ namespace Task5.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
+               
+
+                //ROLE
+                IdentityUserRole userrole = new IdentityUserRole();
+                userrole.UserId = user.Id; userrole.RoleId = "1";
+
+
+                user.Roles.Add(userrole);
+
+                IdentityResult result = new IdentityResult();
+
+                try
+                {
+                    result = await UserManager.CreateAsync(user, model.Password);
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
@@ -398,7 +442,9 @@ namespace Task5.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email};
+
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
@@ -415,6 +461,8 @@ namespace Task5.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View(model);
         }
+
+
 
         //
         // POST: /Account/LogOff

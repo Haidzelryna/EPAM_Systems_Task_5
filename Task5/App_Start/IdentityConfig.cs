@@ -11,6 +11,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Task5.Models;
+using System.Threading;
 
 namespace Task5
 {
@@ -104,6 +105,52 @@ namespace Task5
         public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
         {
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
+        }
+    }
+
+  
+
+    public class ApplicationRoleManager : RoleManager<IdentityRole>
+    {
+        public ApplicationRoleManager(IRoleStore<IdentityRole, string> roleStore)
+        : base(roleStore) { }
+
+        public static ApplicationRoleManager Create(
+            IdentityFactoryOptions<ApplicationRoleManager> options,
+            IOwinContext context)
+        {
+            var manager = new ApplicationRoleManager(
+                new RoleStore<IdentityRole>(context.Get<ApplicationDbContext>()));
+
+            //Task.Factory.StartNew(() => { Create2Roles(manager); });
+
+            return manager;
+        }
+
+        private static async void Create2Roles(ApplicationRoleManager manager)
+        {
+            //2 ROLES
+            IdentityRole roleAdmin = new IdentityRole();
+            roleAdmin.Id = "1"; roleAdmin.Name = "Admin";
+            try
+            {
+                await manager.CreateAsync(roleAdmin);
+            }
+            catch (Exception ex)
+            {
+
+            }
+
+            IdentityRole roleUser = new IdentityRole();
+            roleUser.Id = "2"; roleUser.Name = "User";
+            try
+            {
+                await manager.CreateAsync(roleUser);
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }

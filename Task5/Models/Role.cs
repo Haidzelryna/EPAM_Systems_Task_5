@@ -32,4 +32,19 @@ namespace Task5.Models
             return new SelectList(values, "Id", "Name", enumObj);
         }
     }
+
+    //public int RolesGet()
+    //{
+    //    Guid ParamId = ((DocumentSign)JRDocSign.Data).Id;
+
+    //    var sqlParameters = new[]
+    //    {
+    //            ReportUtility.SqlParam("id", SqlDbType.UniqueIdentifier, ParamId)
+    //        };
+    //    DataTable table = ReportUtility.GetData(new DbProvider(), "SignatoriesGet", sqlParameters);
+
+
+
+    //    return table.Rows.Count;
+    //}
 }
