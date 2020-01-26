@@ -72,7 +72,30 @@ namespace BLL.Services
 
         public async Task SaveChangesAsync()
         {
-            await _saleRepository.SaveChangesAsync();
+            try
+            {
+                await _saleRepository.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        public async void Update(BLL.Sale Entity)
+        {
+            var dalEntity = _mapper.Map<DAL.Sale>(Entity);
+            var dalEntityFind = await _saleRepository.FindAsync(Entity.Id);
+            Copy(dalEntityFind, dalEntity);
+        }
+
+        public void Copy(DAL.Sale target, DAL.Sale source)
+        {
+            target.ClientId = source.ClientId;
+            target.ProductId = source.ProductId;
+            target.ClientId = source.ClientId;
+            target.Date = source.Date;
+            target.Sum = source.Sum;
         }
     }
 }

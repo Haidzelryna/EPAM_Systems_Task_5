@@ -17,5 +17,7 @@ namespace BLL.Services
         void Remove(T Entity);
 
         void Remove(IEnumerable<T> Entities);
+
+        void Update(T Entity);
     }
 }

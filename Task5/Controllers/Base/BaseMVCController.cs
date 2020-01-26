@@ -80,6 +80,7 @@ namespace Task5.Controllers
             if (!TryValidateModel(entity))
                 return NewtonsoftJson(VALIDATION_ERROR, 400);
 
+            _service.Update(entity);
             await _service.SaveChangesAsync();
             return new EmptyResult();
         }

@@ -74,6 +74,19 @@ namespace BLL.Services
         {
             await _productRepository.SaveChangesAsync();
         }
+
+        public async void Update(Product Entity)
+        {
+            var dalEntity = _mapper.Map<DAL.Product>(Entity);
+            var dalEntityFind = await _productRepository.FindAsync(Entity.Id);
+            Copy(dalEntityFind, dalEntity);
+        }
+
+        public void Copy(DAL.Product target, DAL.Product source)
+        {
+            target.Name = source.Name;
+            target.Price = source.Price;
+        }
     }
 }
 

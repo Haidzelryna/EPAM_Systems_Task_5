@@ -79,7 +79,14 @@ namespace DAL.Repository
 
         public async Task SaveChangesAsync()
         {
-            await _context.SaveChangesAsync();  
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }

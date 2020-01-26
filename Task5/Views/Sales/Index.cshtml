@@ -106,7 +106,10 @@
 <script type="text/javascript">
 
     function reloadData() {
-        $("#gridContainerSales").dxDataGrid("getDataSource").reload();
+        //$("#gridContainerSales").dxDataGrid("getDataSource").reloadData();
+        $("#gridContainerSales").dxDataGrid("instance").refresh();
+        $("#gridContainerSales").dxDataGrid("instance").option("dataSource", newData);
+        $("#gridContainerSales").dxDataGrid("getDataSource").reloadData();
     }
 
     var addIndexColumns = function (e) {
