@@ -244,6 +244,7 @@
     <Compile Include="Models\BaseEntity\BaseEntity.cs" />
     <Compile Include="Models\BaseEntity\Entity.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\UserRoles.cs" />
     <Compile Include="Models\Role.cs" />
     <Compile Include="Models\Sale.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -563,6 +564,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Scripts\aspnet\" />
+    <Folder Include="Views\Role\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

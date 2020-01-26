@@ -66,7 +66,7 @@ namespace Task5.Models
     public class RegisterViewModel
     {
         //[Required(ErrorMessage = "Сontact not selected")]
-        public System.Guid RoleId { get; set; }
+        public int RoleId { get; set; }
 
         public IEnumerable<SelectListItem> Roles { get; set; }
 
