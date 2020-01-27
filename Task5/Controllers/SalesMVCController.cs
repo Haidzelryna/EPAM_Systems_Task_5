@@ -4,31 +4,15 @@ using System.Web.Mvc;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Mvc;
 using BLL.Services;
-
 using Newtonsoft.Json;
-using DevExtreme.AspNet.Data;
 using AutoMapper;
-
-using System.Threading.Tasks;
-using System.Web.Mvc;
-using DevExtreme.AspNet.Mvc;
-using DevExtreme.AspNet.Data;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using AutoMapper;
-using BLL.Services;
-using System.Collections;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Task5.Models;
-
-using System.Linq;
 
 namespace Task5.Controllers
 {
     public class SalesMVCController : BaseMVCController<BLL.Sale, Sale>
     {
+        const string VALIDATION_ERROR = "The request failed due to a validation error";
+
         public SalesMVCController()
         {
             _service = new SaleService(_mapper);
@@ -55,33 +39,19 @@ namespace Task5.Controllers
         [HttpPost]
         public override async Task<ActionResult> Post(string values)
         {
-            var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
-            var userManager = new UserManager<ApplicationUser>(store);
-            ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
-
-            var managerService = new ManagerService(_mapper);
-
-            var managers = managerService.GetAllAsync().Result;
-
             var newEntity = new BLL.Sale();
 
             PopulateModel(newEntity, JsonConvert.DeserializeObject<IDictionary>(values));
 
 
-            //if (!TryValidateModel(newEntity))
-            //    return NewtonsoftJson(VALIDATION_ERROR, 400);
-
-            //if (!ModelState.IsValid)
-            //    return NewtonsoftJson(VALIDATION_ERROR, 400);
+           if (!TryValidateModel(newEntity))
+                return NewtonsoftJson(VALIDATION_ERROR, 400);
 
             Validation(newEntity, ModelState);
 
             if (newEntity is BLL.Sale)
             {
-                (newEntity as BLL.Sale).CreatedByUserId = managers.Where(m => m.UserId == user.Id).First().Id;
                 (newEntity as BLL.Sale).CreatedDateTime = DateTime.UtcNow;
-                //(newEntity as BLL.BaseEntity).CreatedByUserId = adminGuid;
-                //(newEntity as BLL.BaseEntity).CreatedDateTime = DateTime.UtcNow;
             }
 
             _service.Add(newEntity);
