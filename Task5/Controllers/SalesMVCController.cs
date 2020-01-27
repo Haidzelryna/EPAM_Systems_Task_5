@@ -14,7 +14,8 @@ namespace Task5.Controllers
     public class SalesMVCController : BaseMVCController<BLL.Sale, Sale>
     {
         const string VALIDATION_ERROR = "The request failed due to a validation error";
-        const string VALID_ERROR = "Invalid sum length";
+        const string VALID_ERROR = "Data failed validation";
+        const string SUM_ERROR = "Invalid sum length";
 
         public SalesMVCController()
         {
@@ -51,6 +52,9 @@ namespace Task5.Controllers
 
             Validation(newEntity, ModelState);
 
+            if (!ModelState.IsValid)
+                return NewtonsoftJson(SUM_ERROR, 400);
+
             if (newEntity is BLL.Sale)
             {
                 (newEntity as BLL.Sale).CreatedDateTime = DateTime.UtcNow;
@@ -63,7 +67,6 @@ namespace Task5.Controllers
             }
             catch (AutoMapperMappingException ex)
             {
-                //throw new ApplicationException($"{ex.Message}", ex);
                 return NewtonsoftJson(VALID_ERROR, 400);
             }
             catch (Exception ex)

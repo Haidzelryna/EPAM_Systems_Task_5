@@ -22,6 +22,7 @@ namespace Task5.Controllers
         private static Guid adminGuid = Guid.Parse(ADMINID);
 
         const string VALIDATION_ERROR = "The request failed due to a validation error";
+        const string VALID_ERROR = "Data failed validation";
 
         protected static IMapper _mapper = BLL.Mapper.SetupMapping.SetupMapper();
         protected static IService<T> _service;// = new EntityService(_mapper);
@@ -55,10 +56,10 @@ namespace Task5.Controllers
             if (!TryValidateModel(newEntity))
                 return NewtonsoftJson(VALIDATION_ERROR, 400);
 
-            //if (!ModelState.IsValid)
-            //    return NewtonsoftJson(VALIDATION_ERROR, 400);
-
             Validation(newEntity, ModelState);
+
+            if (!ModelState.IsValid)
+                return NewtonsoftJson(VALID_ERROR, 400);
 
             _service.Add(newEntity);
             await _service.SaveChangesAsync();
