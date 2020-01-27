@@ -14,6 +14,7 @@ namespace Task5.Controllers
     public class SalesMVCController : BaseMVCController<BLL.Sale, Sale>
     {
         const string VALIDATION_ERROR = "The request failed due to a validation error";
+        const string VALID_ERROR = "Invalid sum length";
 
         public SalesMVCController()
         {
@@ -62,7 +63,8 @@ namespace Task5.Controllers
             }
             catch (AutoMapperMappingException ex)
             {
-                throw new ApplicationException($"{ex.Message}", ex);
+                //throw new ApplicationException($"{ex.Message}", ex);
+                return NewtonsoftJson(VALID_ERROR, 400);
             }
             catch (Exception ex)
             {
@@ -134,7 +136,7 @@ namespace Task5.Controllers
         {
             if (model.Sum.Length > 15)
             {
-                ModelState.AddModelError("Summa", "Недопустимая длина суммы");
+                ModelState.AddModelError("Summa", "Invalid sum length");
             }
         }
 
