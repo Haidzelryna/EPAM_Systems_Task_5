@@ -78,19 +78,12 @@ namespace Task5.Controllers
 
         public IEnumerable<SelectListItem> GetRoles()
         {
-            var list = new List<SelectListItem>();
-
             var store = new RoleStore<IdentityRole>(new ApplicationDbContext());
             var roleManager = new RoleManager<IdentityRole>(store);
             var Roles = roleManager.Roles;
 
-            foreach (IdentityRole role in Roles)
-            {
-                list.Add(new SelectListItem { Text = role.Name, Value = role.Id });
-                list.Add(new SelectListItem { Text = role.Name, Value = role.Id });
-            }
-
-            return list;
+            var roleList = new SelectList(Roles, nameof(IdentityRole.Id), nameof(IdentityRole.Name));
+            return roleList;
         }
 
 
@@ -186,26 +179,15 @@ namespace Task5.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                
-
                 //ROLE
                 IdentityUserRole userrole = new IdentityUserRole();
                 userrole.UserId = user.Id; userrole.RoleId = model.RoleId.ToString();
-
-
                 user.Roles.Add(userrole);
 
                 IdentityResult result = new IdentityResult();
 
-                try
-                {
-                    result = await UserManager.CreateAsync(user, model.Password);
-                }
-                catch (Exception ex)
-                {
-
-                }
-
-
+                result = await UserManager.CreateAsync(user, model.Password);
+              
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
