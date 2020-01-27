@@ -1,10 +1,4 @@
-﻿using DevExtreme.AspNet.Data;
-using DevExtreme.AspNet.Mvc;
-//using DevExtreme.MVC.Demos.Models.SampleData;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using BLL.Services;
 using AutoMapper;

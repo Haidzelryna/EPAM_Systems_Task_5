@@ -17,11 +17,10 @@
             )
             .Series(s =>
             {
-                s.Add().ValueField("Sum").Name("50");
-    //s.Add().ValueField("Sum").Name("100");
-    //s.Add().ValueField("Sum").Name("200");
+                s.Add().ValueField("Sum").Name("Sum");
+                //s.Add().ValueField("Sum").Name("100");
 })
-            .Title("Gross State Product within the Great Lakes Region")
+            .Title("Sum by dates from table Sale")
             .Legend(l => l
                 .VerticalAlignment(VerticalEdge.Bottom)
                 .HorizontalAlignment(HorizontalAlignment.Center)
@@ -34,21 +33,4 @@
             </text>)
 
             .DataSource(Model)
-
-            //        .DataSource(new[] {
-            //new { State = "Illinois", Year1998 = 423.721, Year2001 = 476.851, Year2004 = 528.904 },
-            //new { State = "Indiana", Year1998 = 178.719, Year2001 = 195.769, Year2004 = 227.271 },
-            //new { State = "Michigan", Year1998 = 308.845, Year2001 = 335.793, Year2004 = 372.576 },
-            //new { State = "Ohio", Year1998 = 348.555, Year2001 = 374.771, Year2004 = 418.258 },
-            //new { State = "Wisconsin", Year1998 = 160.274, Year2001 = 182.373, Year2004 = 211.727 }
-            //        })
-
-            //        .DataSource(new[] {
-            //new { Date = "2015/12/01", Sum = 423.721 },
-            //new { Date = "2010/11/05", Sum = 178.719 }
-            ////new { State = "Michigan", Year1998 = 308.845, Year2001 = 335.793, Year2004 = 372.576 },
-            ////new { State = "Ohio", Year1998 = 348.555, Year2001 = 374.771, Year2004 = 418.258 },
-            ////new { State = "Wisconsin", Year1998 = 160.274, Year2001 = 182.373, Year2004 = 211.727 }
-            //        })
-
 )

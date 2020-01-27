@@ -1,6 +1,5 @@
 ﻿@model IEnumerable<Sale>
 
-
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
 <script type="text/javascript">
@@ -23,12 +22,11 @@
                 data.addColumn('number', 'Slices');
 
                 $.get('@Url.Action("GetDataForChart", "SalesMVC")', null,
-                    function (dataJSON, textStatus, jqXHR) {
-                        //var parsed = JSON.parse(dataJSON);
+                    function (dataJSON) {
                         data.addRows(dataJSON);
                         // Set chart options
                         var options = {
-                            'title': 'How Much Pizza I Ate Last Night',
+                            'title': 'Clients share',
                             'width': 400,
                             'height': 300
                         };
@@ -37,13 +35,6 @@
                         var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
                         chart.draw(data, options);
                     });
-                //data.addRows([
-                //  ['Mushrooms', 3],
-                //  ['Onions', 1],
-                //  ['Olives', 1],
-                //  ['Zucchini', 1],
-                //  ['Pepperoni', 2]
-                //]);
             }
         }
         );

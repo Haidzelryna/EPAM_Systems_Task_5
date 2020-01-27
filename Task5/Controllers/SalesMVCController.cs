@@ -128,14 +128,8 @@ namespace Task5.Controllers
             }
         }
 
-        //public async Task<IEnumerable<Sale>> GetDataForChart(DataSourceLoadOptions loadOptions)
-        //{
-        //    var bllEntities = await _service.GetAllAsync();
-        //    return _mapper.Map<ICollection<Sale>>(bllEntities);
-        //}
-
         [HttpGet]
-        public async Task<JsonResult> GetDataForChart(DataSourceLoadOptions loadOptions)
+        public async Task<JsonResult> GetDataForChart()
         {
             var bllEntities = await _service.GetAllAsync();
 
