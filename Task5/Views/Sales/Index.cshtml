@@ -21,7 +21,7 @@
                 .InsertAction("Post")
                 .UpdateAction("Put")
                 .DeleteAction("Delete")
-                .LoadMode(DataSourceLoadMode.Raw))
+                .LoadMode(DataSourceLoadMode.Processed))
 
             .RemoteOperations(true)
 
@@ -112,10 +112,7 @@
 <script type="text/javascript">
 
     function reloadData() {
-        //$("#gridContainerSales").dxDataGrid("getDataSource").reloadData();
-        $("#gridContainerSales").dxDataGrid("instance").refresh();
-        $("#gridContainerSales").dxDataGrid("instance").option("dataSource", newData);
-        $("#gridContainerSales").dxDataGrid("getDataSource").reloadData();
+        $("#gridContainerSales").dxDataGrid("getDataSource").reload();
     }
 
     var addIndexColumns = function (e) {

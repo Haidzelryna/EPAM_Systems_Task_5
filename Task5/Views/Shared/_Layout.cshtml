@@ -6,7 +6,6 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
     @Scripts.Render("~/bundles/jquery")
     @Styles.Render("~/Content/DevExtremeBundle")
     @Scripts.Render("~/Scripts/DevExtremeBundle")
@@ -27,14 +26,12 @@
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "Index", "About")</li>
-
                     <li>@Html.ActionLink("Manager", "Index", "Managers")</li>
                     <li>@Html.ActionLink("Client", "Index", "Clients")</li>
                     <li>@Html.ActionLink("Contact", "Index", "Contacts")</li>
                     <li>@Html.ActionLink("Product", "Index", "Products")</li>
                     <li>@Html.ActionLink("Sales", "Index", "Sales")</li>
-
-                    <li>@Html.ActionLink("Charts", "SideBySideBar", "Charts")</li>
+                    <li>@Html.ActionLink("Chart", "SideBySideBar", "Charts")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -47,7 +44,6 @@
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>
     </div>
-
     
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)

@@ -16,7 +16,7 @@
 
         .DataSource(d => d.Mvc().Controller("ProductsMVC").Key("Id")
             .LoadAction("Get")
-            .LoadMode(DataSourceLoadMode.Raw))
+            .LoadMode(DataSourceLoadMode.Processed))
 
         .ShowBorders(true)
 
@@ -65,6 +65,7 @@
         .OnClick("reloadData")
 )
 
+    
 <script type="text/javascript">
 
     function reloadData() {
@@ -78,7 +79,7 @@
                 visibleIndex: 0,
                 width: 60,
                 cellTemplate: function (cellElement, cellInfo) {
-                    cellElement.append($("<div>").text(cellInfo.rowIndex + 1))
+                cellElement.append($("<div>").text(cellInfo.rowIndex + 1))
                 }
             })
     }

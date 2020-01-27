@@ -12,62 +12,63 @@
 <script src="https://unpkg.com/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
 
 @(Html.DevExtreme().DataGrid<Contact>()
-                    .ID("gridContainerContacts")
+                        .ID("gridContainerContacts")
 
-                    .DataSource(   d => d.Mvc().Controller("ContactsMVC").Key("Id")
-                                    .LoadAction("Get")
-                                    .LoadMode(DataSourceLoadMode.Raw))
+                        .DataSource(d => d.Mvc().Controller("ContactsMVC").Key("Id")
+                                     .LoadAction("Get")
+                                     .LoadMode(DataSourceLoadMode.Processed))
 
-                    .ShowBorders(true)
+                        .ShowBorders(true)
 
-                    .Selection(s => s.Mode(SelectionMode.Single))
+                        .Selection(s => s.Mode(SelectionMode.Single))
 
-                    .SearchPanel(searchPanel => searchPanel
-                        .Visible(true)
-                        .Width(240)
-                        .Placeholder("Search...")
-                    )
+                        .SearchPanel(searchPanel => searchPanel
+                            .Visible(true)
+                            .Width(240)
+                            .Placeholder("Search...")
+                        )
 
-                    .Paging(p => p.PageSize(10))
+                        .Paging(p => p.PageSize(10))
 
-                    .Pager(p => p
-                        .ShowPageSizeSelector(true)
-                        .AllowedPageSizes(new[] { 10, 25, 50, 100 })
-                    )
+                        .Pager(p => p
+                            .ShowPageSizeSelector(true)
+                            .AllowedPageSizes(new[] { 10, 25, 50, 100 })
+                        )
 
-                    .HeaderFilter(headerFilter => headerFilter.Visible(true))
+                        .HeaderFilter(headerFilter => headerFilter.Visible(true))
 
-                      .FilterRow(filterRow => filterRow
-                        .Visible(true)
-                        .ApplyFilter(GridApplyFilterMode.Auto)
-                    )
+                          .FilterRow(filterRow => filterRow
+                            .Visible(true)
+                            .ApplyFilter(GridApplyFilterMode.Auto)
+                        )
 
-                    .FilterPanel(filterPanel => filterPanel.Visible(true))
+                        .FilterPanel(filterPanel => filterPanel.Visible(true))
 
-                    .AllowColumnReordering(true)
-                    .AllowColumnResizing(true)
-                    .ColumnAutoWidth(true)
-                    .ShowBorders(true)
-                    .ColumnChooser(c => c.Enabled(true))
-                    .ColumnFixing(c => c.Enabled(true))
+                        .AllowColumnReordering(true)
+                        .AllowColumnResizing(true)
+                        .ColumnAutoWidth(true)
+                        .ShowBorders(true)
+                        .ColumnChooser(c => c.Enabled(true))
+                        .ColumnFixing(c => c.Enabled(true))
 
-                    .Columns(columns =>
-                    {
-                        columns.AddFor(m => m.FirstName);
-                        columns.AddFor(m => m.MiddleName);
-                        columns.AddFor(m => m.LastName);
-                        columns.AddFor(m => m.Phone)
-                        .Caption("Mobile Phone");
-                        columns.AddFor(m => m.Email);
-                    })
+                        .Columns(columns =>
+                        {
+                            columns.AddFor(m => m.FirstName);
+                            columns.AddFor(m => m.MiddleName);
+                            columns.AddFor(m => m.LastName);
+                            columns.AddFor(m => m.Phone)
+                            .Caption("Mobile Phone");
+                            columns.AddFor(m => m.Email);
+                        })
 
-                    .OnContentReady("addIndexColumns")
+                        .OnContentReady("addIndexColumns")
 )
 
 @(Html.DevExtreme().Button()
-        .Text("Refresh Grid")
-        .OnClick("reloadData")
+            .Text("Refresh Grid")
+            .OnClick("reloadData")
 )
+
 
 <script type="text/javascript">
 
@@ -87,10 +88,8 @@
             })
     }
 
-
-    function getCountryWithCapital(rowData) {
-        return rowData.capital + " (" + rowData.country + ")";
-    }
-
+    //function getCountryWithCapital(rowData) {
+    //    return rowData.capital + " (" + rowData.country + ")";
+    //}
 
 </script>

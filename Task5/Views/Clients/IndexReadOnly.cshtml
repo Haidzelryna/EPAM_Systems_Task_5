@@ -14,11 +14,9 @@
 @(Html.DevExtreme().DataGrid<Client>()
                     .ID("gridContainerClients")
 
-                     //.DataSource(Model)
-
                      .DataSource(d => d.Mvc().Controller("ClientsMVC").Key("Id")
                                 .LoadAction("Get")
-                                .LoadMode(DataSourceLoadMode.Raw))
+                                .LoadMode(DataSourceLoadMode.Processed))
 
                     .ShowBorders(true)
 
@@ -73,6 +71,7 @@
         .OnClick("reloadData")
 )
 
+
 <script type="text/javascript">
 
     function reloadData() {
@@ -83,11 +82,11 @@
     if (!e.component.columnOption("№"))
         e.component.addColumn({
         caption: "№",
-    visibleIndex: 0,
-    width: 60,
-            cellTemplate: function (cellElement, cellInfo) {
+        visibleIndex: 0,
+        width: 60,
+        cellTemplate: function (cellElement, cellInfo) {
         cellElement.append($("<div>").text(cellInfo.rowIndex + 1))}
-                              })
+        })
     }
 
 </script>
