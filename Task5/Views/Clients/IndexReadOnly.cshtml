@@ -1,0 +1,93 @@
+﻿
+@using DevExtreme.AspNet.Mvc
+
+@model IEnumerable<Client>
+
+@{
+    ViewBag.Title = "Cliens";
+}
+
+<h2>Clients List</h2>
+
+<script src="https://unpkg.com/devextreme-aspnet-data/js/dx.aspnet.data.js"></script>
+
+@(Html.DevExtreme().DataGrid<Client>()
+                    .ID("gridContainerClients")
+
+                     //.DataSource(Model)
+
+                     .DataSource(d => d.Mvc().Controller("ClientsMVC").Key("Id")
+                                .LoadAction("Get")
+                                .LoadMode(DataSourceLoadMode.Raw))
+
+                    .ShowBorders(true)
+
+                    .Selection(s => s.Mode(SelectionMode.Single))
+
+                    .SearchPanel(searchPanel => searchPanel
+                        .Visible(true)
+                        .Width(240)
+                        .Placeholder("Search...")
+                    )
+
+                    .Paging(p => p.PageSize(10))
+
+                    .Pager(p => p
+                        .ShowPageSizeSelector(true)
+                        .AllowedPageSizes(new[] { 10, 25, 50, 100 })
+                    )
+
+                    .HeaderFilter(headerFilter => headerFilter.Visible(true))
+
+                    .FilterRow(filterRow => filterRow
+                       .Visible(true)
+                       .ApplyFilter(GridApplyFilterMode.Auto))
+
+                    .FilterPanel(filterPanel => filterPanel.Visible(true))
+
+                    .AllowColumnReordering(true)
+                    .AllowColumnResizing(true)
+                    .ColumnAutoWidth(true)
+                    .ShowBorders(true)
+                    .ColumnChooser(c => c.Enabled(true))
+                    .ColumnFixing(c => c.Enabled(true))
+
+                    .Columns(columns =>
+                    {
+                        columns.AddFor(m => m.Name);
+                        columns.Add()
+                                               .DataField("ContactId")
+                                               .Caption("Contact")
+                                               .Width(125)
+                                               .Lookup(lookup => lookup
+                                               .DataSource(d => d.Mvc().Controller("ContactsMVC").Key("Id").LoadAction("Get"))
+                                               .DisplayExpr("FullName")
+                                               .ValueExpr("Id"));
+                    })
+
+                    .OnContentReady("addIndexColumns")
+)
+
+@(Html.DevExtreme().Button()
+        .Text("Refresh Grid")
+        .OnClick("reloadData")
+)
+
+<script type="text/javascript">
+
+    function reloadData() {
+        $("#gridContainerClients").dxDataGrid("getDataSource").reload();
+    }
+
+    var addIndexColumns = function (e) {
+    if (!e.component.columnOption("№"))
+        e.component.addColumn({
+        caption: "№",
+    visibleIndex: 0,
+    width: 60,
+            cellTemplate: function (cellElement, cellInfo) {
+        cellElement.append($("<div>").text(cellInfo.rowIndex + 1))}
+                              })
+    }
+
+</script>

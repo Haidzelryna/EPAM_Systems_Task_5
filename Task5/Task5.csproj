@@ -555,12 +555,11 @@
     <Content Include="Views\Clients\Index.cshtml" />
     <Content Include="Views\Sales\Index.cshtml" />
     <Content Include="Views\Contacts\Index.cshtml" />
-    <Content Include="Views\Managers1\Create.cshtml" />
-    <Content Include="Views\Managers1\Delete.cshtml" />
-    <Content Include="Views\Managers1\Details.cshtml" />
-    <Content Include="Views\Managers1\Edit.cshtml" />
-    <Content Include="Views\Managers1\Index.cshtml" />
     <Content Include="Views\Sales\IndexReadOnly.cshtml" />
+    <Content Include="Views\Products\IndexReadOnly.cshtml" />
+    <Content Include="Views\Managers\IndexReadOnly.cshtml" />
+    <Content Include="Views\Contacts\IndexReadOnly.cshtml" />
+    <Content Include="Views\Clients\IndexReadOnly.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
