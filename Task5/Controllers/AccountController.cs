@@ -76,39 +76,22 @@ namespace Task5.Controllers
             return View();
         }
 
-        //// GET: /Account.Role
-        //[HttpGet]
-        //public ActionResult GetRoles()
-        //{        
-        //    IEnumerable<Role> roles = GetMovie();
-        //    return View(roles);
-        //}
-
-
         public IEnumerable<SelectListItem> GetRoles()
         {
-            //ICollection<Role> roles = new List<Role>();
-            //roles.Add(new Role { Name = "admin", Id = 1 });
-            //roles.Add(new Role { Name = "user", Id = 2 });
-
             var list = new List<SelectListItem>();
             list.Add(new SelectListItem { Text = "admin", Value = "1" });
             list.Add(new SelectListItem { Text = "user", Value = "2" });
 
+            var store = new RoleStore<IdentityRole>(new ApplicationDbContext());
+            var roleManager = new RoleManager<IdentityRole>(store);
+            var Roles = roleManager.Roles;
 
-            //get
-            //{
-            //HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-            //}
-            //private set
-            //{
-            //    _userManager = value;
-            //}
+            foreach (IdentityRole role in Roles)
+            {
+                list.Add(new SelectListItem { Text = role.Name, Value = role.Id });
+                list.Add(new SelectListItem { Text = role.Name, Value = role.Id });
+            }
 
-            //var model = new Role();
-            //model.DropDownList = new SelectList(list, "Key", "Display");
-
-            //return View(model);
             return list;
         }
 
