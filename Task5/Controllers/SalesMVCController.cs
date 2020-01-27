@@ -6,6 +6,8 @@ using DevExtreme.AspNet.Mvc;
 using BLL.Services;
 using Newtonsoft.Json;
 using AutoMapper;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Task5.Controllers
 {
@@ -124,6 +126,25 @@ namespace Task5.Controllers
             {
                 ModelState.AddModelError("Summa", "Недопустимая длина суммы");
             }
+        }
+
+        //public async Task<IEnumerable<Sale>> GetDataForChart(DataSourceLoadOptions loadOptions)
+        //{
+        //    var bllEntities = await _service.GetAllAsync();
+        //    return _mapper.Map<ICollection<Sale>>(bllEntities);
+        //}
+
+        [HttpGet]
+        public async Task<JsonResult> GetDataForChart(DataSourceLoadOptions loadOptions)
+        {
+            var bllEntities = await _service.GetAllAsync();
+
+            var task5Entities = _mapper.Map<ICollection<Sale>>(bllEntities);
+
+            Random rnd = new Random();
+            var item = task5Entities.Select(x => new object[] { x.ClientId, rnd.Next(10) }).ToArray();
+
+            return Json(item, JsonRequestBehavior.AllowGet);
         }
     }
 }
