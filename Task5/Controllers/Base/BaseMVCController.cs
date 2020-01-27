@@ -8,9 +8,6 @@ using System.Collections.Generic;
 using AutoMapper;
 using BLL.Services;
 using System.Collections;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Task5.Models;
 
 namespace Task5.Controllers
 {
@@ -93,14 +90,5 @@ namespace Task5.Controllers
         protected abstract void PopulateModel(T model, IDictionary values);
 
         protected abstract void Validation(T model, ModelStateDictionary modelState);
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                //
-            }
-            base.Dispose(disposing);
-        }
     }
 }

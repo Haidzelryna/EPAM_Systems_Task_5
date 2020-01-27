@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using DevExtreme.AspNet.Mvc;
 using BLL.Services;
 using AutoMapper;
-using BLL;
 
 namespace Task5.Controllers
 {
