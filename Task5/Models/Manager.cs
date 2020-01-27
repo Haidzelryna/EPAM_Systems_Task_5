@@ -12,5 +12,7 @@ namespace Task5
 
         [Required(ErrorMessage = "Сontact not selected")]
         public System.Guid ContactId { get; set; }
+
+        public string UserId { get; set; }
     }
 }

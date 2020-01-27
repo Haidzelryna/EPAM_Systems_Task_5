@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using AutoMapper;
 using BLL.Services;
 using System.Collections;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Task5.Models;
 
 namespace Task5.Controllers
 {
@@ -56,14 +59,6 @@ namespace Task5.Controllers
             //    return NewtonsoftJson(VALIDATION_ERROR, 400);
 
             Validation(newEntity, ModelState);
-
-            if (newEntity is BLL.Sale)
-            {
-                //(newEntity as DAL.Sale).CreatedByUserId = adminGuid;
-                //(newEntity as DAL.Sale).CreatedDateTime = DateTime.UtcNow;
-                (newEntity as DAL.BaseEntity).CreatedByUserId = adminGuid;
-                (newEntity as DAL.BaseEntity).CreatedDateTime = DateTime.UtcNow;
-            }
 
             _service.Add(newEntity);
             await _service.SaveChangesAsync();

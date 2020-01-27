@@ -24,7 +24,6 @@ namespace DAL
         public System.Guid ClientId { get; set; }
         [Required]
         public System.Guid ProductId { get; set; }
-        [Required (ErrorMessage = "Не указана сумма")]
         public decimal Sum { get; set; }
         [Required]
         public System.DateTime Date { get; set; }

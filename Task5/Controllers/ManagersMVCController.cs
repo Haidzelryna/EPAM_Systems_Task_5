@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 using DevExtreme.AspNet.Mvc;
 using BLL.Services;
 using AutoMapper;
-using BLL;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Task5.Models;
+using DevExtreme.AspNet.Data;
 
 namespace Task5.Controllers
 {
@@ -51,6 +54,7 @@ namespace Task5.Controllers
             string ID = nameof(Manager.Id);
             string NAME = nameof(Manager.Name);
             string CONTACT_ID = nameof(Manager.ContactId);
+            string USER_ID = nameof(Manager.UserId);
 
             if (values.Contains(ID))
             {
@@ -66,11 +70,27 @@ namespace Task5.Controllers
             {
                 model.ContactId = Guid.Parse(values[CONTACT_ID].ToString());
             }
+
+            if (values.Contains(USER_ID))
+            {
+                model.UserId = Convert.ToString(values[USER_ID]);
+            }
         }
 
         protected override void Validation(BLL.Manager model, ModelStateDictionary modelState)
         {
             
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> UsersLookup(DataSourceLoadOptions loadOptions)
+        {
+            var store = new UserStore<ApplicationUser>(new ApplicationDbContext());
+            var userManager = new UserManager<ApplicationUser>(store);
+            var Users = userManager.Users;
+
+            //return Request.CreateResponse(DataSourceLoader.Load(Users, loadOptions));
+            return Json(await Task.Run(() => DataSourceLoader.Load(Users, loadOptions)), JsonRequestBehavior.AllowGet);
         }
     }
 }

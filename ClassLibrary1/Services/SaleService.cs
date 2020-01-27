@@ -49,6 +49,8 @@ namespace BLL.Services
         public void Add(BLL.Sale Entity)
         {
             var dalEntity = _mapper.Map<DAL.Sale>(Entity);
+            (dalEntity as DAL.BaseEntity).CreatedByUserId = Entity.CreatedByUserId;
+            (dalEntity as DAL.BaseEntity).CreatedDateTime = Entity.CreatedDateTime;
             _saleRepository.Add(dalEntity);
         }
 
@@ -96,6 +98,8 @@ namespace BLL.Services
             target.ClientId = source.ClientId;
             target.Date = source.Date;
             target.Sum = source.Sum;
+            target.CreatedByUserId = source.CreatedByUserId;
+            target.CreatedDateTime = source.CreatedDateTime;
         }
     }
 }

@@ -9,6 +9,8 @@ namespace BLL
 
         public Guid ContactId { get; set; }
 
+        public string UserId { get; set; }
+
         public Contact Contact { get; set; }
     }
 }

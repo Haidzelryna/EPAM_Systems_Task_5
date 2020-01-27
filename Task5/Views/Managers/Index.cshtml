@@ -72,6 +72,14 @@
                                                .DataSource(d => d.Mvc().Controller("ContactsMVC").Key("Id").LoadAction("Get"))
                                                .DisplayExpr("FullName")
                                                .ValueExpr("Id"));
+                                columns.Add()
+                                              .DataField("UserId")
+                                              .Caption("User")
+                                              .Width(125)
+                                              .Lookup(lookup => lookup
+                                              .DataSource(d => d.Mvc().Controller("ManagersMVC").Key("Id").LoadAction("UsersLookup"))
+                                              .DisplayExpr("UserName")
+                                              .ValueExpr("Id"));
                             })
 
                             .OnContentReady("addIndexColumns")

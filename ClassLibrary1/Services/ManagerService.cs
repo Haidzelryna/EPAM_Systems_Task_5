@@ -86,6 +86,7 @@ namespace BLL.Services
         {
             target.Name = source.Name;
             target.ContactId = source.ContactId;
+            target.UserId = source.UserId;
         }
     }
 }
