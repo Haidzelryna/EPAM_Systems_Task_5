@@ -15,9 +15,12 @@ namespace Task5.Controllers
             var userManager = new UserManager<ApplicationUser>(store);
             ApplicationUser user = userManager.FindByNameAsync(User.Identity.Name).Result;
 
-            if (user.Roles.Where(r => r.RoleId == "1").Any())
+            if (user != null)
             {
-                return View();
+                if (user.Roles.Where(r => r.RoleId == "1").Any())
+                {
+                    return View();
+                }
             }
 
             return View("IndexReadOnly");
