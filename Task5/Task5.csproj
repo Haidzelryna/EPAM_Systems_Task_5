@@ -220,6 +220,7 @@
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Base\BaseMVCController.cs" />
+    <Compile Include="Controllers\ChartsController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\ContactsMVCController.cs" />
     <Compile Include="Controllers\ContactsController.cs" />
@@ -561,6 +562,7 @@
     <Content Include="Views\Contacts\IndexReadOnly.cshtml" />
     <Content Include="Views\Clients\IndexReadOnly.cshtml" />
     <Content Include="Views\Sales\SalesChart.cshtml" />
+    <Content Include="Views\Charts\SideBySideBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
