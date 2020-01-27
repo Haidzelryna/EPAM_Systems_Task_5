@@ -14,11 +14,7 @@ namespace DAL.Repository
 
         void Add(T entity);
 
-        void Add(IEnumerable<T> entity);
-
         void Delete(T Entity);
-
-        void Delete(IEnumerable<T> entity);
 
         Task SaveChangesAsync();
     }

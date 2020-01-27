@@ -22,8 +22,6 @@ namespace Task5
 
             DevExtremeBundleConfig.RegisterBundles(BundleTable.Bundles);
             WebApiConfig.Register(GlobalConfiguration.Configuration);
-
-            //Bootstrapper.Initialise();
         }
     }
 }

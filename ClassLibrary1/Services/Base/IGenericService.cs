@@ -12,11 +12,7 @@ namespace BLL.Services
 
         void Add(T Entity);
 
-        void Add(IEnumerable<T> Entities);
-
         void Remove(T Entity);
-
-        void Remove(IEnumerable<T> Entities);
 
         void Update(T Entity);
     }

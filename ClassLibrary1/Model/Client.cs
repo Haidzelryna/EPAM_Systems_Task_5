@@ -10,7 +10,6 @@ namespace BLL
 
         public Guid? ContactId { get; set; }
 
-        //[JsonIgnore]
-        public Contact Contact { get; set; }
+        //public Contact Contact { get; set; }
     }
 }

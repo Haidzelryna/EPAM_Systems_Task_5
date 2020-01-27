@@ -31,8 +31,6 @@ namespace DAL
         [Required]
         public System.Guid ContactId { get; set; }
 
-        //public string UserId { get; set; }
-
         [JsonIgnore]
         [IgnoreDataMember]
         public virtual Contact Contact { get; set; }

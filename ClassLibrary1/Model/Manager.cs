@@ -9,6 +9,6 @@ namespace BLL
 
         public Guid ContactId { get; set; }
 
-        public Contact Contact { get; set; }
+        //public Contact Contact { get; set; }
     }
 }

@@ -52,22 +52,10 @@ namespace BLL.Services
             _contactRepository.Add(dalEntity);
         }
 
-        public void Add(IEnumerable<BLL.Contact> Entities)
-        {
-            var dalEntities = _mapper.Map<IEnumerable<DAL.Contact>>(Entities);
-            _contactRepository.Add(dalEntities);
-        }
-
         public void Remove(BLL.Contact Entity)
         {
             var dalEntity = _mapper.Map<DAL.Contact>(Entity);
             _contactRepository.Delete(dalEntity);
-        }
-
-        public void Remove(IEnumerable<BLL.Contact> Entities)
-        {
-            var dalEntities = _mapper.Map<IEnumerable<DAL.Contact>>(Entities);
-            _contactRepository.Delete(dalEntities);
         }
 
         public async Task SaveChangesAsync()

@@ -56,39 +56,15 @@ namespace DAL.Repository
             _context.Set<T>().Add(entity);
         }
 
-        public void Add(IEnumerable<T> entity)
-        {
-            _context.Set<T>().AddRange(entity);
-        }
-
         public void Delete(T entity)
         {
-            try
-            {
-                T deleteEntity = Find(entity.Id);
-                _context.Set<T>().Remove(deleteEntity);
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
-
-        public void Delete(IEnumerable<T> entity)
-        {
-            _context.Set<T>().RemoveRange(entity);
+            T deleteEntity = Find(entity.Id);
+            _context.Set<T>().Remove(deleteEntity);
         }
 
         public async Task SaveChangesAsync()
         {
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-
-            }
+            await _context.SaveChangesAsync();          
         }
     }
 }

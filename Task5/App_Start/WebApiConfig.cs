@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿
 using System.Web.Http;
 
 namespace Task5
@@ -16,11 +14,11 @@ namespace Task5
                 routeTemplate: "api/{controller}/{Id}",
                 defaults: new { id = RouteParameter.Optional });
 
-            config.Routes.MapHttpRoute(
-               name: "SalesWebApi",
-               routeTemplate: "api/SalesWebApi/{Id}"//,
-               //defaults: new { loadOptions = RouteParameter.Optional}
-               );
+            //config.Routes.MapHttpRoute(
+            //   name: "SalesWebApi",
+            //   routeTemplate: "api/SalesWebApi/{Id}"//,
+            //   //defaults: new { loadOptions = RouteParameter.Optional}
+            //   );
         }
     }
 }

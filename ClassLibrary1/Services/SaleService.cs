@@ -54,22 +54,10 @@ namespace BLL.Services
             _saleRepository.Add(dalEntity);
         }
 
-        public void Add(IEnumerable<BLL.Sale> Entities)
-        {
-            var dalEntities = _mapper.Map<IEnumerable<DAL.Sale>>(Entities);
-            _saleRepository.Add(dalEntities);
-        }
-
         public void Remove(BLL.Sale Entity)
         {
             var dalEntity = _mapper.Map<DAL.Sale>(Entity);
             _saleRepository.Delete(dalEntity);
-        }
-
-        public void Remove(IEnumerable<BLL.Sale> Entities)
-        {
-            var dalEntities = _mapper.Map<IEnumerable<DAL.Sale>>(Entities);
-            _saleRepository.Delete(dalEntities);
         }
 
         public async Task SaveChangesAsync()
@@ -86,16 +74,9 @@ namespace BLL.Services
 
         public async void Update(BLL.Sale Entity)
         {
-            try
-            {
-                var dalEntity = _mapper.Map<DAL.Sale>(Entity);
-                var dalEntityFind = await _saleRepository.FindAsync(Entity.Id);
-                Copy(dalEntityFind, dalEntity);
-            }
-            catch (Exception ex)
-            {
-                
-            }
+            var dalEntity = _mapper.Map<DAL.Sale>(Entity);
+            var dalEntityFind = await _saleRepository.FindAsync(Entity.Id);
+            Copy(dalEntityFind, dalEntity);
         }
 
         public void Copy(DAL.Sale target, DAL.Sale source)
