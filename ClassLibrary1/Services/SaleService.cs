@@ -86,9 +86,16 @@ namespace BLL.Services
 
         public async void Update(BLL.Sale Entity)
         {
-            var dalEntity = _mapper.Map<DAL.Sale>(Entity);
-            var dalEntityFind = await _saleRepository.FindAsync(Entity.Id);
-            Copy(dalEntityFind, dalEntity);
+            try
+            {
+                var dalEntity = _mapper.Map<DAL.Sale>(Entity);
+                var dalEntityFind = await _saleRepository.FindAsync(Entity.Id);
+                Copy(dalEntityFind, dalEntity);
+            }
+            catch (Exception ex)
+            {
+                
+            }
         }
 
         public void Copy(DAL.Sale target, DAL.Sale source)

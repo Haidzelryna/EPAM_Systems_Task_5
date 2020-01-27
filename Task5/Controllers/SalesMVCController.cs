@@ -45,8 +45,7 @@ namespace Task5.Controllers
 
             PopulateModel(newEntity, JsonConvert.DeserializeObject<IDictionary>(values));
 
-
-           if (!TryValidateModel(newEntity))
+            if (!TryValidateModel(newEntity))
                 return NewtonsoftJson(VALIDATION_ERROR, 400);
 
             Validation(newEntity, ModelState);
@@ -56,9 +55,20 @@ namespace Task5.Controllers
                 (newEntity as BLL.Sale).CreatedDateTime = DateTime.UtcNow;
             }
 
-            _service.Add(newEntity);
+            try
+            {
+                _service.Add(newEntity);
+                await _service.SaveChangesAsync();
+            }
+            catch (AutoMapperMappingException ex)
+            {
+                throw new ApplicationException($"{ex.Message}", ex);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"{ex.Message}", ex);
+            }
 
-            await _service.SaveChangesAsync();
             return NewtonsoftJson(newEntity.Id);
         }
 
