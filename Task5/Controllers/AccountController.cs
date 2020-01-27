@@ -79,8 +79,6 @@ namespace Task5.Controllers
         public IEnumerable<SelectListItem> GetRoles()
         {
             var list = new List<SelectListItem>();
-            list.Add(new SelectListItem { Text = "admin", Value = "1" });
-            list.Add(new SelectListItem { Text = "user", Value = "2" });
 
             var store = new RoleStore<IdentityRole>(new ApplicationDbContext());
             var roleManager = new RoleManager<IdentityRole>(store);
