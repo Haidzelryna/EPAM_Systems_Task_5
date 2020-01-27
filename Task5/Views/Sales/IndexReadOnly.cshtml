@@ -18,7 +18,7 @@
 
             .DataSource(d => d.Mvc().Controller("SalesMVC").Key("Id")
                 .LoadAction("Get")
-                .LoadMode(DataSourceLoadMode.Raw))
+                .LoadMode(DataSourceLoadMode.Processed))
 
             .RemoteOperations(true)
 
@@ -90,7 +90,7 @@
 
 @(Html.DevExtreme().Button()
     .Text("Refresh Grid")
-    .OnClick("reloadData")
+    .OnClick("reloadData2")
 )
 
 <section>
@@ -102,11 +102,11 @@
 
 <script type="text/javascript">
 
-    function reloadData() {
+    function reloadData2() {
         //$("#gridContainerSales").dxDataGrid("getDataSource").reloadData();
-        $("#gridContainerSales").dxDataGrid("instance").refresh();
-        $("#gridContainerSales").dxDataGrid("instance").option("dataSource", newData);
-        $("#gridContainerSales").dxDataGrid("getDataSource").reloadData();
+        //$("#gridContainerSales").dxDataGrid("instance").refresh();
+        //$("#gridContainerSales").dxDataGrid("instance").option("dataSource", newData);
+        $("#gridContainerSales").dxDataGrid("instance").option("dataSource", (d => d.Mvc().Controller("SalesMVC").Key("Id").LoadAction("Get")) );
     }
 
     var addIndexColumns = function (e) {

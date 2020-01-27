@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Threading.Tasks;
+using DAL.Models;
 
 namespace DAL.Repository
 {
@@ -26,6 +27,7 @@ namespace DAL.Repository
         {
             try
             {
+                DbContextExtensions.RefreshAllEntites(_context);
                 return await _context.Set<T>().ToListAsync();
             }
             catch (Exception ex)

@@ -117,6 +117,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Models\DbContextExtensions.cs" />
     <Compile Include="Models\Manager.cs">
       <DependentUpon>DataModel.tt</DependentUpon>
     </Compile>
