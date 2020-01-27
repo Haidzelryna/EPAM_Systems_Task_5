@@ -1,5 +1,4 @@
-﻿using System.Data.Entity;
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -17,17 +16,6 @@ namespace Task5.Models
             return userIdentity;
         }
     }
-
-    //public class ApplicationRole : IdentityRole
-    //{
-    //    public async Task<IdentityResult> GenerateRoleIdentityAsync(RoleManager<ApplicationRole> manager)
-    //    {
-    //        // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
-    //        var roleIdentity = await manager.CreateAsync(this);
-    //        // Add custom user claims here
-    //        return roleIdentity;
-    //    }
-    //}
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {

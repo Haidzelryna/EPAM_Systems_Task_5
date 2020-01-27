@@ -7,7 +7,6 @@ namespace Task5
     {
         [Required(ErrorMessage = "Name not specified")]
         [MaxLength(255)]
-        //[RegularExpression(@"/[A-Za-z\s]+", ErrorMessage = "First name contains only letters")]
         public string Name { get; set; }
 
         [Required(ErrorMessage = "Сontact not selected")]

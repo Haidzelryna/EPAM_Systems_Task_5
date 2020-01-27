@@ -81,7 +81,6 @@ namespace Task5.Controllers
             var store = new RoleStore<IdentityRole>(new ApplicationDbContext());
             var roleManager = new RoleManager<IdentityRole>(store);
             var Roles = roleManager.Roles;
-
             var roleList = new SelectList(Roles, nameof(IdentityRole.Id), nameof(IdentityRole.Name));
             return roleList;
         }

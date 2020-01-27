@@ -65,7 +65,6 @@ namespace Task5.Models
 
     public class RegisterViewModel
     {
-        //[Required(ErrorMessage = "Сontact not selected")]
         public int RoleId { get; set; }
 
         public IEnumerable<SelectListItem> Roles { get; set; }
@@ -83,7 +82,6 @@ namespace Task5.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        //[Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 
