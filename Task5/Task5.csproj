@@ -560,6 +560,7 @@
     <Content Include="Views\Managers1\Details.cshtml" />
     <Content Include="Views\Managers1\Edit.cshtml" />
     <Content Include="Views\Managers1\Index.cshtml" />
+    <Content Include="Views\Sales\IndexReadOnly.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
