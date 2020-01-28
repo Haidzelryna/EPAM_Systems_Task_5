@@ -8,7 +8,7 @@ namespace DAL
     {
         public static void SetupMapping(IMapperConfigurationExpression mapperConfiguration)
         {
-
+ 
         }
 
         public static void SetupDependencies(IUnityContainer unityContainer)
