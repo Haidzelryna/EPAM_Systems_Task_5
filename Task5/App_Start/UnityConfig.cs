@@ -1,9 +1,7 @@
 using System.Web.Mvc;
 using Unity;
 using Unity.Mvc5;
-using BLL.Services;
-using BLL;
-using DAL;
+using AutoMapper;
 
 namespace Task5
 {
@@ -11,28 +9,40 @@ namespace Task5
     {
         public static void RegisterComponents()
         {
-			var unityContainer = new UnityContainer();
+			var container = new UnityContainer();
 
             // register all your components with the container here
             // it is NOT necessary to register your controllers
 
             // e.g. container.RegisterType<ITestService, TestService>();
 
-            //unityContainer.RegisterSingleton<IService<BLL.Contact>, ContactService>();
-            //unityContainer.RegisterSingleton<IService<BLL.Client>, ClientService>();
-            //unityContainer.RegisterSingleton<IService<BLL.Manager>, ManagerService>();
-            //unityContainer.RegisterSingleton<IService<BLL.Product>, ProductService>();
-            //unityContainer.RegisterSingleton<IService<BLL.Sale>, SaleService>();
+            container.RegisterInstance(SetupMapper());
 
-            unityContainer.RegisterType<IService<BLL.Contact>, ContactService>();
-            unityContainer.RegisterType<IService<BLL.Client>, ClientService>();
-            unityContainer.RegisterType<IService<BLL.Manager>, ManagerService>();
-            unityContainer.RegisterType<IService<BLL.Product>, ProductService>();
-            unityContainer.RegisterType<IService<BLL.Sale>, SaleService>();
+            BLL.Facade.SetupDependencies(container);
 
-            unityContainer.RegisterInstance<SalesEntities>(new SalesEntities());
+            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+        }
 
-            DependencyResolver.SetResolver(new UnityDependencyResolver(unityContainer));
+        public static IMapper SetupMapper()
+        {
+            var config = new MapperConfiguration(mapperCfg =>
+            {
+                BLL.Facade.SetupMapping(mapperCfg);
+
+                mapperCfg.CreateMap<BLL.Sale, Task5.Sale>();
+                mapperCfg.CreateMap<BLL.Contact, Task5.Contact>();
+                mapperCfg.CreateMap<BLL.Manager, Task5.Manager>();
+                mapperCfg.CreateMap<BLL.Client, Task5.Client>();
+                mapperCfg.CreateMap<BLL.Product, Task5.Product>();
+
+                mapperCfg.CreateMap<Task5.Sale, BLL.Sale>();
+                mapperCfg.CreateMap<Task5.Contact, BLL.Contact>();
+                mapperCfg.CreateMap<Task5.Manager, BLL.Manager>();
+                mapperCfg.CreateMap<Task5.Client, BLL.Client>();
+                mapperCfg.CreateMap<Task5.Product, BLL.Product>();
+            });
+
+            return config.CreateMapper();
         }
     }
 }

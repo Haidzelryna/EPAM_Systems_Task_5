@@ -12,6 +12,8 @@ namespace DAL.Repository
 
         static object locker = new object();
 
+        private static readonly SemaphoreLocker _locker = new SemaphoreLocker();
+
         public GenericRepository()
         {
             if (_context == null)
@@ -25,17 +27,8 @@ namespace DAL.Repository
 
         public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
-            try
-            {
-                DbContextExtensions.RefreshAllEntites(_context);
-                return await _context.Set<T>().ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-            }
-
-            return null;
+            DbContextExtensions.RefreshEntites<T>(_context);
+            return await _context.Set<T>().ToListAsync();
         }
 
         public T Find(Guid Id)

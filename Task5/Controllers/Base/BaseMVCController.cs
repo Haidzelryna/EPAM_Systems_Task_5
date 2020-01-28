@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using AutoMapper;
 using BLL.Services;
 using System.Collections;
+using Unity;
 
 namespace Task5.Controllers
 {
@@ -21,7 +22,7 @@ namespace Task5.Controllers
         const string VALIDATION_ERROR = "The request failed due to a validation error";
         const string VALID_ERROR = "Data failed validation";
 
-        protected static IMapper _mapper = BLL.Mapper.SetupMapping.SetupMapper();
+        protected static IMapper _mapper = UnityConfig.SetupMapper();
         protected static IService<T> _service;// = new EntityService(_mapper);
 
         // Load orders according to load options

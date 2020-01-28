@@ -12,7 +12,7 @@ namespace Task5.Controllers
     {
         public ContactsMVCController()
         {
-            _service = new ContactService(_mapper);
+            //_service = new ContactService(_mapper);
         }
 
         public ContactsMVCController(IService<BLL.Contact> service, IMapper mapper)

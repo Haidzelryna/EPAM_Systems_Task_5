@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Http;
@@ -13,8 +9,6 @@ namespace Task5
     {
         protected void Application_Start()
         {
-            //UnityConfig.RegisterComponents();
-
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
@@ -22,6 +16,8 @@ namespace Task5
 
             DevExtremeBundleConfig.RegisterBundles(BundleTable.Bundles);
             WebApiConfig.Register(GlobalConfiguration.Configuration);
+
+            UnityConfig.RegisterComponents();
         }
     }
 }

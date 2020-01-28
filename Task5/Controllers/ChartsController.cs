@@ -4,11 +4,11 @@ using BLL.Services;
 using AutoMapper;
 using System.Threading.Tasks;
 
-namespace DevExtreme.MVC.Demos.Controllers
+namespace Task5.Controllers
 {
     public class ChartsController : Controller
     {
-        private static IMapper _mapper = BLL.Mapper.SetupMapping.SetupMapper();
+        private static IMapper _mapper = UnityConfig.SetupMapper();
         private readonly SaleService _saleService = new SaleService(_mapper);
 
         public async Task<ActionResult> SideBySideBar()

@@ -44,7 +44,7 @@ namespace DAL.Models
             return RefreshEntites(dbContext: dbContext, entityType: null); //null entityType is a wild card
         }
 
-        public static DbContext RefreshEntites<TEntity>(this DbContext dbContext, RefreshMode refreshMode)
+        public static DbContext RefreshEntites<TEntity>(this DbContext dbContext)
         {
             return RefreshEntites(dbContext: dbContext, entityType: typeof(TEntity));
         }

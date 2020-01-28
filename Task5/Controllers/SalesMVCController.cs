@@ -19,7 +19,7 @@ namespace Task5.Controllers
 
         public SalesMVCController()
         {
-            _service = new SaleService(_mapper);
+            //_service = new SaleService(_mapper);
         }
 
         public SalesMVCController(IService<BLL.Sale> service, IMapper mapper)

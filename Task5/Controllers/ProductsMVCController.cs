@@ -13,7 +13,13 @@ namespace Task5.Controllers
     {
         public ProductsMVCController()
         {
-            _service = new ProductService(_mapper);
+            //_service = new ProductService(_mapper);
+        }
+
+        public ProductsMVCController(IService<BLL.Product> service, IMapper mapper)
+        {
+            _mapper = mapper;
+            _service = service;
         }
 
         [HttpGet]
