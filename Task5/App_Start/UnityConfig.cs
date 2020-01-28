@@ -2,6 +2,8 @@ using System.Web.Mvc;
 using Unity;
 using Unity.Mvc5;
 using AutoMapper;
+using Task5.Controllers;
+using Unity.Injection;
 
 namespace Task5
 {
@@ -15,6 +17,11 @@ namespace Task5
             // it is NOT necessary to register your controllers
 
             // e.g. container.RegisterType<ITestService, TestService>();
+
+            container.RegisterType<AccountController>(new InjectionConstructor());
+            //container.RegisterType<RolesAdminController>(new InjectionConstructor());
+            container.RegisterType<ManageController>(new InjectionConstructor());
+            //container.RegisterType<UsersAdminController>(new InjectionConstructor());
 
             container.RegisterInstance(SetupMapper());
 
