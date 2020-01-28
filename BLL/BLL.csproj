@@ -79,7 +79,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Facade.cs" />
-    <Compile Include="Mapper\SetupMappung.cs" />
     <Compile Include="Model\Client.cs" />
     <Compile Include="Model\BaseEntity\BaseEntity.cs" />
     <Compile Include="Model\BaseEntity\Entity.cs" />
