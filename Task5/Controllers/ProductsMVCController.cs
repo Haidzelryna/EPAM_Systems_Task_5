@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using DevExtreme.AspNet.Mvc;
 using BLL.Services;
 using AutoMapper;
-using BLL;
 
 namespace Task5.Controllers
 {
@@ -13,7 +12,7 @@ namespace Task5.Controllers
     {
         public ProductsMVCController()
         {
-            //_service = new ProductService(_mapper);
+
         }
 
         public ProductsMVCController(IService<BLL.Product> service, IMapper mapper)
@@ -72,7 +71,7 @@ namespace Task5.Controllers
         {
             if (model.Price.Length > 7)
             {
-                ModelState.AddModelError("Price", "Недопустимая длина стоимости единицы товара");
+                ModelState.AddModelError("Price", "Invalid unit length");
             }
         }
     }

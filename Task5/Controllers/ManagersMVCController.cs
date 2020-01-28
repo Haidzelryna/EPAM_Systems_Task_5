@@ -12,7 +12,7 @@ namespace Task5.Controllers
     {
         public ManagersMVCController()
         {
-            //_service = new ManagerService(_mapper);
+
         }
 
         public ManagersMVCController(IService<BLL.Manager> service, IMapper mapper)

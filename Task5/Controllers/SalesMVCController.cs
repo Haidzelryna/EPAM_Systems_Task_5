@@ -6,7 +6,6 @@ using DevExtreme.AspNet.Mvc;
 using BLL.Services;
 using Newtonsoft.Json;
 using AutoMapper;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Task5.Controllers
