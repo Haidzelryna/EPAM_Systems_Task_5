@@ -62,14 +62,7 @@ namespace BLL.Services
 
         public async Task SaveChangesAsync()
         {
-            try
-            {
-                await _saleRepository.SaveChangesAsync();
-            }
-            catch (Exception ex)
-            {
-
-            }
+            await _saleRepository.SaveChangesAsync();
         }
 
         public async void Update(BLL.Sale Entity)
