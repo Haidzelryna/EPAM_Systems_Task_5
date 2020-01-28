@@ -585,7 +585,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\BLL.csproj">
+    <ProjectReference Include="..\BLL\BLL.csproj">
       <Project>{e7c922ce-18ec-4327-a63a-704881166752}</Project>
       <Name>BLL</Name>
     </ProjectReference>
