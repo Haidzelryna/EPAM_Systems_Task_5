@@ -19,7 +19,7 @@ namespace Task5.Controllers
 
         public SalesMVCController()
         {
-            //_service = new SaleService(_mapper);
+
         }
 
         public SalesMVCController(IService<BLL.Sale> service, IMapper mapper)
@@ -148,10 +148,14 @@ namespace Task5.Controllers
         {
             var bllEntities = await _service.GetAllAsync();
 
-            var task5Entities = _mapper.Map<ICollection<Sale>>(bllEntities);
+            var task5Entities = bllEntities.GroupBy(g => g.Date)
+                                           .Select(g => new
+                                           {
+                                               Date = g.Key,
+                                               Count = g.Count()
+                                           });
 
-            Random rnd = new Random();
-            var item = task5Entities.Select(x => new object[] { x.ClientId, rnd.Next(10) }).ToArray();
+            var item = task5Entities.Select(x => new object[] { x.Date.ToString(), x.Count }).ToArray();
 
             return Json(item, JsonRequestBehavior.AllowGet);
         }
