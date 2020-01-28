@@ -23,8 +23,7 @@ namespace Task5.Controllers
                 }
             }
 
-            //return View("IndexReadOnly");
-            return View();
+            return View("IndexReadOnly");
         }
     }
 }

@@ -75,17 +75,21 @@
 
 <script type="text/javascript">
 
-    function reloadData() {
+    function reloadData()
+    {
         $("#gridContainerManagers").dxDataGrid("getDataSource").reload();
     }
 
-    var addIndexColumns = function (e) {
+    var addIndexColumns = function (e)
+    {
         if (!e.component.columnOption("№"))
-            e.component.addColumn({
+            e.component.addColumn(
+            {
                 caption: "№",
                 visibleIndex: 0,
                 width: 60,
-                cellTemplate: function (cellElement, cellInfo) {
+                cellTemplate: function (cellElement, cellInfo)
+                {
                     cellElement.append($("<div>").text(cellInfo.rowIndex + 1))
                 }
             })

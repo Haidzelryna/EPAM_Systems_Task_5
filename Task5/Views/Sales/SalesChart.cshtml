@@ -4,7 +4,8 @@
 
 <script type="text/javascript">
     $(document).ready(
-        function () {
+        function ()
+        {
             // Load the Visualization API and the corechart package.
             google.charts.load('current', { 'packages': ['corechart'] });
 
@@ -14,7 +15,8 @@
             // Callback that creates and populates a data table,
             // instantiates the pie chart, passes in the data and
             // draws it.
-            function drawChart() {
+            function drawChart()
+            {
 
                 // Create the data table.
                 var data = new google.visualization.DataTable();
@@ -22,10 +24,12 @@
                 data.addColumn('number', 'Slices');
 
                 $.get('@Url.Action("GetDataForChart", "SalesMVC")', null,
-                    function (dataJSON) {
+                    function (dataJSON)
+                    {
                         data.addRows(dataJSON);
                         // Set chart options
-                        var options = {
+                        var options =
+                        {
                             'title': 'Clients share',
                             'width': 400,
                             'height': 300
