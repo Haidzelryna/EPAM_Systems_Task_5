@@ -16,8 +16,8 @@ namespace DAL.Repository
 
         public GenericRepository()
         {
-            if (_context == null)
-                _context = new SalesEntities();
+            //if (_context == null)
+            //    _context = new SalesEntities();
         }
 
         public GenericRepository(SalesEntities salesDbContext)

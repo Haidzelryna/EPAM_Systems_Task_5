@@ -59,8 +59,20 @@ namespace Task5.Controllers
             if (!ModelState.IsValid)
                 return NewtonsoftJson(VALID_ERROR, 400);
 
-            _service.Add(newEntity);
-            await _service.SaveChangesAsync();
+            try
+            {
+                _service.Add(newEntity);
+                await _service.SaveChangesAsync();
+            }
+            catch (AutoMapperMappingException ex)
+            {
+                return NewtonsoftJson(VALID_ERROR, 400);
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException($"{ex.Message}", ex);
+            }
+
             return NewtonsoftJson(newEntity.Id);
         }
 

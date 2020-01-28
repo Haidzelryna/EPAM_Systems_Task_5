@@ -27,7 +27,7 @@ namespace DAL
         public SalesEntities()
             : base("SalesEntities")
         {
-            //Database.CreateIfNotExists();
+
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
