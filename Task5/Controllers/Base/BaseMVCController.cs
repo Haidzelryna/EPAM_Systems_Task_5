@@ -22,8 +22,8 @@ namespace Task5.Controllers
         const string VALIDATION_ERROR = "The request failed due to a validation error";
         const string VALID_ERROR = "Data failed validation";
 
-        protected static IMapper _mapper = UnityConfig.SetupMapper();
-        protected static IService<T> _service;// = new EntityService(_mapper);
+        protected static IMapper _mapper;
+        protected static IService<T> _service;
 
         // Load orders according to load options
         [HttpGet]
