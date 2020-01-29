@@ -16,8 +16,7 @@ namespace BLL.Services
 
         public ProductService(IMapper mapper)
         {
-            _productRepository = new GenericRepository<DAL.Product>();
-            _mapper = mapper;
+
         }
 
         public ProductService(IMapper mapper, IGenericRepository<DAL.Product> productRepository)

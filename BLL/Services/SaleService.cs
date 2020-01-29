@@ -16,8 +16,7 @@ namespace BLL.Services
 
         public SaleService(IMapper mapper)
         {
-            _saleRepository = new GenericRepository<DAL.Sale>();
-            _mapper = mapper;
+
         }
 
         public SaleService(IMapper mapper, IGenericRepository<DAL.Sale> saleRepository)

@@ -18,8 +18,7 @@ namespace BLL.Services
 
         public ClientService(IMapper mapper)
         {
-            _clientRepository = new GenericRepository<DAL.Client>();
-            _mapper = mapper;
+
         }
 
         public ClientService(IMapper mapper, IGenericRepository<DAL.Client> clientRepository)

@@ -16,8 +16,7 @@ namespace BLL.Services
 
         public ContactService(IMapper mapper)
         {
-            _contactRepository = new GenericRepository<DAL.Contact>();
-            _mapper = mapper;
+
         }
 
         public ContactService(IMapper mapper, IGenericRepository<DAL.Contact> contactRepository)

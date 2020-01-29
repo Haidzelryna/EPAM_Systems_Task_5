@@ -16,8 +16,7 @@ namespace BLL.Services
 
         public ManagerService(IMapper mapper)
         {
-            _managerRepository = new GenericRepository<DAL.Manager>();
-            _mapper = mapper;
+
         }
 
         public ManagerService(IMapper mapper, IGenericRepository<DAL.Manager> managerRepository)
