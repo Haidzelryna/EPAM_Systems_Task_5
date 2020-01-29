@@ -16,7 +16,7 @@ namespace BLL.Services
 
         static object locker = new object();
 
-        public ClientService(IMapper mapper)
+        public ClientService()
         {
 
         }

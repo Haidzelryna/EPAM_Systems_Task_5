@@ -14,7 +14,7 @@ namespace BLL.Services
 
         private static readonly SemaphoreLocker _locker = new SemaphoreLocker();
 
-        public ProductService(IMapper mapper)
+        public ProductService()
         {
 
         }
