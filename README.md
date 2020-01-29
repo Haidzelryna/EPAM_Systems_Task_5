@@ -6,3 +6,10 @@ At the first start, the database connects to the server specified in the applica
 
 Second:
 The database structure can be viewed in DataModel.edmx in the DAL project.
+
+Third:
+The project implemented Unity container dependency injection in the:
+Task5/App_Start/UnityConfig.cs,
+Global.asax.cs - UnityConfig.RegisterComponents();
+
+...
